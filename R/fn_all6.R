@@ -1,4 +1,5 @@
 #This is a work in progress. Will need to use an external script to stitch these together
+#' @export
 all6 <- function(path,name,trip,low,high) {
 setwd(path)
 		if (dir.exists("all6plots")){}else{dir.create("all6plots")}

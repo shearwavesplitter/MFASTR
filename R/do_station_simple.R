@@ -1,10 +1,9 @@
 #### Runs MFAST on a directory with either the normal or very local default settings
-
-do_station_simple <- function(path="~/MFASTR/sample_data/raw_data",sheader="t0",type="normal",filtnum=3,tvelpath="~/MFASTR/velocity/ak135_taupo.tvel",suffe=".e",suffn=".n",suffz=".z") {
+#' @export
+do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data",sheader="t0",type="normal",filtnum=3,tvelpath="~/Dropbox/MFASTR_dev/velocity/ak135_taupo.tvel",suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
 
 	if(file.exists("output.zip")){print("WARNING: This folder already contains an output.zip folder and will be over written")}
-source("~/MFASTR/source.R")
 ##
 	if(type=="normal"){nwbeg=5;fdmin=0.3;fdmax=8;t_win_freq=3;tlagscale=1;snrmax=3;t_win_snr=3;t_err=0.05}
 	if(type=="verylocal"){nwbeg=3;fdmin=0.3;fdmax=16;t_win_freq=0.75;tlagscale=0.4;snrmax=1.5;t_win_snr=0.75;t_err=0.02}

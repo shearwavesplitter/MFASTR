@@ -1,3 +1,4 @@
+#' @export
 writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z") {
 	setwd(path)
 	trip0 <- trip

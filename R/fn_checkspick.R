@@ -2,6 +2,7 @@
 ###
 # This function checks to see if there is a value other than -12345 in the spick header.
 ##
+#' @export
 checkspick <- function(path,suffix="E",header="t0",E=".e",N=".n",Z=".z"){
 	setwd(path)
 	c <- 0

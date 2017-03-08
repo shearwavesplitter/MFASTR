@@ -1,4 +1,5 @@
 #This potentially can account for layers above sea level
+#' @export
 anginc <- function(path="~/MFASTR/velocity/ak135_taupo.tvel",trip){
 	print(paste0("Determining angle of incidence using ",path))
 	v <- read.table(path,skip=2)

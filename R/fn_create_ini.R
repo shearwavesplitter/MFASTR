@@ -1,4 +1,5 @@
 #This has been created with a combination of T2_local and create_event_ini.sh. Need to check for differences
+#' @export
 createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1){
 	print("Creating .ini files")
 	p <- as.numeric(as.character(trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))

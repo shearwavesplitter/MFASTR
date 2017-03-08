@@ -1,3 +1,4 @@
+#' @export
 logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",tvelpath="~/MFASTR/velocity/ak135_taupo.tvel") {
 	setwd(path)
 	east <- trip[[1]]

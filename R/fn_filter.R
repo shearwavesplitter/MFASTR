@@ -1,4 +1,5 @@
 filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3){
+#' @export
 ## Need to add normal and local filters
 	if (type == "normal"){
 		f1 <- cbind(0.4,4)

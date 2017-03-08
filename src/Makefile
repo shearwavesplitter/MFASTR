@@ -57,6 +57,7 @@ ass_mfm: ass.o $(OBJECTS)
 	$(FC) -O3 -o ../exec/ass_mfm ass.f $(OBJECTS)
 	chmod g=rx,o=rx ../exec/ass_mfm
 
+
 psplit: psplit.o $(OBJECTS)
 	$(FC) -O3 -o ../exec/psplit psplit.f $(OBJECTS)
 	chmod g=rx,o=rx ../exec/psplit

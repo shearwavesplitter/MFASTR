@@ -6,6 +6,7 @@
 #####
 # REQUIRES PICKS TO BE RELATIVE TO START OF TRACE (iztype IB) -- check this
 ####
+#' @export
 readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a"){
 	setwd(path)
 	print(paste0("Reading event ",event))

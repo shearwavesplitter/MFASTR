@@ -1,4 +1,5 @@
 #allow b to be set incase we need to add this functionality in the future
+#' @export
 cut_simple <- function(x,dt,t1,t2,b=0){
 	e <- (length(x)-1)*dt-b
 	fcut <- t1

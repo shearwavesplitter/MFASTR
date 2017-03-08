@@ -1,3 +1,4 @@
+#' @export
 checkcomp <- function(path,E=".e",N=".n",Z=".z"){
 	setwd(path)
 	substrRight <- function(x, n){

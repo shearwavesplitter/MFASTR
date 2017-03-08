@@ -1,4 +1,5 @@
 #Currently, b (B sac header) should always equal zero. Adding it as an option incase functionality is added to allow b to change
+#' @export
 snr <- function(E,N,s,dt,t_win_snr=3,t_err=0.05,b=0){
 	signalbeg <- s + t_err
 	noisebeg <- s-t_win_snr

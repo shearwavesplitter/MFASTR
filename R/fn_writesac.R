@@ -1,4 +1,4 @@
-
+#' @export
 ######## Edited version of write1sac from RSIES package changed to write more headers
 sm.write1sac <- function (alist, fn = NULL, BIGLONG = FALSE) 
 {

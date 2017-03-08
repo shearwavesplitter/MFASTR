@@ -1,4 +1,5 @@
 #cut record 15 seconds before the S (or 3.5 seconds before the P) and 15 seconds after the S
+#' @export
 cutrecord <- function(wav,pheader="a",sheader="t0"){
 	#Convert relevant entries to type numeric
 	wav$HEAD$values <- as.character(wav$HEAD$values)
