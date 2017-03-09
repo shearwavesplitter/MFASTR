@@ -20,7 +20,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		ocorr <- as.numeric(east$HEAD$values[[which(east$HEAD$names == "user9")]])
 		if(ocorr == -12345){ocorr <- 0}
 		if(o == -12345){o <- 0}
-		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+o+ocorr)/60)/60)/24,4)
+		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+ocorr)/60)/60)/24,4)
 		evla <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evla")]]),2)
 		evlo <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evlo")]]),2)
 		distevstat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "dist")]]),4)
