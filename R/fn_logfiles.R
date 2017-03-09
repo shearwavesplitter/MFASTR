@@ -1,5 +1,5 @@
 #' @export
-logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",tvelpath="~/MFASTR/velocity/ak135_taupo.tvel") {
+logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 	setwd(path)
 	east <- trip[[1]]
 	east$HEAD$values <- as.character(east$HEAD$values)
@@ -36,7 +36,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",tvelpath=
 		Dtlag <- round(log$dtlag,6)
 		fast <- round(log$fast,3)
 		Dfast <- round(log$dfast,3)
-		anginc <- round(anginc(tvelpath,trip),1) #Since we approximate with a layered earth model instead of tauP this may be a few degrees out. Not working quite as expected
+		anginc <- round(anginc,1) 
 		anginc_corr <- "anginc_corr" 
 		ini <- read.table(paste0(cmpname,".ini"))
 		type_ini <- paste0("ass_",ini$V1[3],"_",ini$V1[4])
@@ -74,7 +74,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",tvelpath=
 		if (dir.exists("output")){}else{dir.create("output")}
 		pat <- paste0("*.fb",i,".*")
 		ls2 <- list.files(path,pattern=pat)
-		for (j in 1:length(ls2)){file.copy(ls2[j],"output");file.remove(ls2[j])}
+		for (j in 1:length(ls2)){file.copy(ls2[j],"output",overwrite=TRUE);file.remove(ls2[j])}
 
 	}
 	file.remove("df.txt")

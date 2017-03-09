@@ -1,23 +1,8 @@
 #This potentially can account for layers above sea level
 #' @export
-anginc <- function(path="~/MFASTR/velocity/ak135_taupo.tvel",trip){
-	print(paste0("Determining angle of incidence using ",path))
-	v <- read.table(path,skip=2)
-		#Approximating velocity model with layers
-	for (i in 1:(length(v$V1)-1)){
-		one <- v[i,]
-		two <- v[(i+1),]
-		if(one$V1 == two$V1){v[i,] <- -12345}
-	}
+anginc <- function(tvel,trip){
+	print(paste0("Determining angle of incidence"))
 
-	for (i in 0:(length(v$V1)-2)){
-		l <- length(v$V1)-i
-		one <- v[l,]
-		two <- v[(l-1),]
-		if(one$V3 == two$V3){v[i,] <- -12345}
-	}
-
-	
 	stla <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "stla")]]))
 	stlo <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "stlo")]]))
 	stel <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "stel")]]))
@@ -25,19 +10,32 @@ anginc <- function(path="~/MFASTR/velocity/ak135_taupo.tvel",trip){
 	evlo <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "evlo")]]))
 	evdp <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "evdp")]]))
 	if(stel == -12345){stel <- 0}
-	v <- subset(v,V1 != -12345)
 
-	v <- subset(v,V1 < evdp)
-	top <- v$V1
-	vel <- v$V3
+	dist <- GreatDist(stlo,stla,evlo,evla)
 
-	distance <- rdistaz(stla,stlo,evla,evlo)
-	d <- distance$dist
+	z <- tvel$V1
+	vp <- tvel$V2
+	vs <- tvel$V3
+	rho <- tvel$V4
+	rp <- 6371
+	conr <- 20
+	moho <- 35
+	d410 <- 410
+	d660 <- 660
+	cmb <- 2891.5
+	icb <- 5153.5
+	qp <- rep(NaN, length(z))
+	qs <- rep(NaN, length(z))
+	mod <- list(z,vp,vs,rho,qp,qs,rp,conr,moho,d410,d660,cmb,icb)
+	
+	names(mod) <- c("z","vp","vs","rho","qp","qs","rp","conr","moho","d410","d660","cmb","icb")
+	ray <- Traveltime('S',dist$ddeg,evdp,mod)
+	rayf <- which(ray$tt == min(ray$t))
+	rayp <- ray$p[rayf]
+	p <- rayp*360 /2 /3.1415927
+	R <- rp
+	c <- vs[1]
+	i <- atan2(p*c/(R*sqrt(1-(p*c/R)^2)),1) /2 /3.1415927 * 360
 
-	r <- Ray.time1D(d,evdp,stel,length(top),top,vel)
-
-	ang <- r$angle
-	if(ang > 90){ang <- ang-90}else{
-	if(ang < 90){ang <- 90-ang}}
-return(ang)
+return(i)
 }
