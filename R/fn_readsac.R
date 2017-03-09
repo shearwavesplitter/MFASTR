@@ -17,6 +17,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	val <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == header)]])
 	val2 <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == paste0("k",header))]])
 	val3 <- as.character(Zsac$HEAD$values[[which(Zsac$HEAD$names == pheader)]])
+	valor <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == "o")]])
 	if (val == -12345){print(paste0(event," has no Spick on the East component"));return(NULL)}
 	for (i in 1:3){
 		trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
@@ -29,6 +30,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "resp1")]]  <- -12345
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "resp2")]]<- -12345
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "resp3")]] <- -12345
+		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "user9")]] <- valor
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "kuser0")]] <- -12345
 		trip[[i]]$amp <- trip[[i]]$amp-mean(trip[[i]]$amp) #Is this the correct way to remove the mean? (rmean from sac)
 		trip[[i]]$amp <- detrend(trip[[i]]$amp) #Detrend waveform

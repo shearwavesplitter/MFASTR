@@ -17,7 +17,10 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		cuspid <- name
 		year <- east$DATTIM$yr
 		o <- as.numeric(east$HEAD$values[[which(east$HEAD$names == "o")]])
-		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+o)/60)/60)/24,4)
+		ocorr <- as.numeric(east$HEAD$values[[which(east$HEAD$names == "user9")]])
+		if(ocorr == -12345){ocorr <- 0}
+		if(o == -12345){o <- 0}
+		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+o+ocorr)/60)/60)/24,4)
 		evla <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evla")]]),2)
 		evlo <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evlo")]]),2)
 		distevstat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "dist")]]),4)
@@ -28,7 +31,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		spol <- round(log$spol,3)
 		Dspol <- round(log$dspol,3)
 		wbeg <- log$wbeg_best
-		wend <- log$wend_best #wend is a little bit longer than expected
+		wend <- log$wend_best 
 		dist_ruap_km <- -12345
 		dist_ruap_deg <- -12345
 		SNR <- round(filter$snrv,5)
