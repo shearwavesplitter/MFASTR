@@ -1,6 +1,6 @@
 #### Runs MFAST on a directory with either the normal or very local default settings
 #' @export
-do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data",sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
+do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data",sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
 
 	if(file.exists("output.zip")){print("WARNING: This folder already contains an output.zip folder and will be over written")}
@@ -37,7 +37,7 @@ do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data
 	for (i in 1:length(ls_all)){
 		event <- ls_all[i]
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
-		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+		filts <- filter_spread(trip,type=type,filter=filter,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
 		anginc <- anginc(tvel,trip)
 		if (length(filts$high > 0)){
 			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale)
