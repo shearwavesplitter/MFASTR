@@ -4,7 +4,7 @@ This package is based on the MFAST (Multiple Filter Automatic Splitting Techniqu
 
 The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are the the property of the authors therein. If you are not familiar with the codes then review them and their documentation. MFASTR attempts replicate their functionality. 
 
-This package is still currently in the early stages of development so it is recommended that you use the original codes This package has not been tested for multiple use cases and it not ready for use.
+This package is still currently in the early stages of development so it is recommended that you use the original codes. This package has not been tested for multiple use cases and it not ready for use.
 
 #### Installation
 

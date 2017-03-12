@@ -53,10 +53,11 @@ OBJECTS = \
 	zwrite_logmfm.o \
 	zwrite_outfiles.o
 
+all: ass_mfm ssplit psplit sac2xy create_ass_ini protate
+
 ass_mfm: ass.o $(OBJECTS)
 	$(FC) -O3 -o ../exec/ass_mfm ass.f $(OBJECTS)
 	chmod g=rx,o=rx ../exec/ass_mfm
-
 
 psplit: psplit.o $(OBJECTS)
 	$(FC) -O3 -o ../exec/psplit psplit.f $(OBJECTS)
@@ -79,6 +80,6 @@ protate:	protate.f
 	chmod g=rx,o=rx ../exec/protate
 
 
-all: ass_mfm ssplit psplit sac2xy create_ass_ini protate
+#all: ass_mfm ssplit psplit sac2xy create_ass_ini protate
 
 
