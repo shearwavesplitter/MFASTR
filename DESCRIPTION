@@ -1,7 +1,7 @@
 Package: MFASTR
 Title: Multiple Filter Automatic Shear Wave Splitting Technique in R
 Version: 0.0.0.9000
-Authors@R: person(Stefan, Mroczek, email = "s.mroczek@outlook.com", role = c("aut", "cre"))
+Authors@R: person('Stefan', 'Mroczek', email = "s.mroczek@outlook.com", role = c("aut", "cre"))
 Description: Makes automatic shear wave splitting techniques using the MFAST codes in an R framework
 Depends: R (>= 2.12), RSEIS, TauP.R
 License: What license is it under?

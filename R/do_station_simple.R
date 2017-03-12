@@ -1,5 +1,17 @@
 #### Runs MFAST on a directory with either the normal or very local default settings
+#' Run shear wave splitting measurements on a folder of events
+#' @param path Path to folder 
+#' @param sheader SAC header the S-wave pick is stored in
+#' @param type Which of the MFAST default settings and filters to use
+#' @param filtnum Number of filters to test
+#' @param tvelpath Path to a .tvel file containing the velocity model
+#' @param tvel A tvel file (overrides tvelpath)
+#' @param suffe Suffix of east component 
+#' @param suffn Suffix of north component 
+#' @param suffz Suffix of vertical component 
 #' @export
+#' @examples
+#' do_station_simple(path="~/mfast_package_v2.2/sample_data/raw_data")
 do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
 	if(file.exists("output.zip")){print("WARNING: This folder already contains an output.zip folder and will be over written")}
