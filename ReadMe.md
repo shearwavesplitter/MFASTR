@@ -21,7 +21,7 @@ library(devtools)
 install_github("shearwavesplitter/MFASTR")
 ```
 
-To source the MFASTR functions
+To source the MFASTR functions (you must do this everytime you begin a new session)
 ```r
 library(MFASTR)
 ```
@@ -31,4 +31,60 @@ To update MFASTR
 ```r
 library(devtools)
 install_github("shearwavesplitter/MFASTR")
+```
+#### Example
+
+```r
+library(MFASTR)
+path <- "~/path/to/folder"
+do_station_simple(path)
+```
+
+#### do_station_simple options
+
+Both the alpine fault (default) and TVZ velocity models are built into the package. To use the TVZ velocity model
+
+```r
+path <- "~/path/to/folder"
+do_station_simple(path,tvel=ak135_taupo)
+```
+
+To use your own velocity model you must input the path to the .tvel file
+
+```r
+path <- "~/path/to/folder"
+tvp <- "~/path/to/tvel/model.tvel"
+do_station_simple(path,tvelpath=tvp)
+```
+
+To use the verylocal variation of the codes/filters
+
+```r
+path <- "~/path/to/folder"
+do_station_simple(path,type="verylocal")
+```
+
+By default the Spick is assumed to be in the t0 header. To change this to t2 (for example)
+
+```r
+path <- "~/path/to/folder"
+do_station_simple(path,sheader="t2")
+```
+
+If you want to run the measurements on more than the best three filters
+
+```r
+path <- "~/path/to/folder"
+x <- 5 #run measurements on the five best filters
+do_station_simple(path,filtnum=x)
+```
+
+And finally, you can define the suffixes of your files to be something other than the default .e, .n, .z of MFAST 
+
+```r
+path <- "~/path/to/folder"
+E <- ".HHE"
+N <- ".HHN"
+Z <- ".HHZ"
+do_station_simple(path,suffe=E,suffn=N,suffz=Z)
 ```
