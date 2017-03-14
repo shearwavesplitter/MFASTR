@@ -40,14 +40,17 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 
 	# downsample broadband data to prevent program crash
 	#
-	# Can't use interpolate to downsample data though--need to use decimate!
+	# Can't use interpolate to downsample data though--need to use decimate! -- importing signal 
 	#Sac appears to apply a FIR filter here. We do not
 	for (i in 1:3){
 		if (trip[[i]]$dt < 0.0099){
 			r <- as.integer(0.01/trip[[i]]$dt) #r should be within 2 and 7
 			if (r >= 2 && r <= 7){
 				print(paste0("Downsampling data rate by factor of ", r))
-				print("WARNING: downsampling has not been tested and may not work correctly")
+				print("WARNING: downsampling has not been tested and may not work correctly.")
+				samprate <- trip[[i]]$dt*r
+				nyq <- 1/2/samprate
+				trip[[i]]$amp <- butfilt(trip[[i]]$amp,deltat=trip[[i]]$dt,fl=nyq,type="LP",npoles=2,proto="C1",zp=FALSE,RM=TRUE)
 				for (j in (1:length(trip[[i]]$amp))[seq(r, length(trip[[i]]$amp), r)]){
 					trip[[i]]$amp[j] <- NA 
 				}
