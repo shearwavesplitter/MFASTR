@@ -1,0 +1,91 @@
+#' @export
+#Castelazzi grading is based on castelazzi however, to expand to potentially more than 3 filters, all values must be within 10 degrees of their mean. If they are not then the one furtherest from the mean is removed (favouring removal of worse filters) and the test is repeated 
+grade <- function(path,minsnr=3,tlagmax=1,minl=0){
+	print("Grading measurements")
+	summ <- read.csv(path)
+	summ <- summ[summ$gradeABCNR %in% c("ACl","BCl"), ]
+	
+	subs <- summ
+	finalgrade <- 1
+for (i in 1:length(subs$fast)){
+	if ((subs$tlag[i] < (0.8*tlagmax)) && (subs$SNR[i] > minsnr) && (subs$Dfast[i] < 10)){
+		if (finalgrade[1] != 1) {
+			finalgrade <- rbind(finalgrade,"AB")
+		} else {
+			finalgrade <- "AB"
+		}
+	} else {
+		if (finalgrade[1] != 1) {
+			finalgrade <- rbind(finalgrade,"NA")
+		} else {
+			finalgrade <- "NA"
+		}
+	}
+}
+
+
+subs <- subset(subs, finalgrade == "AB")
+
+subs <- subs[subs$lambdamax > minl, ]
+
+dir <- dirname(path)
+nam <- basename(path)
+
+write.table(subs,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
+
+#Castelazzi filtering. At least two filters have to give a similar result
+
+###Small function to determine the mean of the fast azimuths in degrees
+mean.axial <- function(vec){
+	vec <- vec*2
+	vec <- vec*pi/180
+	n <- length(vec)
+	C <- (1/n)*sum(cos(vec))
+	S <- (1/n)*sum(sin(vec))
+	m <- atan2(S,C)
+	m2 <- m/2
+	m2 <- m2*(180/pi)
+return(m2)
+}
+
+unev <- unique(subs$cuspid)
+filt <- as.numeric(gsub("^.*?fb","",subs$event))
+maxf <- max(filt)
+subs <- cbind(subs,filt)
+	for (i in 1:length(unev)){
+		add <- 1 #To supress error
+		rm('add')
+		eventn <- unev[i]
+		fsub <- subset(subs, cuspid == eventn)
+			if (length(fsub$fast) == 1){
+				add <- fsub
+				add$finalgrade <- "F1"
+			}else{sw <- FALSE
+				while(sw == FALSE){
+					ln <- length(fsub$fast)
+					m <- mean.axial(fsub$fast)
+					dif <- abs(fsub$fast*2-m*2)
+
+					for (k in 1:length(dif)){
+						if(dif[k] > 180){dif[k] <- 360-abs(dif[k])}
+					}
+					dif <- dif/2
+	
+					difsub <- subset(dif, dif < 10)
+					if(length(difsub) == ln){nmin <- which.min(fsub$Dfast); add <- fsub[nmin,];add$finalgrade <- paste0("F",ln);sw <- TRUE}else{del <- max(which.max(dif)); fsub <- fsub[-del,]}
+					if(length(difsub) == 1){sw <- TRUE}
+				}
+
+			}
+		if(exists('add')){
+			if(exists('uniquev')){
+				uniquev <- rbind(uniquev,add)
+			}else{
+				uniquev <- add
+			}
+		}
+	}
+drops <- c("filt")
+uniquev <- uniquev[ , !(names(uniquev) %in% drops)]
+write.table(uniquev,file=paste0(dir,"/CZ_",nam),quote=FALSE,row.names=FALSE,sep=",")
+}

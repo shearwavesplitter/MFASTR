@@ -85,6 +85,7 @@ summdir <- paste0(stat,".summ_files")
 if(dir.exists(summdir)){}else{dir.create(summdir)}
 file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
+grade(paste0(summdir,"/",summname))
 print(paste0("Station ",stat," done"))
 return(summary)
 }
