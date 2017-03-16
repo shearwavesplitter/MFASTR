@@ -34,13 +34,16 @@ install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
+To run measurements on for events in a target directory
+
+
 ```r
 library(MFASTR)
 path <- "~/path/to/folder"
 do_station_simple(path)
 ```
 
-To run on the sample MFAST sample data first create an empty directory
+To run on the MFAST sample data first create an empty directory
 
 ```r
 library(MFASTR)
