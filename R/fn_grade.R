@@ -1,5 +1,6 @@
 #' @export
 #Castelazzi grading is based on castelazzi however, to expand to potentially more than 3 filters, all values must be within 10 degrees of their mean. If they are not then the one furtherest from the mean is removed (favouring removal of worse filters) and the test is repeated 
+#Grading of very local in the MFAST sample data uses the normal defaults (e.g. SNR > 3 for AB measurement). Makes more sense to use maxnsr (minsnr) from processing
 grade <- function(path,minsnr=3,tlagmax=1,minl=0){
 	print("Grading measurements")
 	summ <- read.csv(path)

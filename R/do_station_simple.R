@@ -14,10 +14,10 @@
 #' do_station_simple(path="~/mfast_package_v2.2/sample_data/raw_data")
 do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
-	if(file.exists("output.zip")){print("WARNING: This folder already contains an output.zip folder and will be over written")}
+	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ##
 	if(type=="normal"){nwbeg=5;fdmin=0.3;fdmax=8;t_win_freq=3;tlagscale=1;snrmax=3;t_win_snr=3;t_err=0.05}
-	if(type=="verylocal"){nwbeg=3;fdmin=0.3;fdmax=16;t_win_freq=0.75;tlagscale=0.4;snrmax=1.5;t_win_snr=0.75;t_err=0.02}
+	if(type=="verylocal"){nwbeg=5;fdmin=0.3;fdmax=16;t_win_freq=0.75;tlagscale=0.4;snrmax=1.5;t_win_snr=0.75;t_err=0.02}
 	
 	print(paste0("Running MFAST with ",type," filters"))
 	print(paste0("File suffixes are set to ",suffe," for East, ",suffn," for North and ",suffz," for vertical"))
@@ -85,7 +85,7 @@ summdir <- paste0(stat,".summ_files")
 if(dir.exists(summdir)){}else{dir.create(summdir)}
 file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
-grade(paste0(summdir,"/",summname))
+grade(paste0(summdir,"/",summname),minsnr=snrmax,tlagmax=tlagscale)
 print(paste0("Station ",stat," done"))
 return(summary)
 }
