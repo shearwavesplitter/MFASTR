@@ -49,13 +49,13 @@ write_sample(path)
 do_station_simple(path)
 ```
 
-Or, for the very local sample data (this will not match the original MFAST sample results. This is because we use the minimum processing SNR rather than SNR>3 to define a AB measurement.).
+Or, for the very local sample data (this will not match the original MFAST sample results -- see issues)
 
 ```r
 library(MFASTR)
 path <- "~/path/to/emptyfolder"
 write_sample(path,type="verylocal")
-do_station_simple(path,type="verylocal")
+do_station_simple(path,type="verylocal",sheader="t5")
 ```
 
 #### do_station_simple options

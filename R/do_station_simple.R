@@ -52,6 +52,7 @@ do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/
 		event <- ls_all[i]
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
 		anginc <- anginc(tvel,trip)
 		if (length(filts$high > 0)){
 			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale)
@@ -85,7 +86,7 @@ summdir <- paste0(stat,".summ_files")
 if(dir.exists(summdir)){}else{dir.create(summdir)}
 file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
-grade(paste0(summdir,"/",summname),minsnr=snrmax,tlagmax=tlagscale)
+grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
 print(paste0("Station ",stat," done"))
 return(summary)
 }

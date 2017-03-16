@@ -52,7 +52,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		spolfast <- (360-abs(as.numeric(as.character(log$fast))*2-as.numeric(as.character(log$spol))*2))
 		if(spolfast > 180){spolfast <- spolfast-360}
 		spolfast <- abs(spolfast/2)
-		spolfast <- round(abs(spolfast),2)
+		spolfast <- round(abs(spolfast),3)
 		if(spolfast < 20 | spolfast > 70){gradeABCNR <- "NULL"}
 		bandang <- -12345 #Not calculated yet
 		pickgrade <- trimws(east$HEAD$values[[which(east$HEAD$names == "kt5")]])

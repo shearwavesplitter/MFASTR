@@ -32,8 +32,8 @@ createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5
 	signalend0 <- signalend
 	sminp0 <- sminp
 
+	if(length(filts$snrv) < number){number <- length(filts$snrv)}
 
-	
 	for(i in 1:number){
 		#Reset constants
 		nwbeg <- nwbeg0
