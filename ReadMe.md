@@ -49,7 +49,7 @@ write_sample(path)
 do_station_simple(path)
 ```
 
-Or, for the very local sample data (this will not match the original MFAST sample data, ask if you want to know why).
+Or, for the very local sample data (this will not match the original MFAST sample results. This is because we use the minimum processing SNR rather than SNR>3 to define a AB measurement.).
 
 ```r
 library(MFASTR)
