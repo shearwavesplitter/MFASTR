@@ -40,6 +40,24 @@ path <- "~/path/to/folder"
 do_station_simple(path)
 ```
 
+To run on the sample MFAST sample data first create an empty directory
+
+```r
+library(MFASTR)
+path <- "~/path/to/emptyfolder"
+write_sample(path)
+do_station_simple(path)
+```
+
+Or, for the very local sample data (this will not match the original MFAST sample data, ask if you want to know why).
+
+```r
+library(MFASTR)
+path <- "~/path/to/emptyfolder"
+write_sample(path,type="verylocal")
+do_station_simple(path,type="verylocal")
+```
+
 #### do_station_simple options
 
 Both the alpine fault (default) and TVZ velocity models are built into the package. To use the TVZ velocity model
