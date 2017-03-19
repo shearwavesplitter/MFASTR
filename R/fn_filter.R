@@ -53,7 +53,8 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 	for (i in 1:length(bandwidth)){
 		#Apply filter to record
 		s <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "t5")]]))
-		
+		p <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))
+
 		low <- f$low[i]
 		high <- f$high[i]
 		band <- bandwidth[i]
@@ -67,7 +68,7 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 			high <- high - 2
 		}
 		band <- high/(2*low)
-		snr <- snr(Efilt,Nfilt,s,dt,t_win_snr=t_win_snr,t_err=t_err,b=0)
+		snr <- snr(Efilt,Nfilt,s,p=p,dt,t_win_snr=t_win_snr,t_err=t_err,b=0,type=type)
 		snrprod <- band*snr
 		#if (snr < snrmax){print(paste0("SNR less than ",snrmax))}
 		f$prod[i] <- snrprod

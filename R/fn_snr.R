@@ -1,6 +1,15 @@
 #Currently, b (B sac header) should always equal zero. Adding it as an option incase functionality is added to allow b to change
 #' @export
-snr <- function(E,N,s,dt,t_win_snr=3,t_err=0.05,b=0){
+snr <- function(E,N,s,p=-12345,dt,t_win_snr=3,t_err=0.05,b=0,type="normal"){
+	if (type == "verylocal"){
+		if (p != -12345){
+			halfsminp <- (s-p)/2
+				if(halfsminp < t_win_snr){
+					t_win_snr <- halfsminp
+				}
+		}
+		
+	}
 	signalbeg <- s + t_err
 	noisebeg <- s-t_win_snr
 	if (noisebeg < b){noisebeg <- b} #shouldn't be used currently
