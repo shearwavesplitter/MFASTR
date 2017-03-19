@@ -34,7 +34,7 @@ install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
-To run measurements on for events in a target directory
+To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component.
 
 
 ```r
@@ -52,7 +52,7 @@ write_sample(path)
 do_station_simple(path)
 ```
 
-Or, for the very local sample data (this will not match the original MFAST sample results -- see issues)
+Or, for the very local sample data (this will not match the original MFAST sample results due to a bug in MFAST v2.2 -- see closed issues)
 
 ```r
 library(MFASTR)
