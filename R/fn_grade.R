@@ -7,6 +7,13 @@ grade <- function(path,minsnr=3,tlagmax=1,minl=0){
 	print(paste0("Maximum delay time = ",tlagmax*0.8))
 	summ <- read.csv(path)
 	summ <- summ[summ$gradeABCNR %in% c("ACl","BCl"), ]
+	nulls <- subset(summ, null == TRUE)
+
+
+	summ <- subset(summ, null != TRUE)
+	dir <- dirname(path)
+	nam <- basename(path)
+	write.table(nulls,file=paste0(dir,"/NULL_",nam),quote=FALSE,row.names=FALSE,sep=",")
 	
 	subs <- summ
 	finalgrade <- 1
@@ -31,8 +38,7 @@ subs <- subset(subs, finalgrade == "AB")
 
 subs <- subs[subs$lambdamax > minl, ]
 
-dir <- dirname(path)
-nam <- basename(path)
+
 
 write.table(subs,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
 

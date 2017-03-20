@@ -53,7 +53,8 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		if(spolfast > 180){spolfast <- spolfast-360}
 		spolfast <- abs(spolfast/2)
 		spolfast <- round(abs(spolfast),3)
-		if(spolfast < 20 | spolfast > 70){gradeABCNR <- "NULL"}
+		null <- FALSE
+		if(spolfast < 20 | spolfast > 70){null <- TRUE}
 		bandang <- -12345 #Not calculated yet
 		pickgrade <- trimws(east$HEAD$values[[which(east$HEAD$names == "kt5")]])
 		error <- read.table(paste0(cmpname,".error"))
@@ -66,7 +67,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		if(o == -12345){ttime <- -12345;print("Origin time not set")}
 		maxfreq <-round(maxfreqv[i],5)
 		
-		line <- cbind(event,stat,slat,slon,cuspid,year,doy_det,evla,evlo,distevstat,depthkm,mag,baz,spol,Dspol,wbeg,wend,dist_ruap_km,dist_ruap_deg,SNR,tlag,Dtlag,fast,Dfast,anginc,anginc_corr,type_ini,timestamp,comment,nyquist,gradeABCNR,filt_lo,filt_HI,spolfast,bandang,pickgrade,lambdamax,ndf,lambda_min,ttime,maxfreq)
+		line <- cbind(event,stat,slat,slon,cuspid,year,doy_det,evla,evlo,distevstat,depthkm,mag,baz,spol,Dspol,wbeg,wend,dist_ruap_km,dist_ruap_deg,SNR,tlag,Dtlag,fast,Dfast,anginc,anginc_corr,type_ini,timestamp,comment,nyquist,gradeABCNR,filt_lo,filt_HI,spolfast,bandang,pickgrade,lambdamax,ndf,lambda_min,ttime,maxfreq,null)
 		line <- as.data.frame(line)
 		print("##################################")
 		print(event)
