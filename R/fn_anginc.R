@@ -13,28 +13,13 @@ anginc <- function(tvel,trip){
 
 	dist <- GreatDist(stlo,stla,evlo,evla)
 
-	z <- tvel$V1
-	vp <- tvel$V2
-	vs <- tvel$V3
-	rho <- tvel$V4
-	rp <- 6371
-	conr <- 20
-	moho <- 35
-	d410 <- 410
-	d660 <- 660
-	cmb <- 2891.5
-	icb <- 5153.5
-	qp <- rep(NaN, length(z))
-	qs <- rep(NaN, length(z))
-	mod <- list(z,vp,vs,rho,qp,qs,rp,conr,moho,d410,d660,cmb,icb)
-	
-	names(mod) <- c("z","vp","vs","rho","qp","qs","rp","conr","moho","d410","d660","cmb","icb")
+	mod <- tvel
 	ray <- Traveltime('S',dist$ddeg,evdp,mod)
 	rayf <- which(ray$tt == min(ray$t))
 	rayp <- ray$p[rayf]
 	p <- rayp*360 /2 /3.1415927
-	R <- rp
-	c <- vs[1]
+	R <- mod$rp
+	c <- mod$vs[1]
 	i <- atan2(p*c/(R*sqrt(1-(p*c/R)^2)),1) /2 /3.1415927 * 360
 
 return(i)
