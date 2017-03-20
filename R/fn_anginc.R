@@ -1,4 +1,7 @@
 #This potentially can account for layers above sea level
+#' Determines the angle of incidence for an event
+#' @param tvel Veloctity model read in by readtvel or a stored model (ak135_alp, ak135_taupo)
+#' @param trip Seismogram triplet (output of readtriplet)
 #' @export
 anginc <- function(tvel,trip){
 	print(paste0("Determining angle of incidence"))

@@ -1,8 +1,34 @@
-#### Runs MFAST on a directory with either the normal or very local default settings
+#### Runs MFAST on a directory with mpre options
+#' Run shear wave splitting measurements on a folder of events with more options
+#' @param path Path to folder 
+#' @param sheader SAC header the S-wave pick is stored in
+#' @param nwbeg number of start times tested
+#' @param fdmin Minimum allowed dominant frequency
+#' @param fdmax Maximum allowed dominant frequency
+#' @param t_win_freq Window to calculate the dominant frequency
+#' @param tlagmax Maximum allowed time delay
+#' @param Ncmin Minimum number of points in an acceptable cluster 
+#' @param Mmax maximum number ofclusters
+#' @param snrmax Minimum snr allowed to be processed
+#' @param t_win_snr window for SNR
+#' @param t_err Modification to t_win_snr to account for error in S-pick
+#' @param filter User defined set of filters (this overrides the filter selected with type).
+#' @param type Which of the MFAST default settings and filters to use. If the P-wave pick is present, type="verylocal" uses the P-pick to set t_win_snr
+#' @param filtnum Number of filters to test
+#' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
+#' @param tvel A tvel file read with readtvel()
+#' @param suffe Suffix of east component 
+#' @param suffn Suffix of north component 
+#' @param suffz Suffix of vertical component 
 #' @export
-do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
-	setwd(path)
+#' @examples
+#' # Run on measurements the normal sample data with defaults
+#' write_sample("~/mfast/sample_data/raw_data")
+#' do_station_complex(path="~/mfast/sample_data/raw_data")
 
+do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
+	setwd(path)
+	tlagscale <- tlagmax
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 	
 	print(paste0("Running MFAST with do_station_complex"))
@@ -12,7 +38,7 @@ do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data
 	print(paste0("fdmin = ",fdmin))
 	print(paste0("fdmax = ",fdmax))
 	print(paste0("t_win_freq = ",t_win_freq))
-	print(paste0("tlagmax/tlagscale = ",tlagscale))
+	print(paste0("tlagmax = ",tlagscale))
 	print(paste0("snrmax = ",snrmax))
 	print(paste0("t_win_snr = ",t_win_snr))
 	print(paste0("t_err = ",t_err))
@@ -41,7 +67,7 @@ do_station_complex <- function(path="/home/stefan/mfast_package_v2.2/sample_data
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
 		anginc <- anginc(tvel,trip)
 		if (length(filts$high > 0)){
-			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale)
+			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,Ncmin=Ncmin,Mmax=Mmax)
 			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)

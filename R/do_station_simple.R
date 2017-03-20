@@ -4,14 +4,19 @@
 #' @param sheader SAC header the S-wave pick is stored in
 #' @param type Which of the MFAST default settings and filters to use
 #' @param filtnum Number of filters to test
-#' @param tvelpath Path to a .tvel file containing the velocity model
-#' @param tvel A tvel file (overrides tvelpath)
+#' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
+#' @param tvel A tvel file read with readtvel()
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
 #' @export
 #' @examples
-#' do_station_simple(path="~/mfast_package_v2.2/sample_data/raw_data")
+#' # Run on measurements the normal sample data
+#' write_sample("~/mfast/sample_data/raw_data")
+#' do_station_simple(path="~/mfast/sample_data/raw_data")
+#' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
+#' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
+#' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
 do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
@@ -26,7 +31,7 @@ do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/
 	print(paste0("fdmin = ",fdmin))
 	print(paste0("fdmax = ",fdmax))
 	print(paste0("t_win_freq = ",t_win_freq))
-	print(paste0("tlagmax/tlagscale = ",tlagscale))
+	print(paste0("tlagmax = ",tlagscale))
 	print(paste0("snrmax = ",snrmax))
 	print(paste0("t_win_snr = ",t_win_snr))
 	print(paste0("t_err = ",t_err))

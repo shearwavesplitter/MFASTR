@@ -1,2 +1,2 @@
-#' @format Sample events for normal
+#' @format MFAST normal sample events
 "sample_normal"

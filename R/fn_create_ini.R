@@ -1,6 +1,6 @@
 #This has been created with a combination of T2_local and create_event_ini.sh. Need to check for differences
 #' @export
-createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1){
+createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1,Ncmin=5,Mmax=15){
 	print("Creating .ini files")
 	p <- as.numeric(as.character(trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))
 	s <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "t5")]]))
@@ -117,8 +117,8 @@ createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5
 			dtend <- dtend/1.1
 			nwend <- as.integer((w4-w3)/dtend)
 		}
-		maxnoclusters <- 15
-		nmin <- 5
+		maxnoclusters <- Mmax
+		nmin <- Ncmin
 		halfsminp <- sminp
  		if ((0.3 + nwbeg*0.2) < halfsminp) {
     			dtbeg <- 0.2

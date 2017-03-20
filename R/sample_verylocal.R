@@ -1,2 +1,2 @@
-#' @format Sample events for verylocal
+#' @format MFAST very local sample events
 "sample_verylocal"

@@ -18,9 +18,9 @@
 
 \item{filtnum}{Number of filters to test}
 
-\item{tvelpath}{Path to a .tvel file containing the velocity model}
+\item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
-\item{tvel}{A tvel file (overrides tvelpath)}
+\item{tvel}{A tvel file read with readtvel()}
 
 \item{suffe}{Suffix of east component}
 
@@ -32,5 +32,10 @@
 Run shear wave splitting measurements on a folder of events
 }
 \examples{
-do_station_simple(path="~/mfast_package_v2.2/sample_data/raw_data")
+# Run on measurements the normal sample data
+write_sample("~/mfast/sample_data/raw_data")
+do_station_simple(path="~/mfast/sample_data/raw_data")
+# Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
+write_sample("~/mfast/sample_data/raw_data",type="verylocal")
+do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
 }
