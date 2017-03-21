@@ -1,6 +1,23 @@
-filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3){
+#' @title Find best filters
+#' @description Determines the best filters for an event
+#' @param trip Seismogram triplet (output of readtriplet)
+#' @param type Which of the default filters to use. If a P-wave pick is present, type="verylocal" uses it to set t_win_snr
+#' @param filter User defined filters. Overrides filters selected by type (for "verylocal" the P-pick is still used)
+#' @param t_win_snr Window for SNR
+#' @param t_err Modification to t_win_snr to account for error in S-pick
+#' @param snrmax Minimum snr allowed for a good filter
+#' @return A dataframe of the filters sorted by SNR*bandwidth
 #' @export
-## Need to add normal and local filters
+#' @examples
+#' #Define your own set of filters
+#' filt_low <- c(0.1,0.2,0.5)
+#' filt_high <- c(1,2,3)
+#' filts <- cbind(filt_low,filt_high)
+#' write_sample("~/mfast/sample_data/raw_data")
+#' triplet <- readtriplet("2002.054.09.47.lhor2",path="~/mfast/sample_data/raw_data")
+#' bestfilt <- filter_spread(triplet,filter=filts)
+filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3){
+
 	if (type == "normal"){
 		f1 <- cbind(0.4,4)
 		f2 <- cbind(0.5,5)
@@ -18,7 +35,7 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 		f14 <- cbind(4,10)
 		
 		f <- rbind(f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14)
-		f <- as.data.frame(f)
+
 	}
 	if (type == "verylocal"){
 		f1 <- cbind(1,5)
@@ -37,11 +54,11 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 		f14 <- cbind(10,45)
 		
 		f <- rbind(f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14)
-		f <- as.data.frame(f)
+
 	}
 	
 	if (is.null(filter)){print(paste0("Finding best filters for ",type))}else{f <- filter; print(paste0("Finding best filters from user defined list"))}
-	
+	f <- as.data.frame(f)
 	colnames(f) <- c("low","high")
 	bandwidth <- f$high/(f$low*2)
 	

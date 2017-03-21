@@ -1,4 +1,15 @@
 #Currently, b (B sac header) should always equal zero. Adding it as an option incase functionality is added to allow b to change
+#' @title S-wave SNR
+#' @description Determine the signal to noise ratio around the S-wave pick (workhorse of filter_spread)
+#' @param E Vector signal of the east component
+#' @param N Vector signal of the north component
+#' @param s S-wave pick time
+#' @param p P-wave pick time
+#' @param dt Sample interval 
+#' @param t_win_snr Window for SNR (s)
+#' @param t_err Modification to t_win_snr to account for error in S-pick (s)
+#' @param type If type is set to "verylocal" then the P-wave pick (if present) is used to set t_win_snr
+#' @return Signal to noise ratio around the S-wave pick
 #' @export
 snr <- function(E,N,s,p=-12345,dt,t_win_snr=3,t_err=0.05,b=0,type="normal"){
 	if (type == "verylocal"){

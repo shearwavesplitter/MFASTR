@@ -2,6 +2,14 @@
 ###
 # This function checks to see if there is a value other than -12345 in the spick header.
 ##
+#' @title Check S-wave picks
+#' @description Checks a folder to make sure all events have S-wave picks and moves those with missing picks to a subdirectory
+#' @param path Path to folder 
+#' @param suffix Which component to look for the S-pick in (E, N, or Z)
+#' @param header Header name of where the S-pick is stored
+#' @param E Suffix of the east component
+#' @param N Suffix of the north component
+#' @param Z Suffix of the vertical component
 #' @export
 checkspick <- function(path,suffix="E",header="t0",E=".e",N=".n",Z=".z"){
 	setwd(path)

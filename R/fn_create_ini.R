@@ -1,6 +1,35 @@
-#This has been created with a combination of T2_local and create_event_ini.sh. Need to check for differences
+#' @title Create .ini 
+#' @description Creates an MFAST .ini (paramter) file 
+#' @param path Path to folder 
+#' @param trip Seismogram triplet (output of readtriplet)
+#' @param A dataframe of the best filters (output of filter_spread)
+#' @param name Event name (without suffix)
+#' @param number Number of best filters to use
+#' @param suffe Suffix of east component 
+#' @param suffn Suffix of north component 
+#' @param suffz Suffix of vertical component
+#' @param nwbeg number of start times tested
+#' @param fdmin Minimum allowed dominant frequency
+#' @param fdmax Maximum allowed dominant frequency
+#' @param t_win_freq Window to calculate the dominant frequency
+#' @param tlagmax Maximum allowed time delay (s)
+#' @param Ncmin Minimum number of points in an acceptable cluster 
+#' @param Mmax maximum number ofclusters
+#' @param snrmax Minimum snr allowed for a good filter
+#' @param t_win_snr Window for SNR (s)
+#' @param t_err Modification to t_win_snr to account for error in S-pick (s)
+#' @return A vector of dominant frequency in the S-wave (maxfreq) for each filter
 #' @export
-createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagscale=1,Ncmin=5,Mmax=15){
+#' @examples
+#' # Create .ini file for event 2002.054.09.47.lhor2
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' write_sample(pathto)
+#' event <- "2002.054.09.47.lhor2"
+#' triplet <- readtriplet(event,path=pathto)
+#' bestfilt <- filter_spread(triplet)
+#' maxfreq <- createini(pathto,triplet,bestfilt,event)
+createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15){
+	tlagscale <- tlagmax
 	print("Creating .ini files")
 	p <- as.numeric(as.character(trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))
 	s <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "t5")]]))

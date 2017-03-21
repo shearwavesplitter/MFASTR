@@ -1,3 +1,7 @@
+#' @title Root mean square
+#' @description Simple routine to determine root mean square value of a signal
+#' @param x Vector signal
+#' @return RMS value
 #' @export
 rms <- function(x){
 	x <- x^2

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_anginc.R
 \name{anginc}
 \alias{anginc}
-\title{Determines the angle of incidence for an event}
+\title{Angle of incidence}
 \usage{
 anginc(tvel, trip)
 }
@@ -11,6 +11,17 @@ anginc(tvel, trip)
 
 \item{trip}{Seismogram triplet (output of readtriplet)}
 }
+\value{
+The angle of incidence at the surface (degrees)
+}
 \description{
 Determines the angle of incidence for an event
+}
+\examples{
+# Determine the angle of incidence for event 2002.054.09.47.lhor2
+pathto <- "~/mfast/sample_data/raw_data"
+write_sample(pathto)
+event <- "2002.054.09.47.lhor2"
+triplet <- readtriplet(event,path=pathto)
+a <- anginc(ak135_alp,triplet)
 }

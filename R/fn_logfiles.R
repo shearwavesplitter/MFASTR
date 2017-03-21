@@ -1,4 +1,27 @@
+#' @title Parse results
+#' @description Parses output of shear wave splitting measurement for a set of filters (used to build .summ files)
+#' @param path Path to folder
+#' @param name Name of event
+#' @param trip Seismogram triplet (output of readtriplet)
+#' @param filtlist Dataframe of the best filters to be used (output of writesac_filt)
+#' @param maxfreqv Vector of dominant frequency in the S-wave (maxfreq) for each filter(output of create_ini) 
+#' @param comment Optional comment
+#' @param anginc Angle of indidence (output of anginc)
+#' @return A dataframe containing the results for that event
 #' @export
+#' @examples
+#' # Run shear wave splitting measurement on event 2002.054.09.47.lhor2 and parse the results
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' write_sample(pathto)
+#' event <- "2002.054.09.47.lhor2"
+#' triplet <- readtriplet(event,path=pathto)
+#' a <- anginc(ak135_alp,triplet)
+#' bestfilt <- filter_spread(triplet)
+#' maxfreq <- createini(pathto,triplet,bestfilt,event)
+#' f <- writesac_filt(pathto,triplet,event,bestfilt)
+#' run_mfast(pathto,event,f)
+#' res <- logfiles(pathto,event,triplet,f,maxfreq,anginc=a)
+
 logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 	setwd(path)
 	east <- trip[[1]]

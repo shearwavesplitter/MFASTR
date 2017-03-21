@@ -1,4 +1,16 @@
+#' @title Grade .summ file
+#' @description Grades a .summ file (do_station automatically grades)
+#' @param path Path to .summ file to be graded
+#' @param minsnr Minimum SNR allowed for an AB+ grade
+#' @param tlagmax Maximum time delay allowed for an AB+ grade
+#' @param minl Minimum lambdamax allowed for a AB+ grade
 #' @export
+#' @examples
+#' # (Re)grade LHOR2.75.summ
+#' write_sample("~/mfast/sample_data/raw_data")
+#' do_station_simple(path="~/mfast/sample_data/raw_data")
+#' pathto <- "~/mfast/sample_data/raw_data/LHOR2.summ_files/LHOR2.75.summ"
+#' grade(pathto)
 #Castelazzi grading is based on castelazzi however, to expand to potentially more than 3 filters, all values must be within 10 degrees of their mean. If they are not then the one furtherest from the mean is removed (favouring removal of worse filters) and the test is repeated 
 #Grading of very local in the MFAST sample data uses the normal defaults (e.g. SNR > 3 for AB measurement). Makes more sense to use maxnsr (minsnr) from processing. However, in the do_station scripts, we follow MFAST's approach. 
 grade <- function(path,minsnr=3,tlagmax=1,minl=0){
@@ -39,8 +51,9 @@ subs <- subset(subs, finalgrade == "AB")
 subs <- subs[subs$lambdamax > minl, ]
 
 
-
-write.table(subs,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
+drops2 <- c("null")
+subs2 <- subs[ , !(names(subs) %in% drops2)]
+write.table(subs2,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
 
 #Castelazzi filtering. At least two filters have to give a similar result
 
@@ -94,7 +107,7 @@ subs <- cbind(subs,filt)
 			}
 		}
 	}
-drops <- c("filt")
+drops <- c("filt","null")
 uniquev <- uniquev[ , !(names(uniquev) %in% drops)]
 write.table(uniquev,file=paste0(dir,"/CZ_",nam),quote=FALSE,row.names=FALSE,sep=",")
 }

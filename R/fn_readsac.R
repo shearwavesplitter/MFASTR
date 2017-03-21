@@ -6,7 +6,24 @@
 #####
 # REQUIRES PICKS TO BE RELATIVE TO START OF TRACE (iztype IB) -- check this
 ####
+#' @title Read a SAC format siesmogram triplet
+#' @description Reads, cuts, and loads S-wave pick into the t5 header using RSEIS/JSAC.seis as a workhorse
+#' @param event Event name
+#' @param path Path to folder
+#' @param suffe Suffix of east component 
+#' @param suffn Suffix of north component 
+#' @param suffz Suffix of vertical component 
+#' @param header Name of header containing the S-wave pick
+#' @param pheader Name of header containing the P-wave pick
+#' @return A list containing dataframes for each of the three components with signal and header information
 #' @export
+#' @details The S-wave pick must be stored on at least the east component and the P-wave pick (if present) must be stored on the vertical component
+#' @examples
+#' # Read in 2002.054.09.47.lhor2
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' write_sample(pathto)
+#' event <- "2002.054.09.47.lhor2"
+#' triplet <- readtriplet(event,path=pathto)
 readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a"){
 	setwd(path)
 	print(paste0("Reading event ",event))

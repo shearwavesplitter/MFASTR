@@ -1,4 +1,23 @@
+#' @title Write filtered SAC files
+#' @description Writes out filtered waveforms ready to have shear wave splitting measured
+#' @param path Path to folder
+#' @param trip Event triplet (output of readtriplet)
+#' @param name Name of the event
+#' @param filtlist Dataframe of the best filters (output of filter_spread)
+#' @param number Number of best filters to use
+#' @param E Suffix of the east component
+#' @param N Suffix of the north component
+#' @param Z Suffix of the vertical component
+#' #return A dataframe of the filters that have been written
 #' @export
+#' @examples
+#' # Write out three best filters for event 2002.054.09.47.lhor2
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' event <- "2002.054.09.47.lhor2"
+#' write_sample(pathto)
+#' triplet <- readtriplet(event)
+#' bestfilt <- filter_spread(triplet)
+#' f <- writesac_filt(pathto,triplet,event,bestfilt)
 writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z") {
 	setwd(path)
 	trip0 <- trip

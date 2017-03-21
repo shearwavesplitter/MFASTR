@@ -1,4 +1,13 @@
+#' @title Sample data
+#' @description Writes out MFAST sample data 
+#' @param path Path to folder
+#' @param type "normal" or "verylocal" sample data
 #' @export
+#' @examples
+#' # Write out MFAST sample events
+#' write_sample("~/mfast/sample_data/raw_data")
+#' # Write out MFAST verylocal sample events
+#' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 write_sample <- function(path,type="normal"){
 setwd(path)
 	if(type == "normal"){

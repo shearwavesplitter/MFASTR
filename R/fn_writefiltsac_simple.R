@@ -1,3 +1,14 @@
+#' @title Simple write
+#' @description Write out an event with a chosen filter
+#' @param path Path to folder
+#' @param trip Event triplet (output of readtriplet)
+#' @param name Name of the event
+#' @param low Low frequency cut-off 
+#' @param high High frequency cut-off
+#' @param E Suffix of the east component
+#' @param N Suffix of the north component
+#' @param Z Suffix of the vertical component
+#' @param n Number for suffix .fbn (e.g .fb2)
 #' @export
 writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1) {
 	setwd(path)

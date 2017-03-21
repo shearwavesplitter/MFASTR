@@ -1,8 +1,17 @@
 #This potentially can account for layers above sea level
-#' Determines the angle of incidence for an event
+#' @title Angle of incidence
+#' @description Determines the angle of incidence for an event
 #' @param tvel Veloctity model read in by readtvel or a stored model (ak135_alp, ak135_taupo)
 #' @param trip Seismogram triplet (output of readtriplet)
+#' @return The angle of incidence at the surface (degrees)
 #' @export
+#' @examples
+#' # Determine the angle of incidence for event 2002.054.09.47.lhor2
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' write_sample(pathto)
+#' event <- "2002.054.09.47.lhor2"
+#' triplet <- readtriplet(event,path=pathto)
+#' a <- anginc(ak135_alp,triplet)
 anginc <- function(tvel,trip){
 	print(paste0("Determining angle of incidence"))
 

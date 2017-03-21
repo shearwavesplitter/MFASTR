@@ -1,4 +1,19 @@
+#' @title Run splitting measurement
+#' @description Runs shearwave splitting measurements on a set of filtered SAC files
+#' @param path Path to folder
+#' @param name Name of event
+#' @param filtlist A dataframe of the best filters to be used (output of writesac_filt)
 #' @export
+#' @examples
+#' # Run shear wave splitting measurements on event 2002.054.09.47.lhor2
+#' pathto <- "~/mfast/sample_data/raw_data"
+#' write_sample(pathto)
+#' event <- "2002.054.09.47.lhor2"
+#' triplet <- readtriplet(event,path=pathto)
+#' bestfilt <- filter_spread(triplet)
+#' maxfreq <- createini(pathto,triplet,bestfilt,event)
+#' f <- writesac_filt(pathto,triplet,event,bestfilt)
+#' run_mfast(pathto,event,f)
 run_mfast <- function(path,name,filtlist) {
 	setwd(path)
 	if(is.null(filtlist)){

@@ -1,3 +1,9 @@
+#' @title Check components
+#' @description Checks a folder to make sure all three components are present and moves those with missing components to a subdirectory
+#' @param path Path to folder 
+#' @param E Suffix of the east component
+#' @param N Suffix of the north component
+#' @param Z Suffix of the vertical component
 #' @export
 checkcomp <- function(path,E=".e",N=".n",Z=".z"){
 	setwd(path)

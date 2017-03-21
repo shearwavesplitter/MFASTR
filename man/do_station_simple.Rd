@@ -2,12 +2,11 @@
 % Please edit documentation in R/do_station_simple.R
 \name{do_station_simple}
 \alias{do_station_simple}
-\title{Run shear wave splitting measurements on a folder of events}
+\title{Run MFAST}
 \usage{
-
-  do_station_simple(path = "/home/stefan/mfast_package_v2.2/sample_data/raw_data",
-  sheader = "t0", type = "normal", filtnum = 3, tvelpath = NULL,
-  tvel = ak135_alp, suffe = ".e", suffn = ".n", suffz = ".z")
+do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
+  tvelpath = NULL, tvel = ak135_alp, suffe = ".e", suffn = ".n",
+  suffz = ".z")
 }
 \arguments{
 \item{path}{Path to folder}
@@ -20,7 +19,7 @@
 
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
-\item{tvel}{A tvel file read with readtvel()}
+\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
 
 \item{suffe}{Suffix of east component}
 

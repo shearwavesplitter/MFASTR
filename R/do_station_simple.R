@@ -1,11 +1,12 @@
 #### Runs MFAST on a directory with either the normal or very local default settings
-#' Run shear wave splitting measurements on a folder of events
+#' @title Run MFAST
+#' @description Run shear wave splitting measurements on a folder of events
 #' @param path Path to folder 
 #' @param sheader SAC header the S-wave pick is stored in
 #' @param type Which of the MFAST default settings and filters to use
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
-#' @param tvel A tvel file read with readtvel()
+#' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
@@ -17,7 +18,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path="/home/stefan/mfast_package_v2.2/sample_data/raw_data",sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ##

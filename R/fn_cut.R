@@ -1,4 +1,5 @@
 #cut record 15 seconds before the S (or 3.5 seconds before the P) and 15 seconds after the S
+#Leave this undocumented as it is ony used within fn_readsac.R
 #' @export
 cutrecord <- function(wav,pheader="a",sheader="t0"){
 	#Convert relevant entries to type numeric

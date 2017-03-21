@@ -2,15 +2,13 @@
 % Please edit documentation in R/do_station_complex.R
 \name{do_station_complex}
 \alias{do_station_complex}
-\title{Run shear wave splitting measurements on a folder of events with more options}
+\title{Run MFAST with more options}
 \usage{
-
-  do_station_complex(path = "/home/stefan/mfast_package_v2.2/sample_data/raw_data",
-  sheader = "t0", nwbeg = 5, fdmin = 0.3, fdmax = 8, t_win_freq = 3,
-  tlagmax = 1, Ncmin = 5, Mmax = 15, snrmax = 3, t_win_snr = 3,
-  t_err = 0.02, filtnum = 3, type = "normal", filter = NULL,
-  tvelpath = NULL, tvel = ak135_alp, suffe = ".e", suffn = ".n",
-  suffz = ".z")
+do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
+  fdmax = 8, t_win_freq = 3, tlagmax = 1, Ncmin = 5, Mmax = 15,
+  snrmax = 3, t_win_snr = 3, t_err = 0.02, filtnum = 3,
+  type = "normal", filter = NULL, tvelpath = NULL, tvel = ak135_alp,
+  suffe = ".e", suffn = ".n", suffz = ".z")
 }
 \arguments{
 \item{path}{Path to folder}
@@ -23,29 +21,29 @@
 
 \item{fdmax}{Maximum allowed dominant frequency}
 
-\item{t_win_freq}{Window to calculate the dominant frequency}
+\item{t_win_freq}{Window to calculate the dominant frequency (s)}
 
-\item{tlagmax}{Maximum allowed time delay}
+\item{tlagmax}{Maximum allowed time delay (s)}
 
 \item{Ncmin}{Minimum number of points in an acceptable cluster}
 
-\item{Mmax}{maximum number ofclusters}
+\item{Mmax}{maximum number of clusters}
 
-\item{snrmax}{Minimum snr allowed to be processed}
+\item{snrmax}{Minimum snr allowed for a good filter}
 
-\item{t_win_snr}{window for SNR}
+\item{t_win_snr}{Window for SNR  (s)}
 
-\item{t_err}{Modification to t_win_snr to account for error in S-pick}
+\item{t_err}{Modification to t_win_snr to account for error in S-pick  (s)}
 
 \item{filtnum}{Number of filters to test}
 
-\item{type}{Which of the MFAST default settings and filters to use. If the P-wave pick is present, type="verylocal" uses the P-pick to set t_win_snr}
+\item{type}{Which of the MFAST default settings and filters to use. If a P-wave pick is present, type="verylocal" uses it to set t_win_snr}
 
 \item{filter}{User defined set of filters (this overrides the filter selected with type).}
 
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
-\item{tvel}{A tvel file read with readtvel()}
+\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
 
 \item{suffe}{Suffix of east component}
 
@@ -60,4 +58,10 @@ Run shear wave splitting measurements on a folder of events with more options
 # Run on measurements the normal sample data with defaults
 write_sample("~/mfast/sample_data/raw_data")
 do_station_complex(path="~/mfast/sample_data/raw_data")
+#Run measurements with your own defined filters
+filt_low <- c(0.1,0.2,0.5)
+filt_high <- c(1,2,3)
+filts <- cbind(filt_low,filt_high)
+write_sample("~/mfast/sample_data/raw_data")
+do_station_complex(path="~/mfast/sample_data/raw_data",filter=filts)
 }
