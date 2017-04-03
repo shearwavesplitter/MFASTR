@@ -70,6 +70,14 @@ path <- "~/path/to/folder"
 do_station_simple(path,tvel=ak135_taupo)
 ```
 
+Or to use the ak135 velocity model
+
+```r
+path <- "~/path/to/folder"
+data(ak135)
+do_station_simple(path,tvel=ak135)
+```
+
 To use your own velocity model you must input the path to the .tvel file
 
 ```r

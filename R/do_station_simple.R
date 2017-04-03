@@ -21,9 +21,15 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 ### Determine suffixes
  	fls <- setdiff(list.files(),list.dirs(recursive=FALSE,full.names=FALSE))
 	sfx <- unique(gsub(".*\\.","",fls))
+	if(length(sfx) < 3){stop("Components missing")}
 	cmpz <- fixcomps(sfx)
-	suffe <- paste0(".",sfx[which(cmpz == "E")])
-	suffn <- paste0(".",sfx[which(cmpz == "N")])
+	if(length(which(cmpz == "E")) > 1){stop("Inconsistent suffixes")}
+	if(length(which(cmpz == "N")) > 1){stop("Inconsistent suffixes")}
+	if(length(which(cmpz == "V")) > 1){stop("Inconsistent suffixes")}
+	if(length(which(cmpz == "1")) > 1){stop("Inconsistent suffixes")}
+	if(length(which(cmpz == "2")) > 1){stop("Inconsistent suffixes")}		
+	suffe <- paste0(".",sfx[which(cmpz == "E" | cmpz == "1")])
+	suffn <- paste0(".",sfx[which(cmpz == "N" | cmpz == "2")])
 	suffz <- paste0(".",sfx[which(cmpz == "V")])
 
 ##
