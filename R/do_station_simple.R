@@ -6,10 +6,7 @@
 #' @param type Which of the MFAST default settings and filters to use
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
-#' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)
-#' @param suffe Suffix of east component 
-#' @param suffn Suffix of north component 
-#' @param suffz Suffix of vertical component 
+#' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
 #' @export
 #' @examples
 #' # Run on measurements the normal sample data
@@ -18,9 +15,17 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
+### Determine suffixes
+ 	fls <- setdiff(list.files(),list.dirs(recursive=FALSE,full.names=FALSE))
+	sfx <- unique(gsub(".*\\.","",fls))
+	cmpz <- fixcomps(sfx)
+	suffe <- paste0(".",sfx[which(cmpz == "E")])
+	suffn <- paste0(".",sfx[which(cmpz == "N")])
+	suffz <- paste0(".",sfx[which(cmpz == "V")])
+
 ##
 	if(type=="normal"){nwbeg=5;fdmin=0.3;fdmax=8;t_win_freq=3;tlagscale=1;snrmax=3;t_win_snr=3;t_err=0.05}
 	if(type=="verylocal"){nwbeg=5;fdmin=0.3;fdmax=16;t_win_freq=0.75;tlagscale=0.4;snrmax=1.5;t_win_snr=0.75;t_err=0.02}

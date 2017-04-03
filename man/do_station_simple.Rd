@@ -5,8 +5,7 @@
 \title{Run MFAST}
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp, suffe = ".e", suffn = ".n",
-  suffz = ".z")
+  tvelpath = NULL, tvel = ak135_alp)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -20,12 +19,6 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
 \item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
-
-\item{suffe}{Suffix of east component}
-
-\item{suffn}{Suffix of north component}
-
-\item{suffz}{Suffix of vertical component}
 }
 \description{
 Run shear wave splitting measurements on a folder of events

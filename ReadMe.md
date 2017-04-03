@@ -34,7 +34,7 @@ install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
-To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component.
+To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component. Suffixes are automatically detected
 
 
 ```r
@@ -100,12 +100,3 @@ x <- 5 #run measurements on the five best filters
 do_station_simple(path,filtnum=x)
 ```
 
-And finally, you can define the suffixes of your files to be something other than the default .e, .n, .z of MFAST 
-
-```r
-path <- "~/path/to/folder"
-E <- ".HHE"
-N <- ".HHN"
-Z <- ".HHZ"
-do_station_simple(path,suffe=E,suffn=N,suffz=Z)
-```
