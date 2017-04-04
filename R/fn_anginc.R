@@ -3,7 +3,7 @@
 #' @description Determines the angle of incidence for an event
 #' @param tvel Veloctity model read in by readtvel or a stored model (ak135_alp, ak135_taupo)
 #' @param trip Seismogram triplet (output of readtriplet)
-#' @return The angle of incidence at the surface (degrees)
+#' @return The angle of incidence at the surface (degrees) and the ray parameter
 #' @export
 #' @examples
 #' # Determine the angle of incidence for event 2002.054.09.47.lhor2
@@ -33,6 +33,6 @@ anginc <- function(tvel,trip){
 	R <- mod$rp
 	c <- mod$vs[1]
 	i <- atan2(p*c/(R*sqrt(1-(p*c/R)^2)),1) /2 /3.1415927 * 360
-
-return(i)
+	out <- c(i,rayp)
+return(out)
 }

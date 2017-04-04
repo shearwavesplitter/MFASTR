@@ -12,7 +12,7 @@ anginc(tvel, trip)
 \item{trip}{Seismogram triplet (output of readtriplet)}
 }
 \value{
-The angle of incidence at the surface (degrees)
+The angle of incidence at the surface (degrees) and the ray parameter
 }
 \description{
 Determines the angle of incidence for an event

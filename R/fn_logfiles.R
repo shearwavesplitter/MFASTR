@@ -26,6 +26,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 	setwd(path)
 	east <- trip[[1]]
 	east$HEAD$values <- as.character(east$HEAD$values)
+	oanginc <- anginc
 	if(is.null(filtlist)){filtlist <- cbind(NA,NA,NA,NA);filtlist <- as.data.frame(filtlist);colnames(filtlist) <- c("low","high","snrv","nyq")}
 	for (i in 1:length(filtlist$high)){
 		filter <- filtlist[i,]
@@ -62,7 +63,8 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		Dtlag <- round(log$dtlag,6)
 		fast <- round(log$fast,3)
 		Dfast <- round(log$dfast,3)
-		anginc <- round(anginc,1) 
+		rayp <- round(oanginc[2],2)
+		anginc <- round(oanginc[1],1) 		
 		anginc_corr <- "anginc_corr" 
 		ini <- read.table(paste0(cmpname,".ini"))
 		type_ini <- paste0("ass_",ini$V1[3],"_",ini$V1[4])
@@ -90,7 +92,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		if(o == -12345){ttime <- -12345;print("Origin time not set")}
 		maxfreq <-round(maxfreqv[i],5)
 		
-		line <- cbind(event,stat,slat,slon,cuspid,year,doy_det,evla,evlo,distevstat,depthkm,mag,baz,spol,Dspol,wbeg,wend,dist_ruap_km,dist_ruap_deg,SNR,tlag,Dtlag,fast,Dfast,anginc,anginc_corr,type_ini,timestamp,comment,nyquist,gradeABCNR,filt_lo,filt_HI,spolfast,bandang,pickgrade,lambdamax,ndf,lambda_min,ttime,maxfreq,null)
+		line <- cbind(event,stat,slat,slon,cuspid,year,doy_det,evla,evlo,distevstat,depthkm,mag,baz,spol,Dspol,wbeg,wend,dist_ruap_km,dist_ruap_deg,SNR,tlag,Dtlag,fast,Dfast,anginc,anginc_corr,type_ini,timestamp,comment,nyquist,gradeABCNR,filt_lo,filt_HI,spolfast,bandang,pickgrade,lambdamax,ndf,lambda_min,ttime,maxfreq,rayp,null)
 		line <- as.data.frame(line)
 		print("##################################")
 		print(event)
