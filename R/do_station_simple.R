@@ -7,7 +7,7 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
-#' $details Component suffixes are determined automatically
+#' @details Component suffixes are determined automatically
 #' @export
 #' @examples
 #' # Run on measurements the normal sample data

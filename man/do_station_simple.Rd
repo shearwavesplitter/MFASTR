@@ -18,11 +18,13 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
-\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)
-$details Component suffixes are determined automatically}
+\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
 }
 \description{
 Run shear wave splitting measurements on a folder of events
+}
+\details{
+Component suffixes are determined automatically
 }
 \examples{
 # Run on measurements the normal sample data
