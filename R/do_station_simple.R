@@ -20,7 +20,7 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes
  	fls <- setdiff(list.files(),list.dirs(recursive=FALSE,full.names=FALSE))
-	sfx <- unique(gsub(".*\\.","",fls))
+	sfx <- sfx <- unique(gsub(".*[[:punct:]]","",fls,perl=TRUE))
 	if(length(sfx) < 3){stop("Components missing")}
 	cmpz <- fixcomps(sfx)
 	if(length(which(cmpz == "E")) > 1){stop("Inconsistent suffixes")}
