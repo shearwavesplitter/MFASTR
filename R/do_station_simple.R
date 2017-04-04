@@ -27,10 +27,13 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 	if(length(which(cmpz == "N")) > 1){stop("Inconsistent suffixes")}
 	if(length(which(cmpz == "V")) > 1){stop("Inconsistent suffixes")}
 	if(length(which(cmpz == "1")) > 1){stop("Inconsistent suffixes")}
-	if(length(which(cmpz == "2")) > 1){stop("Inconsistent suffixes")}		
-	suffe <- paste0(".",sfx[which(cmpz == "E" | cmpz == "1")])
-	suffn <- paste0(".",sfx[which(cmpz == "N" | cmpz == "2")])
-	suffz <- paste0(".",sfx[which(cmpz == "V")])
+	if(length(which(cmpz == "2")) > 1){stop("Inconsistent suffixes")}
+	punctl <- nchar(sfx[1])
+	sl <- nchar(fls[1])
+	punct <- substring(fls[1],sl-punctl,sl-punctl)
+	suffe <- paste0(punct,sfx[which(cmpz == "E" | cmpz == "1")])
+	suffn <- paste0(punct,sfx[which(cmpz == "N" | cmpz == "2")])
+	suffz <- paste0(punct,sfx[which(cmpz == "V")])
 
 ##
 	if(type=="normal"){nwbeg=5;fdmin=0.3;fdmax=8;t_win_freq=3;tlagscale=1;snrmax=3;t_win_snr=3;t_err=0.05}
