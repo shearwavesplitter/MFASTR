@@ -26,7 +26,8 @@
 #' # Run on measurements the normal sample data with defaults
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_complex(path="~/mfast/sample_data/raw_data")
-#' #Run measurements with your own defined filters
+#'
+#' # Run measurements with your own defined filters
 #' filt_low <- c(0.1,0.2,0.5)
 #' filt_high <- c(1,2,3)
 #' filts <- cbind(filt_low,filt_high)

@@ -17,6 +17,7 @@ Writes out MFAST sample data
 \examples{
 # Write out MFAST sample events
 write_sample("~/mfast/sample_data/raw_data")
+
 # Write out MFAST verylocal sample events
 write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 }

@@ -18,7 +18,8 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
-\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
+\item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)
+$details Component suffixes are determined automatically}
 }
 \description{
 Run shear wave splitting measurements on a folder of events
@@ -27,6 +28,7 @@ Run shear wave splitting measurements on a folder of events
 # Run on measurements the normal sample data
 write_sample("~/mfast/sample_data/raw_data")
 do_station_simple(path="~/mfast/sample_data/raw_data")
+
 # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")

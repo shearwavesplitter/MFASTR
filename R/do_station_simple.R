@@ -7,11 +7,13 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
+#' $details Component suffixes are determined automatically
 #' @export
 #' @examples
 #' # Run on measurements the normal sample data
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_simple(path="~/mfast/sample_data/raw_data")
+#' 
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")

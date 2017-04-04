@@ -9,7 +9,7 @@
 #' @return A dataframe of the filters sorted by SNR*bandwidth
 #' @export
 #' @examples
-#' #Define your own set of filters
+#' # Define your own set of filters
 #' filt_low <- c(0.1,0.2,0.5)
 #' filt_high <- c(1,2,3)
 #' filts <- cbind(filt_low,filt_high)
