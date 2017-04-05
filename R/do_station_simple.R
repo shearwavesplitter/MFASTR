@@ -68,7 +68,7 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 
 
 
-	if(is.null(tvelpath)){print("Using stored velocity model")}else{tvel <- readtvel(path)}
+	if(is.null(tvelpath)){print("Using stored velocity model")}else{tvel <- readtvel(tvelpath)}
 	ls_east <- list.files(pattern=paste0("\\",suffe,"$"))
 	ls_all <- gsub(paste0(" *",suffe),"",ls_east)
 	for (i in 1:length(ls_all)){

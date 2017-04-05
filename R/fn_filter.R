@@ -84,9 +84,7 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 		#plot(trip[[1]]$amp,type="l")
 		Efilt <- butfilt(trip[[1]]$amp, fl=low, fh=high, deltat=trip[[1]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE) #zp=FALSE so filter isn't zero phase (one pass)
 		Nfilt <- butfilt(trip[[2]]$amp, fl=low, fh=high, deltat=trip[[2]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE)
-		print(high)
 		#Calculate SNR
-	
 		band <- high/(2*low)
 		snr <- snr(Efilt,Nfilt,s,p=p,dt,t_win_snr=t_win_snr,t_err=t_err,b=0,type=type)
 		snrprod <- band*snr
