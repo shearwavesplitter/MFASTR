@@ -51,6 +51,9 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
 
 \item{suffz}{Suffix of vertical component}
 }
+\value{
+A dataframe containing the summary file
+}
 \description{
 Run shear wave splitting measurements on a folder of events with more options
 }

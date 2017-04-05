@@ -21,6 +21,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
+#' @return A dataframe containing the summary file
 #' @export
 #' @examples
 #' # Run on measurements the normal sample data with defaults

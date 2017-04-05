@@ -20,6 +20,9 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 
 \item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
 }
+\value{
+A dataframe containing the summary file
+}
 \description{
 Run shear wave splitting measurements on a folder of events
 }

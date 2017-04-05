@@ -58,7 +58,7 @@ layout(matrix(c(13,13,13,19,9,9,9,14,14,14,19,10,10,10,15,15,15,19,11,11,11,16,1
 		#points(r$V2,r$V3,pch=2)	
 
 #plot error surface
-	image.maker <- function(coords, value){  #handy function to get points into correct format
+	image.maker <- function(coords, value){  #handy function to get points into correct format. I could make this faster with lapply?
  		 N1 <- length(unique(coords[,1]))
 		N2 <- length(unique(coords[,2])) 
  		 image.out <- matrix(NA, nrow = N1, ncol = N2) 
