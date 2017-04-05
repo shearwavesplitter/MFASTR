@@ -70,7 +70,8 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 	for (i in 1:length(bandwidth)){
 		#Apply filter to record
 		s <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "t5")]]))
-		p <- as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))
+		p <- as.numeric(as.character(trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))
+
 
 		low <- f$low[i]
 		high <- f$high[i]
@@ -84,6 +85,9 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 		#plot(trip[[1]]$amp,type="l")
 		Efilt <- butfilt(trip[[1]]$amp, fl=low, fh=high, deltat=trip[[1]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE) #zp=FALSE so filter isn't zero phase (one pass)
 		Nfilt <- butfilt(trip[[2]]$amp, fl=low, fh=high, deltat=trip[[2]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE)
+		#print(p)
+		#print(s)
+		#plot(seq(0,length(Efilt)*trip[[1]]$dt-trip[[1]]$dt,trip[[1]]$dt),Efilt,type="l")
 		#Calculate SNR
 		band <- high/(2*low)
 		snr <- snr(Efilt,Nfilt,s,p=p,dt,t_win_snr=t_win_snr,t_err=t_err,b=0,type=type)

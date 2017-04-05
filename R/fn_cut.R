@@ -13,6 +13,7 @@ cutrecord <- function(wav,pheader="a",sheader="t0"){
 	a <- as.numeric(a)
 	s <- as.numeric(s)
 	b <- as.numeric(b)
+	b <- round(b,2)
 	o <- as.numeric(o)
 	if(b != 0){print("WARNING: B is not equal to zero, this functionality has not been tested")}
 	if(a == -12345){

@@ -53,28 +53,33 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 		trip[[i]]$amp <- detrend(trip[[i]]$amp) #Detrend waveform
 	}
 
-	
-
 	# downsample broadband data to prevent program crash
 	#
 	# Can't use interpolate to downsample data though--need to use decimate! -- importing signal 
 	#Sac appears to apply a FIR filter here. We do not
-	for (i in 1:3){
+	for (i in 1:3){	
+		trip[[i]]$dt <- round(trip[[i]]$dt,6)
 		if (trip[[i]]$dt < 0.0099){
 			r <- ceiling(0.01/trip[[i]]$dt) #r should be within 2 and 7 (SAC has issues with filters for r=7)
 			if (r >= 2 && r <= 7){
 				print(paste0("Downsampling data rate by factor of ", r))
-				print("WARNING: downsampling has not been tested and may not work correctly.")
 				samprate <- trip[[i]]$dt*r
-				nyq <- 1/2/samprate
-				trip[[i]]$amp <- butfilt(trip[[i]]$amp,deltat=trip[[i]]$dt,fh=1/2/trip[[i]]$dt,type="LP",npoles=2,proto="C1",zp=FALSE,RM=TRUE)
-				for (j in (1:length(trip[[i]]$amp))[seq(r, length(trip[[i]]$amp), r)]){
-					trip[[i]]$amp[j] <- NA 
-				}
+				#nyq <- 1/2/samprate
+				#cutoff <- (1/r)*(1/2/trip[[i]]$dt) 
+				#cutoff <- (1/2/trip[[i]]$dt)
+				#trip[[i]]$amp <- butfilt(trip[[i]]$amp,deltat=trip[[i]]$dt,fh=cutoff,type="LP",npoles=2,proto="C1",zp=FALSE,RM=TRUE)
+				#del <- !((1:length(trip[[i]]$amp)) %in% seq(r, length(trip[[i]]$amp), r))
+				#for (j in (1:length(trip[[i]]$amp))){
+				#	if(del[j]){trip[[i]]$amp[j] <- NA}
+				#}
+
+				trip[[i]]$amp <- decimate(trip[[i]]$amp,r,ftype="fir")
+
 			trip[[i]]$amp <- trip[[i]]$amp[!is.na(trip[[i]]$amp)]		
 			trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "npts")]]  <- length(trip[[i]]$amp)
 			trip[[i]]$N  <- length(trip[[i]]$amp)
 			samprate <- trip[[i]]$dt*r
+			samprate <- round(samprate,6)
 			trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "delta")]]  <- samprate
 			trip[[i]]$dt <- samprate
 			}else{print("factor is out of bounds")}
@@ -82,7 +87,6 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	}
 
 
-	
 	#cut all files 15 sec after S-Pick and 15 sec before (or 3.5 before P-Pick),looks in a header for P-pick
 	for (i in 1:3){
 		trip[[i]] <- cutrecord(trip[[i]],sheader=header) #KZtime etc not updated yet. Is it required?
