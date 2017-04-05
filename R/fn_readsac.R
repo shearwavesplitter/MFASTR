@@ -73,7 +73,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 				#	if(del[j]){trip[[i]]$amp[j] <- NA}
 				#}
 
-				trip[[i]]$amp <- decimate(trip[[i]]$amp,r,ftype="fir")
+				trip[[i]]$amp <- decimate(trip[[i]]$amp,r,n=20,ftype="fir")
 
 			trip[[i]]$amp <- trip[[i]]$amp[!is.na(trip[[i]]$amp)]		
 			trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "npts")]]  <- length(trip[[i]]$amp)
