@@ -72,7 +72,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 				#for (j in (1:length(trip[[i]]$amp))){
 				#	if(del[j]){trip[[i]]$amp[j] <- NA}
 				#}
-
+				print("WARNING: The order of the decimating FIR filter used by SAC is not precisely known. Currently MFASTR uses order 20.")
 				trip[[i]]$amp <- decimate(trip[[i]]$amp,r,n=20,ftype="fir")
 
 			trip[[i]]$amp <- trip[[i]]$amp[!is.na(trip[[i]]$amp)]		
