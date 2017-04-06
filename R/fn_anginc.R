@@ -21,6 +21,11 @@ anginc <- function(tvel,trip){
 	evla <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "evla")]]))
 	evlo <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "evlo")]]))
 	evdp <-  as.numeric(as.character(trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "evdp")]]))
+	if(evdp < 0){return(c(NaN,NaN))}
+	if(evla == -12345){return(c(NaN,NaN))}
+	if(evlo == -12345){return(c(NaN,NaN))}
+	if(stla == -12345){return(c(NaN,NaN))}
+	if(stlo == -12345){return(c(NaN,NaN))}
 	if(stel == -12345){stel <- 0}
 
 	dist <- GreatDist(stlo,stla,evlo,evla)
