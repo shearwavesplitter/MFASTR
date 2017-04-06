@@ -76,18 +76,22 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
-		anginc <- anginc(tvel,trip)
+		stname <- as.character(trip[[1]]$sta)
 		if (length(filts$high > 0)){
+			anginc <- anginc(tvel,trip)
 			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale)
 			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)
-			if(i == 1){summary <- summline}else{summary <- rbind(summary,summline)}
+			if(!exists('summary1')){summary1 <- summline}else{summary1 <- rbind(summary1,summline)}
+			rm(event,trip,filts,anginc,maxfreq,f,summline)
 		}else{print("No good filters found")}
+
 	}
+if(exists('summary1')){summary <- summary1}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
-stat <- as.character(trip[[1]]$sta)
+stat <- stname
 inilist <- list.files(paste0(path,"/output"),pattern=".ini")
 inidir <- paste0(stat,".ini_files")
 if(dir.exists(inidir)){}else{dir.create(inidir)}
