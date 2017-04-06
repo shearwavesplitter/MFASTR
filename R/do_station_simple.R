@@ -76,7 +76,7 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
-		stname <- as.character(trip[[1]]$sta)
+		#stname <- as.character(trip[[1]]$sta)
 		if (length(filts$high > 0)){
 			anginc <- anginc(tvel,trip)
 			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale)
@@ -94,7 +94,7 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
-stat <- stname
+stat <- basename(path)
 inilist <- list.files(paste0(path,"/output"),pattern=".ini")
 inidir <- paste0(stat,".ini_files")
 if(dir.exists(inidir)){}else{dir.create(inidir)}
@@ -117,7 +117,8 @@ if(dir.exists(summdir)){}else{dir.create(summdir)}
 file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
 grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
-print(paste0("Station ",stat," done"))
+print(paste0(stat," done"))
+print(date())
 return(summary)
 }
 

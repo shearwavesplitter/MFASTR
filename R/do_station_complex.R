@@ -89,7 +89,7 @@ do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win
 if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
-stat <- as.character(trip[[1]]$sta)
+stat <- basename(path)
 inilist <- list.files(paste0(path,"/output"),pattern=".ini")
 inidir <- paste0(stat,".ini_files")
 if(dir.exists(inidir)){}else{dir.create(inidir)}
@@ -112,7 +112,8 @@ if(dir.exists(summdir)){}else{dir.create(summdir)}
 file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
 grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
-print(paste0("Station ",stat," done"))
+print(paste0(stat," done"))
+print(date())
 return(summary)
 }
 
