@@ -32,6 +32,8 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		filter <- filtlist[i,]
 		if(is.na(filter$low)){cmpname <- name}else{cmpname <- paste0(name,".",filter$low,"-",filter$high,".fb",i)}
 		logname <- paste0(cmpname,".ilognew.ass")
+		ex <- file.exists(logname)
+		if(!ex){print(paste0(logname," does not exist"))}else{
 		log <- read.table(logname,header=TRUE)
 		###Set up components of .summ file
 		event <- as.character(log$event)
@@ -99,19 +101,20 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		print(paste0("fast = ",fast," +/- ",Dfast))
 		print(paste0("tlag = ",tlag," +/- ",Dtlag))
 		print("##################################")
-		if(i == 1){fline <- line}else{fline <- rbind(fline,line)}
+		if(!exists('fline')){fline <- line}else{fline <- rbind(fline,line)}
 		###Create all six plots
 		#all6(path=path,name=cmpname,trip=trip,low=filter$low,high=filter$high) #all6 is not a priority
+		}  ## ilognew check '}'
 		## Clean files
 		if (dir.exists("output")){}else{dir.create("output")}
 		pat <- paste0("*.fb",i,".*")
 		ls2 <- list.files(path,pattern=pat)
 		for (j in 1:length(ls2)){file.copy(ls2[j],"output",overwrite=TRUE);file.remove(ls2[j])}
-
+		
 	}
 	file.remove("df.txt")
 
+if(exists('fline')){return(fline)}else{return(NULL)}
 
 
-return(fline)
 }

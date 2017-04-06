@@ -83,12 +83,15 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)
-			if(!exists('summary1')){summary1 <- summline}else{summary1 <- rbind(summary1,summline)}
+			if(!is.null(summline)){
+				if(!exists('summary1')){summary1 <- summline}else{summary1 <- rbind(summary1,summline)}
+			}
 			rm(event,trip,filts,anginc,maxfreq,f,summline)
 		}else{print("No good filters found")}
 
 	}
-if(exists('summary1')){summary <- summary1}
+
+if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
 stat <- stname

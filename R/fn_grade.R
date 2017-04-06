@@ -70,6 +70,8 @@ mean.axial <- function(vec){
 return(m2)
 }
 
+if(length(subs$cuspid) > 1){
+
 unev <- unique(subs$cuspid)
 filt <- as.numeric(gsub("^.*?fb","",subs$event))
 maxf <- max(filt)
@@ -110,4 +112,5 @@ subs <- cbind(subs,filt)
 drops <- c("filt","null")
 uniquev <- uniquev[ , !(names(uniquev) %in% drops)]
 write.table(uniquev,file=paste0(dir,"/CZ_",nam),quote=FALSE,row.names=FALSE,sep=",")
+}
 }
