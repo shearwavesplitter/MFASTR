@@ -26,5 +26,6 @@ parallel_simple <- function(path,cores=NULL,sheader="t0",type="normal",filtnum=3
 	res <- parLapply(cl,ls,do_station_simple,sheader=sheader,type=type,filtnum=filtnum,tvelpath=tvelpath,tvel=tvel)
 	stopCluster(cl)
 	print("Done")
+	print(date())
 return(res)
 }
