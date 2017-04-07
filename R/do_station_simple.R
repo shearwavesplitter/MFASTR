@@ -7,6 +7,7 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
+#' @param no_cores Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing the summary file
 #' @export
@@ -18,7 +19,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,no_cores=Inf) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes
@@ -71,8 +72,10 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 	if(is.null(tvelpath)){print("Using stored velocity model")}else{tvel <- readtvel(tvelpath)}
 	ls_east <- list.files(pattern=paste0("\\",suffe,"$"))
 	ls_all <- gsub(paste0(" *",suffe),"",ls_east)
-	for (i in 1:length(ls_all)){
-		event <- ls_all[i]
+
+	
+
+parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err){
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
@@ -83,15 +86,34 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)
-			if(!is.null(summline)){
-				if(!exists('summary1')){summary1 <- summline}else{summary1 <- rbind(summary1,summline)}
-			}
-			rm(event,trip,filts,anginc,maxfreq,f,summline)
+			return(summline)
 		}else{print("No good filters found")}
 
-	}
+	if(exists('summary1')){return(summary1)}else{return(NULL)}
+}
 
-if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
+
+
+require(parallel)
+nc <- detectCores()
+
+if(nc < no_cores){no_cores <- nc}
+
+if(no_cores == 1){
+	summary1 <- lapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+}else{
+	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
+	print("For verbose mode set no_cores=1")
+	cl <- makeCluster(no_cores)
+	clusterEvalQ(cl, library(MFASTR))
+		summary1 <- parLapply(cl,ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+	stopCluster(cl)
+}
+
+summary1 <- do.call(rbind.data.frame, summary1)
+
+
+if(!is.null(summary1)){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
 stat <- basename(path)

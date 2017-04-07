@@ -5,7 +5,7 @@
 \title{Run MFAST}
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp)
+  tvelpath = NULL, tvel = ak135_alp, no_cores = Inf)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -19,6 +19,8 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 \item{tvelpath}{Path to a .tvel file containing the velocity model (overrides tvel)}
 
 \item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
+
+\item{no_cores}{Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.}
 }
 \value{
 A dataframe containing the summary file

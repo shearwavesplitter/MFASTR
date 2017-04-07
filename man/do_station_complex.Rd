@@ -8,7 +8,7 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
   fdmax = 8, t_win_freq = 3, tlagmax = 1, Ncmin = 5, Mmax = 15,
   snrmax = 3, t_win_snr = 3, t_err = 0.02, filtnum = 3,
   type = "normal", filter = NULL, tvelpath = NULL, tvel = ak135_alp,
-  suffe = ".e", suffn = ".n", suffz = ".z")
+  suffe = ".e", suffn = ".n", suffz = ".z", no_cores = Inf)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -50,6 +50,8 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
 \item{suffn}{Suffix of north component}
 
 \item{suffz}{Suffix of vertical component}
+
+\item{no_cores}{Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.}
 }
 \value{
 A dataframe containing the summary file

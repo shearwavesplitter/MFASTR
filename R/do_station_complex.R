@@ -21,6 +21,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
+#' @param no_cores Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.
 #' @return A dataframe containing the summary file
 #' @export
 #' @examples
@@ -34,7 +35,7 @@
 #' filts <- cbind(filt_low,filt_high)
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_complex(path="~/mfast/sample_data/raw_data",filter=filts)
-do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z") {
+do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",no_cores=Inf) {
 	setwd(path)
 	tlagscale <- tlagmax
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
@@ -68,23 +69,43 @@ do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win
 	if(is.null(tvelpath)){print("Using stored velocity model")}else{tvel <- readtvel(tvelpath)}
 	ls_east <- list.files(pattern=paste0("\\",suffe,"$"))
 	ls_all <- gsub(paste0(" *",suffe),"",ls_east)
-	for (i in 1:length(ls_all)){
-		event <- ls_all[i]
+
+parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err){
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
-		filts <- filter_spread(trip,type=type,filter=filter,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
+		#stname <- as.character(trip[[1]]$sta)
 		if (length(filts$high > 0)){
 			anginc <- anginc(tvel,trip)
-			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale,Ncmin=Ncmin,Mmax=Mmax)
+			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale)
 			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)
-		if(!is.null(summline)){
-			if(!exists('summary1')){summary1 <- summline}else{summary1 <- rbind(summary1,summline)}
-		}
-			rm(event,trip,filts,anginc,maxfreq,f,summline)
+			return(summline)
 		}else{print("No good filters found")}
-	}
+
+	if(exists('summary1')){return(summary1)}else{return(NULL)}
+}
+
+
+
+require(parallel)
+nc <- detectCores()
+
+if(nc < no_cores){no_cores <- nc}
+
+if(no_cores == 1){
+	summary1 <- lapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+}else{
+	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
+	print("For verbose mode set no_cores=1")
+	cl <- makeCluster(no_cores)
+	clusterEvalQ(cl, library(MFASTR))
+		summary1 <- parLapply(cl,ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+	stopCluster(cl)
+}
+
+summary1 <- do.call(rbind.data.frame, summary1)
 
 if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 

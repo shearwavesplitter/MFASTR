@@ -107,7 +107,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		}  ## ilognew check '}'
 		## Clean files
 		if (dir.exists("output")){}else{dir.create("output")}
-		pat <- paste0("*.fb",i,".*")
+		pat <- paste0(cmpname,".*")
 		ls2 <- list.files(path,pattern=pat)
 		for (j in 1:length(ls2)){file.copy(ls2[j],"output",overwrite=TRUE);file.remove(ls2[j])}
 		
