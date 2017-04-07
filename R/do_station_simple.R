@@ -121,10 +121,11 @@ if(!is.null(summary1)){summary <- summary1}else{print("No good filters for all e
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
 stat <- basename(path)
-inilist <- list.files(paste0(path,"/output"),pattern=".ini")
+inilist <- list.files(path,pattern=".ini$")
+print(inilist)
 inidir <- paste0(stat,".ini_files")
 if(dir.exists(inidir)){}else{dir.create(inidir)}
-for (j in 1:length(inilist)){file.copy(paste0("output/",inilist[j]),inidir,overwrite=TRUE)}
+for (j in 1:length(inilist)){file.copy(inilist[j],inidir,overwrite=TRUE);file.remove(inilist[j])}
 #print("Zipping output")
 list <- list.files(paste0(path,"/output"))
 #zip("output",paste0("output/",list),extras=">/dev/null")
