@@ -97,6 +97,9 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 require(parallel)
 nc <- detectCores()
 
+st <- date()
+print(paste0("Start time: ",st))
+
 if(nc < no_cores){no_cores <- nc}
 
 if(no_cores == 1){
@@ -104,6 +107,7 @@ if(no_cores == 1){
 }else{
 	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
 	print("For verbose mode set no_cores=1")
+
 	cl <- makeCluster(no_cores)
 	clusterEvalQ(cl, library(MFASTR))
 		summary1 <- parLapply(cl,ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
@@ -140,7 +144,8 @@ file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
 grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
 print(paste0(stat," done"))
-print(date())
+et <- date()
+print(paste0("End time: ",et))
 return(summary)
 }
 

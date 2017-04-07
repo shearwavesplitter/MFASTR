@@ -92,6 +92,9 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 require(parallel)
 nc <- detectCores()
 
+st <- date()
+print(paste0("Start time: ",st))
+
 if(nc < no_cores){no_cores <- nc}
 
 if(no_cores == 1){
@@ -134,7 +137,8 @@ file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
 grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
 print(paste0(stat," done"))
-print(date())
+et <- date()
+print(paste0("End time: ",et))
 return(summary)
 }
 

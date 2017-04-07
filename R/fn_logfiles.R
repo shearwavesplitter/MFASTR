@@ -109,6 +109,9 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		if (dir.exists("output")){}else{dir.create("output")}
 		pat <- paste0(cmpname,".*")
 		ls2 <- list.files(path,pattern=pat)
+		inif <- list.files(pattern="*.ini$")
+		l2f <- ls2 %in% inif
+		ls2 <- ls2[!l2f]
 		for (j in 1:length(ls2)){file.copy(ls2[j],"output",overwrite=TRUE);file.remove(ls2[j])}
 		
 	}
