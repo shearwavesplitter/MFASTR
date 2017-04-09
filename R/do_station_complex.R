@@ -53,16 +53,17 @@ do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win
 	print(paste0("t_err = ",t_err))
 	
 	ls_east <- list.files(pattern=paste0("\\",suffe,"$"))
-	if(length(ls_east) < 1){stop("No East components found")}
+	if(length(ls_east) < 1){warning("No East components found");return(NULL)}
 
 	check1 <- checkcomp(path,E=suffe,N=suffn,Z=suffz)
 	if (check1){
-		stop("All events have components missing")	
+		warning("All events have components missing");return(NULL)
 	}
 	check2 <- checkspick(path,header=sheader,E=suffe,N=suffn,Z=suffz)
 	if (check2){
-		stop("All events have Spicks missing")	
+				warning(paste0("All events have Spicks missing in the ",sheader," header"));return(NULL)
 	}
+
 
 
 
@@ -113,7 +114,7 @@ summary1 <- do.call(rbind.data.frame, summary1)
 if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
-stat <- basename(path)
+stat <- basename(getwd())
 inilist <- list.files(path,pattern=".ini$")
 inidir <- paste0(stat,".ini_files")
 if(dir.exists(inidir)){}else{dir.create(inidir)}

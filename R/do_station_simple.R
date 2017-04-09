@@ -25,13 +25,13 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 ### Determine suffixes
  	fls <- setdiff(list.files(),list.dirs(recursive=FALSE,full.names=FALSE))
 	sfx <- sfx <- unique(gsub(".*[[:punct:]]","",fls,perl=TRUE))
-	if(length(sfx) < 3){stop("Components missing")}
+	if(length(sfx) < 3){warning("Components missing");return(NULL)}
 	cmpz <- fixcomps(sfx)
-	if(length(which(cmpz == "E")) > 1){stop("Inconsistent suffixes")}
-	if(length(which(cmpz == "N")) > 1){stop("Inconsistent suffixes")}
-	if(length(which(cmpz == "V")) > 1){stop("Inconsistent suffixes")}
-	if(length(which(cmpz == "1")) > 1){stop("Inconsistent suffixes")}
-	if(length(which(cmpz == "2")) > 1){stop("Inconsistent suffixes")}
+	if(length(which(cmpz == "E")) > 1){warning("Inconsistent suffixes");return(NULL)}
+	if(length(which(cmpz == "N")) > 1){warning("Inconsistent suffixes");return(NULL)}
+	if(length(which(cmpz == "V")) > 1){warning("Inconsistent suffixes");return(NULL)}
+	if(length(which(cmpz == "1")) > 1){warning("Inconsistent suffixes");return(NULL)}
+	if(length(which(cmpz == "2")) > 1){warning("Inconsistent suffixes");return(NULL)}
 	punctl <- nchar(sfx[1])
 	sl <- nchar(fls[1])
 	punct <- substring(fls[1],sl-punctl,sl-punctl)
@@ -56,15 +56,15 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 	print(paste0("t_err = ",t_err))
 	
 	ls_east <- list.files(pattern=paste0("\\",suffe,"$"))
-	if(length(ls_east) < 1){stop("No East components found")}
+	if(length(ls_east) < 1){warning("No East components found");return(NULL)}
 
 	check1 <- checkcomp(path,E=suffe,N=suffn,Z=suffz)
 	if (check1){
-		stop("All events have components missing")	
+		warning("All events have components missing");return(NULL)
 	}
 	check2 <- checkspick(path,header=sheader,E=suffe,N=suffn,Z=suffz)
 	if (check2){
-		stop("All events have Spicks missing")	
+				warning(paste0("All events have Spicks missing in the ",sheader," header"));return(NULL)
 	}
 
 
@@ -120,7 +120,7 @@ summary1 <- do.call(rbind.data.frame, summary1)
 if(!is.null(summary1)){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
-stat <- basename(path)
+stat <- basename(getwd())
 inilist <- list.files(path,pattern=".ini$")
 print(inilist)
 inidir <- paste0(stat,".ini_files")
