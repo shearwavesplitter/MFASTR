@@ -89,7 +89,7 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 			return(summline)
 		}else{print("No good filters found")}
 
-	if(exists('summary1')){return(summary1)}else{return(NULL)}
+	if(exists('summary1',inherits=FALSE)){return(summary1)}else{return(NULL)}
 }
 
 

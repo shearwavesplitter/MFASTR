@@ -101,7 +101,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		print(paste0("fast = ",fast," +/- ",Dfast))
 		print(paste0("tlag = ",tlag," +/- ",Dtlag))
 		print("##################################")
-		if(!exists('fline')){fline <- line}else{fline <- rbind(fline,line)}
+		if(!exists('fline',inherits=FALSE)){fline <- line}else{fline <- rbind(fline,line)}
 		###Create all six plots
 		#all6(path=path,name=cmpname,trip=trip,low=filter$low,high=filter$high) #all6 is not a priority
 		}  ## ilognew check '}'
@@ -117,7 +117,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 	}
 	file.remove("df.txt")
 
-if(exists('fline')){return(fline)}else{return(NULL)}
+if(exists('fline',inherits=FALSE)){return(fline)}else{return(NULL)}
 
 
 }

@@ -101,8 +101,8 @@ subs <- cbind(subs,filt)
 				}
 
 			}
-		if(exists('add')){
-			if(exists('uniquev')){
+		if(exists('add',inherits=FALSE)){
+			if(exists('uniquev',inherits=FALSE)){
 				uniquev <- rbind(uniquev,add)
 			}else{
 				uniquev <- add

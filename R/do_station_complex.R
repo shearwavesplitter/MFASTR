@@ -85,7 +85,7 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 			return(summline)
 		}else{print("No good filters found")}
 
-	if(exists('summary1')){return(summary1)}else{return(NULL)}
+	if(exists('summary1',inherits=FALSE)){return(summary1)}else{return(NULL)}
 }
 
 
@@ -111,7 +111,7 @@ if(no_cores == 1){
 
 summary1 <- do.call(rbind.data.frame, summary1)
 
-if(exists('summary1')){summary <- summary1}else{print("No good filters for all events");return(NULL)}
+if(exists('summary1',inherits=FALSE)){summary <- summary1}else{print("No good filters for all events");return(NULL)}
 
 ## Zip output folder -- doesn't work if there is no program or it isn't where R looks for it
 stat <- basename(getwd())
