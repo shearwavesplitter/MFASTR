@@ -16,6 +16,7 @@
 #' @param header Name of header containing the S-wave pick
 #' @param pheader Name of header containing the P-wave pick
 #' @return A list containing dataframes for each of the three components with signal and header information
+#' @importFrom signal decimate
 #' @export
 #' @details The S-wave pick must be stored on at least the east component and the P-wave pick (if present) must be stored on the vertical component
 #' @examples
