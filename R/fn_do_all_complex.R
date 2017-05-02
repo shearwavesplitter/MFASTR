@@ -31,13 +31,13 @@
 #' do_all_complex(path="~/mfast/sample_data")
 
 
-do_all_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",no_cores=Inf) {
+do_all_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_cores=Inf) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")
 	if(length(del) > 0){file.remove(paste0(path,"/",del))}
 
-	k <- lapply(ls,do_station_complex,sheader=sheader,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagmax,Ncmin=Ncmin,Mmax=Mmax,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,type=type,filtnum=filtnum,filter=filter,tvelpath=tvelpath,tvel=tvel,no_cores=no_cores)
+	k <- lapply(ls,do_station_complex,sheader=sheader,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagmax,Ncmin=Ncmin,Mmax=Mmax,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,type=type,filtnum=filtnum,filter=filter,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_cores=no_cores)
 
 
 

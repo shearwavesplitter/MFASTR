@@ -18,13 +18,13 @@
 #' write_sample("~/mfast/sample_data/raw_data3")
 #' do_all_simple(path="~/mfast/sample_data")
 
-do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,no_cores=Inf) {
+do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_cores=Inf) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")
 	if(length(del) > 0){file.remove(paste0(path,"/",del))}
 
-	k <- lapply(ls,do_station_simple,sheader=sheader,type=type,filtnum=filtnum,tvelpath=tvelpath,tvel=tvel,no_cores=no_cores)
+	k <- lapply(ls,do_station_simple,sheader=sheader,type=type,filtnum=filtnum,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_cores=no_cores)
 
 
 
