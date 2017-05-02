@@ -5,7 +5,7 @@
 \title{Write filtered SAC files}
 \usage{
 writesac_filt(path, trip, name, filtlist, number = 3, E = ".e", N = ".n",
-  Z = ".z")
+  Z = ".z", zerophase = FALSE)
 }
 \arguments{
 \item{path}{Path to folder}

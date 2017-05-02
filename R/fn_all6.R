@@ -1,6 +1,6 @@
 #This is a work in progress. Will need to use an external script to stitch these together
 #' @export
-all6 <- function(path,name,trip,low,high) {
+all6 <- function(path,name,trip,low,high,zerophase=FALSE) {
 setwd(path)
 		if (dir.exists("all6plots")){}else{dir.create("all6plots")}
 	print("Plotting all6")
@@ -156,7 +156,7 @@ layout(matrix(c(13,13,13,19,9,9,9,14,14,14,19,10,10,10,15,15,15,19,11,11,11,16,1
 
 #original wave forms
 	for (j in 1:3){
-		trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=low, fh=high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE)
+		trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=low, fh=high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=zerophase)
 		trip[[j]]$amp <- detrend(trip[[j]]$amp)
 		trip[[j]]$amp <- trip[[j]]$amp-mean(trip[[j]]$amp)
 	}

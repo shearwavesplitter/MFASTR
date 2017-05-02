@@ -5,7 +5,7 @@
 \title{Find best filters}
 \usage{
 filter_spread(trip, type = "normal", filter = NULL, t_win_snr = 3,
-  t_err = 0.05, snrmax = 3)
+  t_err = 0.05, snrmax = 3, zerophase = FALSE)
 }
 \arguments{
 \item{trip}{Seismogram triplet (output of readtriplet)}

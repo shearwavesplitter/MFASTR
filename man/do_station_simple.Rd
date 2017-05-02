@@ -5,7 +5,7 @@
 \title{Run MFAST}
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp, no_cores = Inf)
+  tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE, no_cores = Inf)
 }
 \arguments{
 \item{path}{Path to folder}

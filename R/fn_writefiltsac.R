@@ -18,7 +18,7 @@
 #' triplet <- readtriplet(event)
 #' bestfilt <- filter_spread(triplet)
 #' f <- writesac_filt(pathto,triplet,event,bestfilt)
-writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z") {
+writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z",zerophase=FALSE) {
 	setwd(path)
 	trip0 <- trip
 	if (number > length(filtlist$high)){
@@ -34,7 +34,7 @@ writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z")
 		print(paste0("Writing ",name,".",filter$low,"-",filter$high,".fb",i))
 		for (j in 1:2){
 			comp <- c(E,N,Z)
-			trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=filter$low, fh=filter$high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE) #zp=FALSE so filter isn't zero phase (one pass)
+			trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=filter$low, fh=filter$high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=zerophase) #zerophase=FALSE so filter isn't zero phase (one pass)
 			sm.write1sac(trip[[j]],paste0(name,".",filter$low,"-",filter$high,".fb",i,comp[j]))
 		}
 	

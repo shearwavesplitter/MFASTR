@@ -16,7 +16,7 @@
 #' write_sample("~/mfast/sample_data/raw_data")
 #' triplet <- readtriplet("2002.054.09.47.lhor2",path="~/mfast/sample_data/raw_data")
 #' bestfilt <- filter_spread(triplet,filter=filts)
-filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3){
+filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3,zerophase=FALSE){
 
 	if (type == "normal"){
 		f1 <- cbind(0.4,4)
@@ -83,8 +83,8 @@ filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,
 			high <- high - 2
 		}
 		#plot(trip[[1]]$amp,type="l")
-		Efilt <- butfilt(trip[[1]]$amp, fl=low, fh=high, deltat=trip[[1]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE) #zp=FALSE so filter isn't zero phase (one pass)
-		Nfilt <- butfilt(trip[[2]]$amp, fl=low, fh=high, deltat=trip[[2]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE)
+		Efilt <- butfilt(trip[[1]]$amp, fl=low, fh=high, deltat=trip[[1]]$dt, type="BP" , proto="BU",npoles=2,zp=zerophase) #zerophase=FALSE so filter isn't zero phase (one pass)
+		Nfilt <- butfilt(trip[[2]]$amp, fl=low, fh=high, deltat=trip[[2]]$dt, type="BP" , proto="BU",npoles=2,zp=zerophase)
 		#print(p)
 		#print(s)
 		#plot(seq(0,length(Efilt)*trip[[1]]$dt-trip[[1]]$dt,trip[[1]]$dt),Efilt,type="l")

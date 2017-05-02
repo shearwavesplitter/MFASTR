@@ -19,7 +19,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,no_cores=Inf) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_cores=Inf) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes
@@ -75,15 +75,15 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 
 	
 
-parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err){
+parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err,zerophase){
 		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
-		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
 		#stname <- as.character(trip[[1]]$sta)
 		if (length(filts$high > 0)){
 			anginc <- anginc(tvel,trip)
-			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale)
-			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz)
+			maxfreq <- createini(path,trip,filts,event,filtnum,E=suffe,N=suffn,Z=suffz,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagscale,zerophase=zerophase)
+			f <- writesac_filt(path,trip,event,filts,number=filtnum,E=suffe,N=suffn,Z=suffz,zerophase=zerophase)
 			run_mfast(path,event,f)
 			summline <- logfiles(path,event,trip,f,maxfreq,anginc=anginc)
 			return(summline)
@@ -103,14 +103,14 @@ print(paste0("Start time: ",st))
 if(nc < no_cores){no_cores <- nc}
 
 if(no_cores == 1){
-	summary1 <- lapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+	summary1 <- lapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase)
 }else{
 	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
 	print("For verbose mode set no_cores=1")
 
 	cl <- makeCluster(no_cores)
 	clusterEvalQ(cl, library(MFASTR))
-		summary1 <- parLapply(cl,ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err)
+		summary1 <- parLapply(cl,ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase)
 	stopCluster(cl)
 }
 

@@ -10,7 +10,7 @@
 #' @param Z Suffix of the vertical component
 #' @param n Number for suffix .fbn (e.g .fb2)
 #' @export
-writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1) {
+writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1,zerophase=FALSE) {
 	setwd(path)
 	trip0 <- trip
 	
@@ -23,7 +23,7 @@ writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1) {
 				if(is.null(low) | is.null(high)){
 					sm.write1sac(trip[[j]],paste0(name,comp[j]))
 				}else{
-					trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=low, fh=high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=FALSE) #zp=FALSE so filter isn't zero phase (one pass)
+					trip[[j]]$amp <- butfilt(trip[[j]]$amp, fl=low, fh=high, deltat=trip[[j]]$dt, type="BP" , proto="BU",npoles=2,zp=zerophase) #zerophase=FALSE so filter isn't zero phase (one pass)
 					sm.write1sac(trip[[j]],paste0(name,".",low,"-",high,".fb",n,comp[j]))
 				}
 			}

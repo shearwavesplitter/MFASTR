@@ -5,7 +5,7 @@
 \title{Simple write}
 \usage{
 writesac_filtsmp(path, trip, name, low, high, E = ".e", N = ".n",
-  Z = ".z", n = 1)
+  Z = ".z", n = 1, zerophase = FALSE)
 }
 \arguments{
 \item{path}{Path to folder}
