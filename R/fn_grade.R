@@ -29,6 +29,7 @@ grade <- function(path,minsnr=3,tlagmax=1,minl=0){
 	
 	subs <- summ
 	finalgrade <- rep("n",length(subs$fast))
+	if(length(subs$fast) == 0){return()}
 for (i in 1:length(subs$fast)){
 	if ((subs$tlag[i] < (0.8*tlagmax)) && (subs$SNR[i] > minsnr) && (subs$Dfast[i] < 10)){
 			finalgrade[i] <- "AB"
@@ -45,7 +46,7 @@ subs <- subset(subs, lambdamax > minl)
 
 drops2 <- c("null")
 subs2 <- subs[ , !(names(subs) %in% drops2)]
-if(length(subs2 == 0)){return()}
+if(length(subs2$fast) == 0){return()}
 write.table(subs2,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
 
 #Castelazzi filtering. At least two filters have to give a similar result
