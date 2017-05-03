@@ -51,7 +51,7 @@ do_all_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3, fdmax = 8,
 
 \item{suffz}{Suffix of vertical component}
 
-\item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores}
+\item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores}
 }
 \value{
 A dataframe containing a summary of all the stations

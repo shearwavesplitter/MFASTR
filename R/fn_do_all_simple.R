@@ -7,7 +7,7 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
-#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing a summary of all the stations
 #' @export

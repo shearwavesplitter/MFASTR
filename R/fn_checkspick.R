@@ -25,7 +25,7 @@ checkspick <- function(path,suffix="E",header="t0",E=".e",N=".n",Z=".z"){
 		if (test2$values[[wh]] == "-12345"){
 			print(paste0("No Spick for ",test$fn))
 			c <- c+1
-			if (dir.exists("nospicks",inherits=FALSE)){}else{dir.create("nospicks")}
+			if (dir.exists("nospicks")){}else{dir.create("nospicks")}
 			name <- gsub(paste0(" *",suffix),"",test$fn)
 			file.copy(paste0(name,E),"nospicks")
 			file.remove(paste0(name,E))

@@ -7,7 +7,7 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
-#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing the summary file
 #' @export
@@ -100,7 +100,7 @@ nc <- parallel::detectCores()
 st <- Sys.time()
 print(paste0("Start time: ",st))
 
-if(is.null(no_threads)){no_threads <- nc*2}
+if(is.null(no_threads)){no_threads <- nc}
 if(no_threads > length(ls_all)){no_threads <- length(ls_all)}
 if(no_threads > 1){
 	silent <- TRUE
@@ -158,6 +158,8 @@ et <- Sys.time()
 print(paste0("End time: ",et))
 print("Total run time:")
 print(et-st)
-return(summary)
+summ <- read.csv(paste0(summdir,"/",summname))
+
+return(summ)
 }
 

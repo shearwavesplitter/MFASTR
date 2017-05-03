@@ -41,7 +41,7 @@ path <- "~/path/to/folder"
 do_station_simple(path)
 ```
 
-These codes are run on twice as many threads as available cores. The no_threads option allows this to be changed.
+Measurements are run in parallel and defaults to the number of cores available. The no_threads option allows this to be changed.
 
 ```r
 library(MFASTR)

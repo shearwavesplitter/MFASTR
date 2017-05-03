@@ -28,31 +28,24 @@ grade <- function(path,minsnr=3,tlagmax=1,minl=0){
 	write.table(nulls,file=paste0(dir,"/NULL_",nam),quote=FALSE,row.names=FALSE,sep=",")
 	
 	subs <- summ
-	finalgrade <- 1
+	finalgrade <- rep("n",length(subs$fast))
 for (i in 1:length(subs$fast)){
 	if ((subs$tlag[i] < (0.8*tlagmax)) && (subs$SNR[i] > minsnr) && (subs$Dfast[i] < 10)){
-		if (finalgrade[1] != 1) {
-			finalgrade <- rbind(finalgrade,"AB")
-		} else {
-			finalgrade <- "AB"
-		}
+			finalgrade[i] <- "AB"
 	} else {
-		if (finalgrade[1] != 1) {
-			finalgrade <- rbind(finalgrade,"NA")
-		} else {
-			finalgrade <- "NA"
-		}
+
+			finalgrade[i] <- "NA"
 	}
 }
 
 
 subs <- subset(subs, finalgrade == "AB")
 
-subs <- subs[subs$lambdamax > minl, ]
-
+subs <- subset(subs, lambdamax > minl)
 
 drops2 <- c("null")
 subs2 <- subs[ , !(names(subs) %in% drops2)]
+if(length(subs2 == 0)){return()}
 write.table(subs2,file=paste0(dir,"/AB_",nam),quote=FALSE,row.names=FALSE,sep=",")
 
 #Castelazzi filtering. At least two filters have to give a similar result
@@ -81,6 +74,7 @@ subs <- cbind(subs,filt)
 		rm('add')
 		eventn <- unev[i]
 		fsub <- subset(subs, cuspid == eventn)
+		
 			if (length(fsub$fast) == 1){
 				add <- fsub
 				add$finalgrade <- "F1"
@@ -89,7 +83,6 @@ subs <- cbind(subs,filt)
 					ln <- length(fsub$fast)
 					m <- mean.axial(fsub$fast)
 					dif <- abs(fsub$fast*2-m*2)
-
 					for (k in 1:length(dif)){
 						if(dif[k] > 180){dif[k] <- 360-abs(dif[k])}
 					}

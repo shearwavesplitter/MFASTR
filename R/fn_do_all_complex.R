@@ -20,7 +20,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
-#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
 #' @return A dataframe containing a summary of all the stations
 #' @export
 #' @examples

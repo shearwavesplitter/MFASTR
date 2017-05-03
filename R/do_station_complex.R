@@ -21,7 +21,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
-#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
 #' @return A dataframe containing the summary file
 #' @export
 #' @examples
@@ -95,7 +95,7 @@ nc <- parallel::detectCores()
 st <- Sys.time()
 print(paste0("Start time: ",st))
 
-if(is.null(no_threads)){no_threads <- nc*2}
+if(is.null(no_threads)){no_threads <- nc}
 if(no_threads > length(ls_all)){no_threads <- length(ls_all)}
 if(no_threads > 1){
 	silent <- TRUE
@@ -149,6 +149,8 @@ print(paste0(stat," done"))
 et <- Sys.time()
 print("Total run time:")
 print(et-st)
-return(summary)
+summ <- read.csv(paste0(summdir,"/",summname))
+
+return(summ)
 }
 
