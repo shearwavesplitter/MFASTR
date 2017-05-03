@@ -108,7 +108,7 @@ if(no_cores > 1){
 }
 
 	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
-	summary1 <- mclapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_cores,mc.silent=silent)
+	summary1 <- mclapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_cores,mc.silent=silent,mc.preschedule=FALSE)
 
 ############ This section is for windows parallelisations if this package were to be made windows compatible. We will use mclapply for now instead. This also has potential to parallelise over multiple systems
 #if(no_cores == 1){
