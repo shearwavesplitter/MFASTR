@@ -5,7 +5,8 @@
 \title{Run MFAST}
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE, no_cores = Inf)
+  tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE,
+  no_threads = NULL)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -20,7 +21,7 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 
 \item{tvel}{A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)}
 
-\item{no_cores}{Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.}
+\item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores}
 }
 \value{
 A dataframe containing the summary file

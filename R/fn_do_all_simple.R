@@ -7,7 +7,7 @@
 #' @param filtnum Number of filters to test
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
-#' @param no_cores Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing a summary of all the stations
 #' @export
@@ -18,13 +18,13 @@
 #' write_sample("~/mfast/sample_data/raw_data3")
 #' do_all_simple(path="~/mfast/sample_data")
 
-do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_cores=Inf) {
+do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")
 	if(length(del) > 0){file.remove(paste0(path,"/",del))}
-
-	k <- lapply(ls,do_station_simple,sheader=sheader,type=type,filtnum=filtnum,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_cores=no_cores)
+	st <- Sys.time()
+	k <- lapply(ls,do_station_simple,sheader=sheader,type=type,filtnum=filtnum,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_threads=no_threads)
 
 
 
@@ -105,7 +105,6 @@ return(m2)
 		if(nCZ > 0){tCZ <- mean(subCZ$tlag)}else{tCZ <- NA}
 		
 		vec <- cbind(unstat[i],round(m,2),round(t,2),n,round(mAB,2),round(tAB,2),nAB,round(mCZ,2),round(tCZ,2),nCZ)
-		print(vec)
 		if(i == 1){fvec <- vec}else{fvec <- rbind(fvec,vec)}
 	
 	}
@@ -113,6 +112,9 @@ return(m2)
 	fvec <- as.data.frame(fvec)
 	colnames(fvec) <- c("Station","fast","tlag","#","ABfast","ABtlag","AB#","CZfast","CZtlag","CZ#")
 	write.table(fvec,file=paste0(dirn,".",jday,".means"),quote=FALSE,row.names=FALSE,sep=",")
-return(fvec)
+	et <- Sys.time()
+	print("Total run time for all stations:")
+	print(et-st)
+#return(fvec)
 }
 

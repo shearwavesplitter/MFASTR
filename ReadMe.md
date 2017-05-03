@@ -32,7 +32,7 @@ devtools::install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
-To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component. Suffixes are automatically detected
+To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component. Suffixes are automatically detected but must the final letter of the filenames.
 
 
 ```r
@@ -40,6 +40,15 @@ library(MFASTR)
 path <- "~/path/to/folder"
 do_station_simple(path)
 ```
+
+These codes are run on twice as many threads as available cores. The no_threads option allows this to be changed.
+
+```r
+library(MFASTR)
+path <- "~/path/to/folder"
+do_station_simple(path,no_threads=1) #Run in verbose mode with on thread on one core
+```
+
 
 To run on the MFAST sample data first create an empty directory
 

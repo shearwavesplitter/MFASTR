@@ -21,7 +21,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
-#' @param no_cores Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
 #' @return A dataframe containing the summary file
 #' @export
 #' @examples
@@ -35,7 +35,7 @@
 #' filts <- cbind(filt_low,filt_high)
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_complex(path="~/mfast/sample_data/raw_data",filter=filts)
-do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_cores=Inf) {
+do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_threads=NULL) {
 	setwd(path)
 	tlagscale <- tlagmax
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
@@ -90,20 +90,20 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 
 
 
-require(parallel)
-nc <- detectCores()
+nc <- parallel::detectCores()
 
-st <- date()
+st <- Sys.time()
 print(paste0("Start time: ",st))
 
-if(nc < no_cores){no_cores <- nc}
-if(no_cores > 1){
+if(is.null(no_threads)){no_threads <- nc*2}
+if(no_threads > length(ls_all)){no_threads <- length(ls_all)}
+if(no_threads > 1){
 	silent <- TRUE
-	print("For verbose mode set no_cores=1")
+	print("For verbose mode set no_threads=1")
 
-}
-	print(paste0("Running ", length(ls_all)," events on ",no_cores," cores"))
-		summary1 <- mclapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_cores,mc.silent=silent,mc.preschedule=FALSE)
+}else{silent <- FALSE}
+		print(paste0("Running ", length(ls_all)," events on ",no_threads," threads across ",nc," cores"))
+		summary1 <- mclapply(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_threads,mc.silent=silent,mc.preschedule=FALSE)
 
 ############ This section is for windows parallelisations if this package were to be made windows compatible. We will use mclapply for now instead. This also has potential to parallelise over multiple systems
 #if(no_cores == 1){
@@ -146,8 +146,9 @@ file.copy(summname,summdir,overwrite=TRUE)
 file.remove(summname)
 grade(paste0(summdir,"/",summname),minsnr=3,tlagmax=tlagscale)
 print(paste0(stat," done"))
-et <- date()
-print(paste0("End time: ",et))
+et <- Sys.time()
+print("Total run time:")
+print(et-st)
 return(summary)
 }
 

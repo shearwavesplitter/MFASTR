@@ -9,7 +9,7 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
   snrmax = 3, t_win_snr = 3, t_err = 0.02, filtnum = 3,
   type = "normal", filter = NULL, tvelpath = NULL, tvel = ak135_alp,
   suffe = ".e", suffn = ".n", suffz = ".z", zerophase = FALSE,
-  no_cores = Inf)
+  no_threads = NULL)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -52,7 +52,7 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
 
 \item{suffz}{Suffix of vertical component}
 
-\item{no_cores}{Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.}
+\item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores}
 }
 \value{
 A dataframe containing the summary file

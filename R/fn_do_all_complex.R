@@ -20,7 +20,7 @@
 #' @param suffe Suffix of east component 
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
-#' @param no_cores Number of cores to run measurements on. Set to 1 for verbose mode. Defaults to maximum available.
+#' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to twice the number of cores
 #' @return A dataframe containing a summary of all the stations
 #' @export
 #' @examples
@@ -31,13 +31,13 @@
 #' do_all_complex(path="~/mfast/sample_data")
 
 
-do_all_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_cores=Inf) {
+do_all_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_threads=NULL) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")
 	if(length(del) > 0){file.remove(paste0(path,"/",del))}
-
-	k <- lapply(ls,do_station_complex,sheader=sheader,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagmax,Ncmin=Ncmin,Mmax=Mmax,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,type=type,filtnum=filtnum,filter=filter,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_cores=no_cores)
+	st <- Sys.time()
+	k <- lapply(ls,do_station_complex,sheader=sheader,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagmax=tlagmax,Ncmin=Ncmin,Mmax=Mmax,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,type=type,filtnum=filtnum,filter=filter,tvelpath=tvelpath,tvel=tvel,zerophase=zerophase,no_threads=no_threads)
 
 
 
@@ -125,6 +125,9 @@ return(m2)
 	fvec <- as.data.frame(fvec)
 	colnames(fvec) <- c("Station","fast","tlag","#","ABfast","ABtlag","AB#","CZfast","CZtlag","CZ#")
 	write.table(fvec,file=paste0(dirn,".",jday,".means"),quote=FALSE,row.names=FALSE,sep=",")
+	et <- Sys.time()
+	print("Total run time for all stations:")
+	print(et-st)
 return(fvec)
 }
 
