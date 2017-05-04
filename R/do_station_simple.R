@@ -19,7 +19,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes
@@ -109,7 +109,7 @@ if(no_threads > 1){
 }else{silent <- FALSE}
 
 	print(paste0("Running ", length(ls_all)," events on ",no_threads," threads across ",nc," cores"))
-	summary1 <- mclapply2(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_threads,mc.silent=silent,mc.preschedule=TRUE)
+	summary1 <- mclapply2(ls_all,parallel2,suffe=suffe,suffn=suffn,suffz=suffz,sheader=sheader,filtnum=filtnum,tvel=tvel,type=type,nwbeg=nwbeg,fdmin=fdmin,fdmax=fdmax,t_win_freq=t_win_freq,tlagscale=tlagscale,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase,mc.cores =no_threads,mc.silent=silent,mc.preschedule=mc.preschedule)
 
 ############ This section is for windows parallelisations if this package were to be made windows compatible. We will use mclapply for now instead. This also has potential to parallelise over multiple systems
 #if(no_cores == 1){

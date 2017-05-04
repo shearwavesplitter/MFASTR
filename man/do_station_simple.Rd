@@ -6,7 +6,7 @@
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
   tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE,
-  no_threads = NULL)
+  no_threads = NULL, mc.preschedule = TRUE)
 }
 \arguments{
 \item{path}{Path to folder}
