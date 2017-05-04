@@ -1,5 +1,4 @@
 ## Source: https://stackoverflow.com/questions/10984556/is-there-way-to-track-progress-on-a-mclapply/26892969#26892969
-require(parallel)
 
 ##------------------------------------------------------------------------------
 ##' Wrapper around mclapply to track progress
@@ -30,7 +29,7 @@ mclapply2 <- function(X, FUN, ...,
     mc.silent = FALSE, mc.cores = getOption("mc.cores", 2L),
     mc.cleanup = TRUE, mc.allow.recursive = TRUE,
     mc.progress=TRUE, mc.style=3) 
-{
+{require(parallel)
     if (!is.vector(X) || is.object(X)) X <- as.list(X)
 
     if (mc.progress) {
