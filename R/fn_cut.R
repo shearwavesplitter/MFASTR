@@ -15,7 +15,7 @@ cutrecord <- function(wav,pheader="a",sheader="t0"){
 	b <- as.numeric(b)
 	b <- round(b,2)
 	o <- as.numeric(o)
-	if(b != 0){print("WARNING: B is not equal to zero, this functionality has not been tested")}
+	if(b != 0){print("WARNING: B is not equal to zero and it always should be. If you're seeing this contact the developers")}
 	if(a == -12345){
 		fcut <- s-15
 	}else{

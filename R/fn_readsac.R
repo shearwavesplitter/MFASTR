@@ -32,13 +32,32 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	Nsac <- JSAC.seis(paste0(event,N))[[1]]
 	Zsac <- JSAC.seis(paste0(event,Z))[[1]]
 	trip <- list(Esac,Nsac,Zsac)
-	val <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == header)]])
-	val2 <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == paste0("k",header))]])
-	val3 <- as.character(Zsac$HEAD$values[[which(Zsac$HEAD$names == pheader)]])
-	valor <- as.character(Esac$HEAD$values[[which(Esac$HEAD$names == "o")]])
-	if (val == -12345){print(paste0(event," has no Spick on the East component"));return(NULL)}
 	for (i in 1:3){
-		trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
+	trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
+	###### Adjust B to zero
+	b <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "b")]])
+	b <- round(b,3)
+	t <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]])
+	if(t != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]] <- as.character(t-b)}
+	a  <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == pheader)]])
+	if(a != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]] <- as.character(a-b)}
+	o  <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == pheader)]])
+	if(o != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "o")]] <- as.character(o-b)}
+	trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "b")]] <- as.character(0)
+	##############
+	}
+	
+	Esac <- trip[[1]]
+	Nsac <- trip[[2]]
+	Zsac <- trip[[3]]
+
+	val <- Esac$HEAD$values[[which(Esac$HEAD$names == header)]]
+	val2 <- Esac$HEAD$values[[which(Esac$HEAD$names == paste0("k",header))]]
+	val3 <- Zsac$HEAD$values[[which(Zsac$HEAD$names == pheader)]]
+	valor <- Esac$HEAD$values[[which(Esac$HEAD$names == "o")]]
+	if (as.numeric(val) == -12345){print(paste0(event," has no Spick on the East component"));return(NULL)}
+	for (i in 1:3){
+		#trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "t5")]] <- val
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "t0")]]  <- val
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "a")]]  <- val3
@@ -52,6 +71,9 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 		trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "kuser0")]] <- -12345
 		trip[[i]]$amp <- trip[[i]]$amp-mean(trip[[i]]$amp) #Is this the correct way to remove the mean? (rmean from sac)
 		trip[[i]]$amp <- detrend(trip[[i]]$amp) #Detrend waveform
+
+
+
 	}
 
 	# downsample broadband data to prevent program crash
@@ -96,12 +118,9 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	}
 
 
-	#check to make sure B is equal for all components
-	b1 <- trip[[1]]$HEAD$values[[which(trip[[1]]$HEAD$names == "b")]]
-	b2 <- trip[[2]]$HEAD$values[[which(trip[[2]]$HEAD$names == "b")]]
-	b3 <- trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "b")]]
 
-	if(b1 != b2 | b2 != b3){print("WARNING: B header is different. Contact developers");return(NULL)}
+
+
 
 	for (i in 1:3){
 		trip[[i]]$HEAD$values <- as.factor(trip[[i]]$HEAD$values) ###Convert characters back to factors
