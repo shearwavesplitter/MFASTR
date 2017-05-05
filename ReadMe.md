@@ -32,7 +32,7 @@ devtools::install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
-To run measurements on events in a target directory. Picks must be relative to the start of the trace and the P-wave pick must be in the 'a' header on the Z component. Suffixes are automatically detected but must the final letter of the filenames.
+To run measurements on events in a target directory. The P-wave pick must be in the 'a' header on the Z component and the S-wave pick must be on the E component (and defaults to 't0'). Suffixes are automatically detected but must the final letter of the filenames.
 
 
 ```r
@@ -41,7 +41,7 @@ path <- "~/path/to/folder"
 do_station_simple(path)
 ```
 
-Measurements are run in parallel and defaults to the number of cores available. The no_threads option allows this to be changed.
+Measurements are run in parallel and defaults to automatically determining the best number of threads/cores to use. The no_threads option allows you to specify how many threads to use. Set no_threads=1 for verbose mode.
 
 ```r
 library(MFASTR)
