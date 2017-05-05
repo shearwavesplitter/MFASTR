@@ -13,6 +13,7 @@
 #' @export
 checkspick <- function(path,suffix="E",header="t0",E=".e",N=".n",Z=".z"){
 	setwd(path)
+	print("Checking for S-wave picks")
 	c <- 0
 	suffix <- get(suffix)
 	ls_east <- list.files(pattern=paste0("\\",suffix,"$"))

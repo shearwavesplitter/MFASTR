@@ -7,6 +7,7 @@
 #' @export
 checkcomp <- function(path,E=".e",N=".n",Z=".z"){
 	setwd(path)
+	print("Checking for all components")
 	substrRight <- function(x, n){
   		substr(x, nchar(x)-n+1, nchar(x))
 	}

@@ -9,7 +9,7 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
   snrmax = 3, t_win_snr = 3, t_err = 0.02, filtnum = 3,
   type = "normal", filter = NULL, tvelpath = NULL, tvel = ak135_alp,
   suffe = ".e", suffn = ".n", suffz = ".z", zerophase = FALSE,
-  no_threads = NULL)
+  no_threads = NULL, mc.preschedule = TRUE)
 }
 \arguments{
 \item{path}{Path to folder}
