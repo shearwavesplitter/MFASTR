@@ -36,14 +36,17 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
 	###### Adjust B to zero
 	b <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "b")]])
-	b <- round(b,3)
+	b <- round(b,9)
 	t <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]])
 	if(t != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]] <- as.character(t-b)}
 	a  <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == pheader)]])
 	if(a != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == header)]] <- as.character(a-b)}
 	o  <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == pheader)]])
 	if(o != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "o")]] <- as.character(o-b)}
+	e  <- as.numeric(trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "e")]])
+	if(e != -12345){trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "e")]] <- as.character(e-b)}
 	trip[[i]]$HEAD$values[[which(trip[[i]]$HEAD$names == "b")]] <- as.character(0)
+
 	##############
 	}
 	
