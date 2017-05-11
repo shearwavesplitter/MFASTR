@@ -91,7 +91,7 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 
 
 nc <- parallel::detectCores()
-if(is.null(no_threads)){no_threads <- speed(path)}
+if(is.null(no_threads)){no_threads <- speed(path)[1]}
 st <- Sys.time()
 print(paste0("Start time: ",st))
 

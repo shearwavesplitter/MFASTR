@@ -93,7 +93,7 @@ parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fd
 }
 
 
-if(is.null(no_threads)){no_threads <- speed(path)}
+if(is.null(no_threads)){no_threads <- speed(path)[1]}
 
 nc <- parallel::detectCores()
 

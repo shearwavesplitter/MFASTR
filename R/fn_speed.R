@@ -31,7 +31,7 @@ return(time)
 
 t <- sapply(s,f)
 setwd(path)
-m <- which(t[3,] == min(t[3,]))+(st-1)
+m <- which(t[3,] == min(t[3,]))+(st-1)[[1]]
 setwd(path)
 unlink(paste0(path,"/speed"),recursive=TRUE)
 return(as.numeric(m))
