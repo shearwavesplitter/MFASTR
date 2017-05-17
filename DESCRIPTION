@@ -7,8 +7,7 @@ Description: This is a port of the MFAST codes into R. The main functions do_sta
 URL: http://mfast-package.geo.vuw.ac.nz/
 BugReports: https://github.com/shearwavesplitter/MFASTR/issues
 Depends: R (>= 2.14), RSEIS, TauP.R
-Imports: signal, parallel
-Suggests: circular
+Imports: signal, parallel, circular
 SystemRequirements: GNU make, Linux
 License: 
 Encoding: UTF-8

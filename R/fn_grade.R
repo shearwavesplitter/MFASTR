@@ -89,7 +89,7 @@ subs <- cbind(subs,filt)
 					}
 					dif <- dif/2
 	
-					difsub <- subset(dif, dif < 10)
+					difsub <- subset(dif, dif < 10*2)
 					if(length(difsub) == ln){nmin <- which.min(fsub$Dfast); add <- fsub[nmin,];add$finalgrade <- paste0("F",ln);sw <- TRUE}else{del <- max(which.max(dif)); fsub <- fsub[-del,]}
 					if(length(difsub) == 1){sw <- TRUE}
 				}
