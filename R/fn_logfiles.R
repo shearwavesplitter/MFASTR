@@ -39,7 +39,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		event <- as.character(log$event)
 		stat <- east$sta
 		slat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "stla")]]),4)
-		slon <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "stlo")]]),3)
+		slon <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "stlo")]]),4)
 		cuspid <- name
 		year <- east$DATTIM$yr
 		o <- as.numeric(east$HEAD$values[[which(east$HEAD$names == "o")]])
@@ -47,10 +47,10 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		if(ocorr == -12345){ocorr <- 0}
 		if(o == -12345){o <- 0}
 		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+ocorr)/60)/60)/24,4)
-		evla <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evla")]]),2)
-		evlo <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evlo")]]),2)
+		evla <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evla")]]),4)
+		evlo <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evlo")]]),4)
 		distevstat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "dist")]]),4)
-		depthkm <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evdp")]]),1)
+		depthkm <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evdp")]]),4)
 		if(depthkm > 900){depthkm <- depthkm/1000}
 		mag <- -12345
 		baz <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "baz")]]),3)
