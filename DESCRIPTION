@@ -6,8 +6,8 @@ Authors@R: person("Stefan", "Mroczek", email = "s.mroczek@outlook.com", role = c
 Description: This is a port of the MFAST codes into R. The main functions do_station_simple and do_station_complex replicate MFAST's usability. Other functions in this package are documented to give advanced users more fexability.  
 URL: http://mfast-package.geo.vuw.ac.nz/
 BugReports: https://github.com/shearwavesplitter/MFASTR/issues
-Depends: R (>= 2.14), RSEIS, TauP.R
-Imports: signal, parallel, circular
+Depends: R (>= 2.14), RSEIS, TauP.R, circular
+Imports: signal, parallel
 SystemRequirements: GNU make, Linux
 License: 
 Encoding: UTF-8
