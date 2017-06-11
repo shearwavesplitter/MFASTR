@@ -45,18 +45,30 @@ for (i in 1:length(m$fast)){
 
 return(m)
 }
+#' @title Read null
+#' @description Reads in multiple null graded .summ files
+#' @param path The path to the folder containing the .summ files
+#' @return A dataframe containing all the .summ files
 #' @export
 summ.null <- function(path){
 pat <- paste0("^NULL_*")
 s <- summ.read(path=path,pattern=pat)
 return(s)
 }
+#' @title Read cz
+#' @description Reads in multiple CZ graded .summ files
+#' @param path The path to the folder containing the .summ files
+#' @return A dataframe containing all the .summ files
 #' @export
 summ.cz <- function(path){
 pat <- paste0("^CZ_*")
 s <- summ.read(path=path,pattern=pat)
 return(s)
 }
+#' @title Read AB
+#' @description Reads in multiple AB graded .summ files
+#' @param path The path to the folder containing the .summ files
+#' @return A dataframe containing all the .summ files
 #' @export
 summ.ab <- function(path){
 pat <- paste0("^AB_*")

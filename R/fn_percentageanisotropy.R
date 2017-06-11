@@ -1,8 +1,8 @@
 #' @title Weighted percentage anisotropy
 #' @description Determine the weighted percentage anisotropy and shear wave anisotropy for each stations in a summary file
-#' @param summ Dataframe containing MFASt summary file
+#' @param summ Dataframe containing MFAST summary file
 #' @param weights A vector containing the desired weights 
-#' @return A dataframe containing each station and their corresponding percentage anistropy and shear wave anisotropy
+#' @return A dataframe containing each station and their corresponding percentage anistropy and shear wave anisotropy. As well as average values for all stations
 #' @export
 perani <- function(summ,weights=NULL){
 	if(is.null(weights)){
@@ -35,5 +35,24 @@ perani <- function(summ,weights=NULL){
 	table2 <- as.data.frame(table2)
 	colnames(table2) <- c("Station", "panisot","swa")
 	table2 <- table2[order(table2$Station),]
-return(table2)
+
+		sub <- summ
+		tlag <- sub$tlag
+		topdist <- sub$distevstat
+		depth <- sub$depthkm
+		d <- sqrt(topdist^2+depth^2)
+		vf <- d/sub$ttime
+		vs <- d/(sub$ttime+sub$tlag)
+		vavg <- (vf+vs)/2
+		rav <- ((vf-vs)/vavg)*100
+		name <- as.character(unstat[i])
+		SWA <- ((vf-vs)/vf)*100
+		mrav <- sum(rav*sub$weights)/sum(sub$weights)
+		mswa <- sum(SWA*sub$weights)/sum(sub$weights)
+res <- list()
+res$stat <- table2
+res$swa <- mswa
+res$k <- mrav
+
+return(res)
 }

@@ -7,12 +7,12 @@
 perani(summ, weights = NULL)
 }
 \arguments{
-\item{summ}{Dataframe containing MFASt summary file}
+\item{summ}{Dataframe containing MFAST summary file}
 
 \item{weights}{A vector containing the desired weights}
 }
 \value{
-A dataframe containing each station and their corresponding percentage anistropy and shear wave anisotropy
+A dataframe containing each station and their corresponding percentage anistropy and shear wave anisotropy. As well as average values for all stations
 }
 \description{
 Determine the weighted percentage anisotropy and shear wave anisotropy for each stations in a summary file

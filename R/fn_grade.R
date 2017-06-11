@@ -4,6 +4,7 @@
 #' @param minsnr Minimum SNR allowed for an AB+ grade
 #' @param tlagmax Maximum time delay allowed for an AB+ grade
 #' @param minl Minimum lambdamax allowed for a AB+ grade
+#' @param mfast Set to TRUE to grade a .summ file produced by the original MFAST
 #' @export
 #' @examples
 #' # (Re)grade LHOR2.75.summ
@@ -13,11 +14,16 @@
 #' grade(pathto)
 #Castelazzi grading is based on castelazzi however, to expand to potentially more than 3 filters, all values must be within 10 degrees of their mean. If they are not then the one furtherest from the mean is removed (favouring removal of worse filters) and the test is repeated 
 #Grading of very local in the MFAST sample data uses the normal defaults (e.g. SNR > 3 for AB measurement). Makes more sense to use maxnsr (minsnr) from processing. However, in the do_station scripts, we follow MFAST's approach. 
-grade <- function(path,minsnr=3,tlagmax=1,minl=0){
+grade <- function(path,minsnr=3,tlagmax=1,minl=0,mfast=FALSE){
 	print("Grading measurements")
 	print(paste0("Miniumum SNR = ",minsnr))
 	print(paste0("Maximum delay time = ",tlagmax*0.8))
-	summ <- read.csv(path)
+	if(mfast){
+	 summ <- readmfast(path)
+	}else{
+		summ <- read.csv(path)
+	}
+	if(is.null(summ$null)){stop("No null vector found, try setting mfast=TRUE if using original .summ file")}
 	summ <- summ[summ$gradeABCNR %in% c("ACl","BCl"), ]
 	nulls <- subset(summ, null == TRUE)
 
@@ -25,8 +31,9 @@ grade <- function(path,minsnr=3,tlagmax=1,minl=0){
 	summ <- subset(summ, null != TRUE)
 	dir <- dirname(path)
 	nam <- basename(path)
-	write.table(nulls,file=paste0(dir,"/NULL_",nam),quote=FALSE,row.names=FALSE,sep=",")
-	
+	if(length(nulls$fast) > 0){
+		write.table(nulls,file=paste0(dir,"/NULL_",nam),quote=FALSE,row.names=FALSE,sep=",")
+	}
 	subs <- summ
 	finalgrade <- rep("n",length(subs$fast))
 	if(length(subs$fast) == 0){return()}

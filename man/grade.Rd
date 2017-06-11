@@ -4,7 +4,7 @@
 \alias{grade}
 \title{Grade .summ file}
 \usage{
-grade(path, minsnr = 3, tlagmax = 1, minl = 0)
+grade(path, minsnr = 3, tlagmax = 1, minl = 0, mfast = FALSE)
 }
 \arguments{
 \item{path}{Path to .summ file to be graded}
@@ -14,6 +14,8 @@ grade(path, minsnr = 3, tlagmax = 1, minl = 0)
 \item{tlagmax}{Maximum time delay allowed for an AB+ grade}
 
 \item{minl}{Minimum lambdamax allowed for a AB+ grade}
+
+\item{mfast}{Set to TRUE to grade a .summ file produced by the original MFAST}
 }
 \description{
 Grades a .summ file (do_station automatically grades)
