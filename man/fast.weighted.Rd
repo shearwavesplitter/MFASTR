@@ -9,7 +9,7 @@ fast.weighted(summ, weights = c(1, 2, 3))
 \arguments{
 \item{summ}{Dataframe containing Castelazzi graded events (CZ_*.summ)}
 
-\item{weights}{A vector containing the weights with length equal to the number of filters used (usually 3) in order with the first corresponding to F1}
+\item{weights}{A vector containing the weights with length equal to the number of filters used (usually 3) in order with the first corresponding to F1 or a weight for each measurement}
 }
 \value{
 A list containing the weighted mean polarisation, its pythagorean length, and the (weighted) p-value from the Rayleigh test
