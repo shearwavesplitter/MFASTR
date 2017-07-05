@@ -6,6 +6,8 @@ ls <- paste0(path,"/",ls)
 m <- mclapply2(ls,read.csv)
 m <- do.call(rbind.data.frame, m)
 m$fast <- circular(m$fast,units="degrees",template="geographic")
+m <- subset(m, !is.na(m$fast)) ## Some rows appear to be all NA. I have to check to see where this is coming from. Probably when a filter fails?
+
 ########### This part is for RK/NM project. It won't affect your data if you station names are different
 
 
