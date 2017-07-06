@@ -115,3 +115,9 @@ x <- 5 #run measurements on the five best filters
 do_station_simple(path,filtnum=x)
 ```
 
+To create the all6 plots for a particular station (if your event suffixes are different you have to redefine them here)
+
+```r
+path <- "~/path/to/folder"
+all6_station(path)
+```

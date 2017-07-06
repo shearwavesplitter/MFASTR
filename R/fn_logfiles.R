@@ -49,7 +49,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		doy_det <- round(east$DATTIM$jd + east$DATTIM$hr/24 + (east$DATTIM$mi/60)/24 + (((east$DATTIM$sec+ocorr)/60)/60)/24,4)
 		evla <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evla")]]),4)
 		evlo <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evlo")]]),4)
-		distevstat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "dist")]]),4) #This is actually the surface distance NOT the station-eventhypocentre distance 
+		distevstat <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "dist")]]),4) #This is actually the surface distance (station-epicentre)NOT the station-eventhypocentre distance 
 		depthkm <- round(as.numeric(east$HEAD$values[[which(east$HEAD$names == "evdp")]]),4)
 		if(depthkm > 900){depthkm <- depthkm/1000}
 		mag <- -12345
@@ -103,7 +103,7 @@ logfiles <- function(path,name,trip,filtlist,maxfreqv,comment="MFASTR",anginc) {
 		print("##################################")
 		if(!exists('fline',inherits=FALSE)){fline <- line}else{fline <- rbind(fline,line)}
 		###Create all six plots
-		#all6(path=path,name=cmpname,trip=trip,low=filter$low,high=filter$high) #all6 is not a priority
+		#all6 is run outside of this
 		}  ## ilognew check '}'
 		## Clean files
 		if (dir.exists("output")){}else{dir.create("output")}

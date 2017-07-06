@@ -3,6 +3,8 @@
 S3method(mean,weighted)
 S3method(plot,rose)
 export(all6)
+export(all6_station)
+export(all6plot)
 export(anginc)
 export(checkcomp)
 export(checkspick)
