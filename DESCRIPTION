@@ -1,6 +1,6 @@
 Package: MFASTR
 Title: The Multiple Filter Automatic Shear Wave Splitting Technique in R
-Version: 1.2.1
+Version: 1.3
 Date: 2017-04-23
 Authors@R: person("Stefan", "Mroczek", email = "s.mroczek@outlook.com", role = c("aut", "cre"))
 Description: This is a port of the MFAST codes into R. The main functions do_station_simple and do_station_complex replicate MFAST's usability. Other functions in this package are documented to give advanced users more fexability.  
