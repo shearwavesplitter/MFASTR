@@ -5,7 +5,7 @@
 \title{Redetermine incidence angles}
 \usage{
 reanginc(summpath, tvel = ak135_taupo, overwrite = FALSE, mfast = FALSE,
-  mc.cores = getOption("mc.cores", 2L))
+  mc.cores = NULL)
 }
 \arguments{
 \item{summpath}{Path to the .summ file}
@@ -16,7 +16,7 @@ reanginc(summpath, tvel = ak135_taupo, overwrite = FALSE, mfast = FALSE,
 
 \item{mfast}{Is the summfile from the original MFAST?}
 
-\item{mc.cores}{Number of cores to run the calculations on}
+\item{mc.cores}{Number of cores to run the calculations on (defaults to maximum)}
 }
 \value{
 A summary file with redetermined incidence angles and ray parameters

@@ -4,19 +4,24 @@
 #' @param tvel Veloctity model read in by readtvel or a stored model (ak135_alp, ak135_taupo)
 #' @param overwrite Should the original summfile be overwritten?
 #' @param mfast Is the summfile from the original MFAST?
-#' @param mc.cores Number of cores to run the calculations on
+#' @param mc.cores Number of cores to run the calculations on (defaults to maximum)
 #' @return A summary file with redetermined incidence angles and ray parameters
 #' @export
 #' @examples
 #' # Redetermine the angle of incidences for a summary file
 #' pathto <- "~/mfast/sample_data/summ_files/WPRZ.127.CZ.summ"
 #' nsumm <- reanginc(pathto,tvel=ak135_alp)
-reanginc <- function(summpath,tvel=ak135_taupo,overwrite=FALSE,mfast=FALSE,mc.cores=getOption("mc.cores", 2L)){
-	print(paste0("Determining angle of incidence"))
+reanginc <- function(summpath,tvel=ak135_taupo,overwrite=FALSE,mfast=FALSE,mc.cores=NULL){
 	if(mfast){summ <- readmfast(summpath)}else{
 		summ <- read.csv(summpath)
 	}
 	
+	require(parallel)
+
+	if(is.null(mc.cores)){
+		mc.cores <- detectCores()
+	}
+	print(paste0("Determining incidence angles on ",mc.cores," cores"))
 	anghorse <- function(nline,tvel,summfile){
 		line <- summfile[nline,]
 		stla <- line$slat

@@ -12,6 +12,7 @@ readtvel <- function(name){
 	print(paste0("Reading ",name))
 	tvel <- read.table(name,skip=2)
 	z <- tvel$V1
+	if(min(z) < 0){warning(".tvel files must (currently) not have negative depths")}
 	vp <- tvel$V2
 	vs <- tvel$V3
 	rho <- tvel$V4
