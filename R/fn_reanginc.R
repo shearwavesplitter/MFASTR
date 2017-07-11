@@ -15,7 +15,7 @@ reanginc <- function(summpath,tvel=ak135_taupo,overwrite=FALSE,mfast=FALSE,mc.co
 	if(mfast){summ <- readmfast(summpath)}else{
 		summ <- read.csv(summpath)
 	}
-	
+	summ <- summ[!is.na(summ$cuspid),] ##Have to check where these are coming from
 	require(parallel)
 
 	if(is.null(mc.cores)){
