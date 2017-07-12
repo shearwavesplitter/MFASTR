@@ -38,6 +38,7 @@ reanginc <- function(summpath,tvel=ak135_taupo,overwrite=FALSE,mfast=FALSE,mc.co
 		dist <- GreatDist(stlo,stla,evlo,evla)
 
 		mod <- tvel
+		if(dist$ddeg < 0.001) {dist$ddeg <- 0.001} #### If the event is precisely under the station TravelTime function fails
 		ray <- Traveltime('S',dist$ddeg,evdp,mod)
 		rayf <- which(ray$tt == min(ray$t))
 		rayp <- ray$p[rayf]
@@ -50,6 +51,7 @@ reanginc <- function(summpath,tvel=ak135_taupo,overwrite=FALSE,mfast=FALSE,mc.co
 	}
 	
 	angs <- mclapply2(1:length(summ$cuspid),anghorse,summfile=summ,tvel=tvel,mc.cores=mc.cores)
+
 
 	angs <- do.call(rbind.data.frame, angs)
 	colnames(angs) <- c("anginc","rayp")
