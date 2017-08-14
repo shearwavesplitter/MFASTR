@@ -1,5 +1,5 @@
 #' @export
-plot.rose <- function(path,summ,bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue"){
+plot.rose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue"){
 	req <- require(circular)
 	if(req){}else{print("plot.rose requires the 'circular' package to be installed");return()}
 	
@@ -39,7 +39,7 @@ plot.rose <- function(path,summ,bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",a
 	data <- circular(data*pi/180,type="angles",units="radians",template="geographics")
 	ty <- "p"
 	#Save axial plot 
-	postscript(file="rose.eps", onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='special')
+	postscript(file=name, onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='special')
 		smrc <- data
 
 		plot(smrc,pch=sym,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
