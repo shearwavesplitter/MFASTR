@@ -4,12 +4,14 @@
 \alias{readmfast}
 \title{Read MFAST .summ file}
 \usage{
-readmfast(path, recuspid = FALSE)
+readmfast(path, recuspid = FALSE, header = TRUE)
 }
 \arguments{
 \item{path}{The path the the summary file}
 
 \item{recuspid}{Regenerate unique cuspids from event names? (Useful if they have been truncated in MFAST)}
+
+\item{Does}{the summary file have a one line header?}
 }
 \value{
 A dataframe containing the summary file
