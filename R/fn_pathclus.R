@@ -106,9 +106,7 @@ for (s in uniquest) {
 
 		if (plot){
 			brw <- require(RColorBrewer)
-			rgl <- require(rgl) 	
 			p3d <- require(plot3D)
-			if(!rgl){warning("rgl package required to create 3D plots")}
 			if(!brw){warning("RColorBrewer package required to create plots")}
 			if(!p3d){warning("plot3D package required to create 3D plots")}
 
@@ -126,7 +124,7 @@ for (s in uniquest) {
 			dev.off()
 
 			g <- 0
-			if(rgl & brw & p3d){
+			if(brw & p3d){
 			postscript(file=paste0(path,"/",station,"_3D.eps"), onefile=FALSE, horizontal=FALSE,width=7,height=7,paper='special')
 				par(mfrow = c(1, 1))
 				M <- mesh(seq(0, 2*pi, length.out = 100),
