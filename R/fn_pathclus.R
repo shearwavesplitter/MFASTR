@@ -153,9 +153,8 @@ for (s in uniquest) {
 			#n2 <- paste0(path,"/",station,"_azclusdub_",i)
 				if (plot){	
 			if(is.null(palette) & pr > 12){warning("You need to define your own colours (clusters > 12)")}else{	
-			if(is.null(palette)){if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}}else{colz <- palette[1:pr]}
-					if(brw){	
-						if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}
+					if(brw){
+						if(is.null(palette)){if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}}else{colz <- palette[1:pr]}
 						cols <- colz[clus]
 						cls <- colz[[i]]
 						plotrose(path=path,summ=cluster2,name=n1,cols=cls,antipodal="lightgrey")
@@ -171,7 +170,7 @@ for (s in uniquest) {
 			filen <- paste0(path,"/",textname)
 			cuspids <- subset(statn$cuspid, clus == i)
 			write.table(cuspids,file=filen,col.names=FALSE,row.names=FALSE,quote=FALSE)
-
+			write.table(cluster,file=paste0(filen,".summ"),quote=FALSE,row.names=FALSE,sep=",",col.names=FALSE)
 			}
 		
 		}
