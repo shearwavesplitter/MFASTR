@@ -170,7 +170,7 @@ for (s in uniquest) {
 			filen <- paste0(path,"/",textname)
 			cuspids <- subset(statn$cuspid, clus == i)
 			write.table(cuspids,file=filen,col.names=FALSE,row.names=FALSE,quote=FALSE)
-			write.table(cluster,file=paste0(filen,".summ"),quote=FALSE,row.names=FALSE,sep=",",col.names=FALSE)
+			write.table(cluster2,file=paste0(filen,".summ"),quote=FALSE,row.names=FALSE,sep=",",col.names=FALSE)
 			}
 		
 		}
