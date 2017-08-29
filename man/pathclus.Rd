@@ -5,7 +5,7 @@
 \title{Path cluster}
 \usage{
 pathclus(summ, savepath, hvec = NULL, kmax = 7, runs = 20,
-  minsample = 55, seed = NULL, plot = TRUE, rot = 180)
+  minsample = 55, seed = NULL, plot = TRUE, rot = 180, palette = NULL)
 }
 \arguments{
 \item{summ}{An MFASTR summary file}
@@ -23,6 +23,8 @@ pathclus(summ, savepath, hvec = NULL, kmax = 7, runs = 20,
 \item{plot}{Create plots?}
 
 \item{rot}{Degrees to rotate 3D lower hemisphere plot}
+
+\item{palette}{Vector of user defined colours for plotting if the number of clusters is greater than 12}
 
 \item{minsamples}{Minimum number of measurements for that station}
 }

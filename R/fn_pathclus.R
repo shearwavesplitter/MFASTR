@@ -8,6 +8,7 @@
 #' @param minsamples Minimum number of measurements for that station
 #' @param seed Random number seed
 #' @param plot Create plots?
+#' @param palette Vector of user defined colours for plotting if the number of clusters is greater than 12
 #' @param rot Degrees to rotate 3D lower hemisphere plot
 #' @return Creates folders containing the cuspids of events in each cluster along with the p-value of the Rayleigh test for polarisations in that cluster. 
 #' @details Uses the movMF package to fit mixtures of von Mises Fisher distributions to the station to event paths projected onto a unit hemisphere below each station.
@@ -16,7 +17,7 @@
 #' # Run for all stations and save to clustest folder
 #' cz <- summ.cz("~/summfiles")
 #' pathclus(cz,savepath="~/clustest",plot=TRUE)
-pathclus <- function(summ,savepath,hvec=NULL,kmax=7,runs=20,minsample=55,seed=NULL,plot=TRUE,rot=180) {
+pathclus <- function(summ,savepath,hvec=NULL,kmax=7,runs=20,minsample=55,seed=NULL,plot=TRUE,rot=180,palette=NULL) {
 path <- savepath
 data <- summ
 mM <- require(movMF)
@@ -112,9 +113,10 @@ for (s in uniquest) {
 
 		}
 		clus <- predict(fMF)
-		if (plot){
+		if (plot){	
+		if(is.null(palette) & pr > 12){warning("You need to define your own colours (clusters > 12)")}else{	
 			if(brw){
-			colz <- brewer.pal(pr,"Dark2")
+			if(is.null(palette)){if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}}else{colz <- palette[1:pr]}
 			cols <- colz[clus]
 
 			postscript(file=paste0(path,"/",station,"_2D.eps"), onefile=FALSE, horizontal=FALSE,width=7,height=7,paper='special')
@@ -137,8 +139,9 @@ for (s in uniquest) {
 				#scatter3D(x2, y2, -z2, pch = ".", col = "lightgrey", bty = "f", cex = 2, colkey = FALSE,zlim=c(-1,1),theta=0)
 				scatter3D(x2, y2, -z2, pch = ".", col = "lightgrey", bty = "f", cex = 2, colkey = FALSE,zlim=c(-1,1),theta=rot)
 
-				points3D(x,y,-z,colvar=clus,col=brewer.pal(pr,"Dark2"),zlim=c(-1,1),add=TRUE,pch = ".",cex=5,colkey=FALSE,cex.axis=1.5,cex.lab=1.5)
+				points3D(x,y,-z,colvar=clus,col=colz,zlim=c(-1,1),add=TRUE,pch = ".",cex=5,colkey=FALSE,cex.axis=1.5,cex.lab=1.5)
 			dev.off()
+		}
 		}
 		}
 		}
@@ -149,13 +152,16 @@ for (s in uniquest) {
 			n1 <- paste0(path,"/",station,"_azclusraw_",i)
 			#n2 <- paste0(path,"/",station,"_azclusdub_",i)
 				if (plot){	
+			if(is.null(palette) & pr > 12){warning("You need to define your own colours (clusters > 12)")}else{	
+			if(is.null(palette)){if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}}else{colz <- palette[1:pr]}
 					if(brw){	
-						colz <- brewer.pal(pr,"Dark2")
+						if(pr > 8){colz <- brewer.pal(pr,"Paired")}else{colz <- brewer.pal(pr,"Dark2")}
 						cols <- colz[clus]
 						cls <- colz[[i]]
 						plotrose(path=path,summ=cluster2,name=n1,cols=cls,antipodal="lightgrey")
 					}
 				}
+			}
 			n <- length(cluster)
 			rtest <- rayleigh.test(circular(rad(cluster*2)))
 			print(rtest$p)
