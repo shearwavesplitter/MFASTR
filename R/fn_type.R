@@ -263,11 +263,11 @@ if (plot){
 #tg <- rbind(t1,t3)
 
 #ndt <- weighted.dt(n)
-#nfast <- mean.weighted(n)
+#nfast <- meanaxial(n)
 #tgdt <- weighted.dt(tg)
-#tgfast <- mean.weighted(tg)
+#tgfast <- meanaxial(tg)
 #t2dt <- weighted.dt(t2)
-#t2fast <- mean.weighted(t2)
+#t2fast <- meanaxial(t2)
 
 return(summ)
 

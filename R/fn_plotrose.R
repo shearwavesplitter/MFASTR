@@ -1,5 +1,5 @@
 #' @export
-plot.rose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue"){
+plotrose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue"){
 	req <- require(circular)
 	if(req){}else{print("plot.rose requires the 'circular' package to be installed");return()}
 	
@@ -27,11 +27,11 @@ plot.rose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=
 	}
 	#Convert back to degrees for mean function
 	data <- data*(180/pi)
-	if (is.null(summ$finalgrade)){m <- mean.weighted(data)}else{
+	if (is.null(summ$finalgrade)){m <- meanaxial(data)}else{
 		fgrade <- as.numeric(gsub("F","",summ$finalgrade))
 		maxgrade <- max(fgrade)
 		weight <- fgrade/maxgrade
-		m <- mean.weighted(data,weights=weight)
+		m <- meanaxial(data,weights=weight)
 	}
 
 	R <- m[2]
