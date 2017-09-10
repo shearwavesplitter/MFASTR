@@ -30,7 +30,7 @@ source("~/paper/R/weightedmean.R")
 		}
 	}
 
-	sd <- sd.circular(means)
+	sd <- sd.circular(means*2)
 	sd <- asin(sd)
 sd <- deg(sd/2)
 return(sd)

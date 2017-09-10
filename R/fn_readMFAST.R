@@ -2,7 +2,7 @@
 #' @description Reads a .summ output from the original MFAST codes
 #' @param path The path the the summary file
 #' @param recuspid Regenerate unique cuspids from event names? (Useful if they have been truncated in MFAST)
-#' @param Does the summary file have a one line header?
+#' @param header Does the summary file have a one line header?
 #' @return A dataframe containing the summary file
 #' @details This function is used with grade() to grade .summ files produced using the original MFAST codes (by setting mfast=TRUE).
 #' @export
