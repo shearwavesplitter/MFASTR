@@ -4,6 +4,7 @@
 #' @param windowlength Size of the averaging window (in days)
 #' @param windowspeed Speed of advancing window (in days)
 #' @return A dataframe containing the end days of each window along with its mean and median fast polarisation
+#' @export
 moving_phi <- function(summfile,windowlength,windowspeed){
 
 	yr <- summfile$year-min(summfile$year)
