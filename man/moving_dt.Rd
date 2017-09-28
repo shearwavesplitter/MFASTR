@@ -11,10 +11,10 @@ moving_dt(summfile, windowlength, windowspeed)
 
 \item{windowlength}{Size of the averaging window (in days)}
 
-\item{windowspeed}{Speed of advancing window (in days)}
+\item{windowspeed}{Speed of advancing window (days per sample)}
 }
 \value{
-A dataframe containing the end days of each window along with its mean and median delay time
+A dataframe containing the end days of each window along with its mean, standard deviation (of the mean), median, upper and lower 95% confidence intervals of the median, and the number of samples
 }
 \description{
 A moving average of delay time

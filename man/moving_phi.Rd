@@ -11,7 +11,7 @@ moving_phi(summfile, windowlength, windowspeed)
 
 \item{windowlength}{Size of the averaging window (in days)}
 
-\item{windowspeed}{Speed of advancing window (in days)}
+\item{windowspeed}{Speed of advancing window (days per sample)}
 }
 \value{
 A dataframe containing the end days of each window along with its mean and median fast polarisation

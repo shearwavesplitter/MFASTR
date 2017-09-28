@@ -2,7 +2,7 @@
 #' @description A moving average of fast polarisation
 #' @param summfile A dataframe containing a summary file (i.e. from readmfast)
 #' @param windowlength Size of the averaging window (in days)
-#' @param windowspeed Speed of advancing window (in days)
+#' @param windowspeed Speed of advancing window (days per sample)
 #' @return A dataframe containing the end days of each window along with its mean and median fast polarisation
 #' @export
 moving_phi <- function(summfile,windowlength,windowspeed){
