@@ -34,7 +34,7 @@ moving_dt <- function(summfile,windowlength,windowspeed){
 			med[i] <- median(sub$tlag)
 			vl <- round(length(sub$tlag)/2-(1.96*sqrt(length(sub$tlag)))/2,0)
 			vu <- round(1+length(sub$tlag)/2+(1.96*sqrt(length(sub$tlag)))/2,0)
-				if(vu %in% order(sub$tlag)){umed[i] <- sub$tlag[order(sub$tlag)][vu]}else{lmed[i] <- NA}
+				if(vu %in% order(sub$tlag)){umed[i] <- sub$tlag[order(sub$tlag)][vu]}else{umed[i] <- NA}
 				if(vl %in% order(sub$tlag)){lmed[i] <- sub$tlag[order(sub$tlag)][vl]}else{lmed[i] <- NA}
 			n[i] <- length(sub$tlag)
 		}
