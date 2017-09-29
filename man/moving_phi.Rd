@@ -14,7 +14,7 @@ moving_phi(summfile, windowlength, windowspeed)
 \item{windowspeed}{Speed of advancing window (days per sample)}
 }
 \value{
-A dataframe containing the end days of each window along with its mean and median fast polarisation
+A dataframe containing the end days of each window along with its mean, median fast polarisation, and 95% confidence intervals of the mean (from a bootstrapped mle von Mises fit)
 }
 \description{
 A moving average of fast polarisation
