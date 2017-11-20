@@ -1,6 +1,14 @@
 #' @export
-summ.read <- function(path,pattern){
+summ.read <- function(path,pattern=".summ$"){
 ls <- list.files(path,recursive=TRUE,pattern=pattern)
+if(pattern == ".summ"){
+	nulls <- list.files(path,recursive=TRUE,pattern="^NULL_*")
+	czs <- 	list.files(path,recursive=TRUE,pattern="^CZ_*")
+	abs <- list.files(path,recursive=TRUE,pattern="^AB_*")
+	ls <- ls[!(ls %in% nulls)]
+	ls <- ls[!(ls %in% czs)]
+	ls <- ls[!(ls %in% abs)]
+}	
 require(parallel)
 ls <- paste0(path,"/",ls)
 m <- mclapply2(ls,read.csv)

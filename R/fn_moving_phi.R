@@ -41,11 +41,37 @@ moving_phi <- function(summfile,windowlength,windowspeed){
 		if(!is.na(hir[i])){if(hir[i] < -90){hir[i] <- hir[i]+180}}
 	}
 
-ret <- as.data.frame(cbind(d,m,med,lwr,hir),stringsAsFactors=FALSE)
+ret <- as.data.frame(cbind(d,m,med,hir,lwr),stringsAsFactors=FALSE)
 ret$m <- circular(ret$m,template="geographics",units="degrees")
 ret$lwr <- circular(ret$lwr,units="degrees")
 ret$hir <- circular(ret$hir,units="degrees")
 ret$med <- circular(ret$med,template="geographics",units="degrees")
-colnames(ret) <- c("day","mean","median","lower95mean","upper95mean")
+colnames(ret) <- c("day","mean","median","upper95mean","lower95mean")
 return(ret)
 }
+
+
+#m <- M$mean
+#m[is.na(m)] <- 0
+#m[m < 0] <- m[m < 0]+180
+#up <- M$upper95mean
+#low <- M$lower95mean
+#low[is.na(low)] <- 0
+#up[is.na(up)] <- 0
+#up[up < m]  <- up[up < m]+180
+#low[low > m]  <- low[low > m]-180
+#low[is.na(M$lower95mean)] <- NA
+#up[is.na(M$upper95mean)] <- NA
+#m[is.na(M$mean)] <- NA
+#plot(M$day,as.numeric(m),type="l",ylim=c(min(low,na.rm=T),max(up,na.rm=T)))
+##arrows(x0=M$day,y0=up,x1=M$day,y1=low,code=3,angle=90)
+#lines(M$day,up,col="red")
+#lines(M$day,low,col="red")
+#lines(M$day,as.numeric(m)-180)
+#lines(M$day,as.numeric(m)+180)
+
+
+#plot(M$day,as.numeric(M$mean),type="p",ylim=c(-90,90))
+#points(M$day,M$lower95mean,col="blue")
+#points(M$day,M$upper95mean,col="red")
+

@@ -1,5 +1,5 @@
 #' @export
-plotrose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue"){
+plotrose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=16,cols="blue",antipodal="lightblue",axes=TRUE){
 	req <- require(circular)
 	if(req){}else{print("plot.rose requires the 'circular' package to be installed");return()}
 	
@@ -39,17 +39,19 @@ plotrose <- function(path,summ,name="rose.eps",bins=16,arrow=TRUE,kd=FALSE,sym=1
 	data <- circular(data*pi/180,type="angles",units="radians",template="geographics")
 	ty <- "p"
 	#Save axial plot 
+	ltyval <- 1
+	if(!axes){ltyval <- 0}
 	postscript(file=name, onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='special')
 		smrc <- data
 
-		plot(smrc,pch=sym,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
-		rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
-		points(smrc+pi,pch=sym,col=antipodal,stack=T,shrink=1.2,bins=180,type=ty)
+		plot(smrc,pch=sym,col=cols,stack=T,shrink=1.2,bins=180,ticks=axes,type=ty,axes=axes,control.circle=circle.control(lty=ltyval))
+		rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,axes=axes,ticks=axes)
+		points(smrc+pi,pch=sym,col=antipodal,stack=T,shrink=1.2,bins=180,type=ty,axes=axes)
 		#rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
 	
 		#visualise axial data in roseplot
 		sma <- smrc+pi
-		rose.diag(sma,bins=bins,col="lightgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
+		rose.diag(sma,bins=bins,col="lightgrey",prop=1.3,add=TRUE,shrink=1.2,axes=axes,ticks=axes)
 		#Kernal density for axial data
 		if (kd == TRUE){
 			smapp <- append(sma,smrc)
