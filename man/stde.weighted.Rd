@@ -21,3 +21,6 @@ The circular standard error in degrees
 \description{
 A bootstrapped weighted standard error for fast polarisations
 }
+\details{
+This function can also be run with a custom weight for each measurement by setting them with weights. Or, for the unweighted version, set weights=rep(1,length(summ$fast)).
+}

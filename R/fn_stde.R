@@ -5,6 +5,7 @@
 #' @param seed A random number seed
 #' @param iter Number of iterations
 #' @return The circular standard error in degrees 
+#' @details This function can also be run with a custom weight for each measurement by setting them with weights. Or, for the unweighted version, set weights=rep(1,length(summ$fast)).
 #' @export
 stde.weighted <- function(summ,weights=c(1,2,3),seed=NULL,iter=9999) {
 source("~/paper/R/weightedmean.R")

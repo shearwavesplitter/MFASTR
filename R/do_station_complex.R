@@ -22,6 +22,7 @@
 #' @param suffn Suffix of north component 
 #' @param suffz Suffix of vertical component 
 #' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
+#' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)
 #' @return A dataframe containing the summary file
 #' @export
 #' @examples
@@ -35,7 +36,7 @@
 #' filts <- cbind(filt_low,filt_high)
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_complex(path="~/mfast/sample_data/raw_data",filter=filts)
-do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE) {
+do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
 	setwd(path)
 	tlagscale <- tlagmax
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
@@ -72,7 +73,7 @@ do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win
 	ls_all <- gsub(paste0(" *",suffe),"",ls_east)
 
 parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err,zerophase){
-		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
+		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader,downsample=downsample)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
 		#stname <- as.character(trip[[1]]$sta)

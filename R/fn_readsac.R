@@ -15,6 +15,7 @@
 #' @param suffz Suffix of vertical component 
 #' @param header Name of header containing the S-wave pick
 #' @param pheader Name of header containing the P-wave pick
+#' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)
 #' @return A list containing dataframes for each of the three components with signal and header information
 #' @importFrom signal decimate
 #' @export
@@ -25,7 +26,7 @@
 #' write_sample(pathto)
 #' event <- "2002.054.09.47.lhor2"
 #' triplet <- readtriplet(event,path=pathto)
-readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a"){
+readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a",downsample=FALSE){
 	setwd(path)
 	print(paste0("Reading event ",event))
 	Esac <- JSAC.seis(paste0(event,E))[[1]]
@@ -82,7 +83,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 	# downsample broadband data to prevent program crash
 	#
 	# Can't use interpolate to downsample data though--need to use decimate! -- importing signal 
-	#Sac appears to apply a FIR filter here. We do not
+	if(downsample){
 	for (i in 1:3){	
 		trip[[i]]$dt <- round(trip[[i]]$dt,6)
 		if (trip[[i]]$dt < 0.0099){
@@ -111,7 +112,7 @@ readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader=
 			}else{print("factor is out of bounds")}
 		}
 	}
-
+	}
 
 	#cut all files 15 sec after S-Pick and 15 sec before (or 3.5 before P-Pick),looks in a header for P-pick
 	for (i in 1:3){

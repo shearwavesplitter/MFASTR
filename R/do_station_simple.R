@@ -8,6 +8,7 @@
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
 #' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
+#' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing the summary file
 #' @export
@@ -19,7 +20,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes
@@ -76,7 +77,7 @@ do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath
 	
 
 parallel2 <- function(event,suffe,suffn,suffz,sheader,filtnum,tvel,type,nwbeg,fdmin,fdmax,t_win_freq,tlagscale,snrmax,t_win_snr,t_err,zerophase){
-		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader)
+		trip <- readtriplet(event,E=suffe,N=suffn,Z=suffz,header=sheader,downsample=downsample)
 		filts <- filter_spread(trip,type=type,snrmax=snrmax,t_win_snr=t_win_snr,t_err=t_err,zerophase=zerophase)
 		filts <- subset(filts, snrv > 2); print("Removing filters with SNR < 2")
 		#stname <- as.character(trip[[1]]$sta)

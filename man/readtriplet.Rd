@@ -5,7 +5,7 @@
 \title{Read a SAC format siesmogram triplet}
 \usage{
 readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
-  header = "t0", pheader = "a")
+  header = "t0", pheader = "a", downsample = FALSE)
 }
 \arguments{
 \item{event}{Event name}
@@ -15,6 +15,8 @@ readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
 \item{header}{Name of header containing the S-wave pick}
 
 \item{pheader}{Name of header containing the P-wave pick}
+
+\item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
 
 \item{suffe}{Suffix of east component}
 
