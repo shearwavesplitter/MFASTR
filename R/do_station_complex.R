@@ -36,7 +36,7 @@
 #' filts <- cbind(filt_low,filt_high)
 #' write_sample("~/mfast/sample_data/raw_data")
 #' do_station_complex(path="~/mfast/sample_data/raw_data",filter=filts)
-do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
+do_station_complex <- function(path,sheader="t0",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,snrmax=3,t_win_snr=3,t_err=0.02,filtnum=3,type="normal",filter=NULL,tvelpath=NULL,tvel=ak135_alp,suffe=".e",suffn=".n",suffz=".z",zerophase=TRUE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
 	setwd(path)
 	tlagscale <- tlagmax
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}

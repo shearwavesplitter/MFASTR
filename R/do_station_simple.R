@@ -20,7 +20,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes

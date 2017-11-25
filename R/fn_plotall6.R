@@ -9,7 +9,7 @@
 #' @param display Display plots within R?
 #' @param auto Select the first event if multiple are available?
 #' @export
-all6plot <- function(path,cuspid,filter=1,zerophase=FALSE,E=".e",N=".n",Z=".z",auto=FALSE) {
+all6plot <- function(path,cuspid,filter=1,zerophase=TRUE,E=".e",N=".n",Z=".z",auto=FALSE) {
 setwd(path)
 		if (dir.exists("all6plots")){}else{dir.create("all6plots")}
 	namelist <- list.files("output",pattern=paste0("fb",filter,E,"$"))

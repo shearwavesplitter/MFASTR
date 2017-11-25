@@ -5,7 +5,7 @@
 \title{Run MFAST}
 \usage{
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE,
+  tvelpath = NULL, tvel = ak135_alp, zerophase = TRUE,
   no_threads = NULL, mc.preschedule = TRUE, downsample = FALSE)
 }
 \arguments{

@@ -4,8 +4,8 @@
 \alias{all6plot}
 \title{Create all6 plot}
 \usage{
-all6plot(path, cuspid, filter = 1, zerophase = FALSE, E = ".e",
-  N = ".n", Z = ".z", auto = FALSE)
+all6plot(path, cuspid, filter = 1, zerophase = TRUE, E = ".e", N = ".n",
+  Z = ".z", auto = FALSE)
 }
 \arguments{
 \item{path}{Path to folder containing raw events and output folder}

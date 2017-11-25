@@ -16,7 +16,7 @@
 #' write_sample("~/mfast/sample_data/raw_data")
 #' triplet <- readtriplet("2002.054.09.47.lhor2",path="~/mfast/sample_data/raw_data")
 #' bestfilt <- filter_spread(triplet,filter=filts)
-filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3,zerophase=FALSE){
+filter_spread <- function(trip,type="normal",filter=NULL,t_win_snr=3,t_err=0.05,snrmax=3,zerophase=TRUE){
 
 	if (type == "normal"){
 		f1 <- cbind(0.4,4)

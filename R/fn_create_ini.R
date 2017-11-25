@@ -28,7 +28,7 @@
 #' triplet <- readtriplet(event,path=pathto)
 #' bestfilt <- filter_spread(triplet)
 #' maxfreq <- createini(pathto,triplet,bestfilt,event)
-createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,zerophase=FALSE){
+createini <- function(path,trip,filts,name,number=3,E=".e",N=".n",Z=".z",nwbeg=5,fdmin=0.3,fdmax=8,t_win_freq=3,tlagmax=1,Ncmin=5,Mmax=15,zerophase=TRUE){
 	tlagscale <- tlagmax
 	print("Creating .ini files")
 	p <- as.numeric(as.character(trip[[3]]$HEAD$values[[which(trip[[3]]$HEAD$names == "a")]]))

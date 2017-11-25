@@ -18,7 +18,7 @@
 #' triplet <- readtriplet(event)
 #' bestfilt <- filter_spread(triplet)
 #' f <- writesac_filt(pathto,triplet,event,bestfilt)
-writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z",zerophase=FALSE) {
+writesac_filt <- function(path,trip,name,filtlist,number=3,E=".e",N=".n",Z=".z",zerophase=TRUE) {
 	setwd(path)
 	trip0 <- trip
 	if (number > length(filtlist$high)){

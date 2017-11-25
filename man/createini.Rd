@@ -6,7 +6,7 @@
 \usage{
 createini(path, trip, filts, name, number = 3, E = ".e", N = ".n",
   Z = ".z", nwbeg = 5, fdmin = 0.3, fdmax = 8, t_win_freq = 3,
-  tlagmax = 1, Ncmin = 5, Mmax = 15, zerophase = FALSE)
+  tlagmax = 1, Ncmin = 5, Mmax = 15, zerophase = TRUE)
 }
 \arguments{
 \item{path}{Path to folder}

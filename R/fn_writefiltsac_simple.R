@@ -10,7 +10,7 @@
 #' @param Z Suffix of the vertical component
 #' @param n Number for suffix .fbn (e.g .fb2)
 #' @export
-writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1,zerophase=FALSE) {
+writesac_filtsmp <- function(path,trip,name,low,high,E=".e",N=".n",Z=".z",n=1,zerophase=TRUE) {
 	setwd(path)
 	trip0 <- trip
 	

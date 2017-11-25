@@ -9,7 +9,7 @@
 #' @export
 
 
-all6_station <- function(path,filter=c(1,2,3),zerophase=FALSE,E=".e",N=".n",Z=".z") {
+all6_station <- function(path,filter=c(1,2,3),zerophase=TRUE,E=".e",N=".n",Z=".z") {
 	setwd(path)
 	namelist <- list.files(pattern=paste0("\\",E,"$"))
 	namelist2 <- gsub(paste0("\\",E),"",namelist)

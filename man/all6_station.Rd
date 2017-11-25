@@ -4,7 +4,7 @@
 \alias{all6_station}
 \title{Plot all6}
 \usage{
-all6_station(path, filter = c(1, 2, 3), zerophase = FALSE, E = ".e",
+all6_station(path, filter = c(1, 2, 3), zerophase = TRUE, E = ".e",
   N = ".n", Z = ".z")
 }
 \arguments{
