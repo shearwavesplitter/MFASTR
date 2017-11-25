@@ -18,7 +18,7 @@
 #' write_sample("~/mfast/sample_data/raw_data3")
 #' do_all_simple(path="~/mfast/sample_data")
 
-do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=FALSE,no_threads=NULL) {
+do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")

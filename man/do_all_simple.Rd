@@ -5,7 +5,7 @@
 \title{Run MFAST on multiple folders}
 \usage{
 do_all_simple(path, sheader = "t0", type = "normal", filtnum = 3,
-  tvelpath = NULL, tvel = ak135_alp, zerophase = FALSE,
+  tvelpath = NULL, tvel = ak135_alp, zerophase = TRUE,
   no_threads = NULL)
 }
 \arguments{
