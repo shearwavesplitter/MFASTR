@@ -1,6 +1,6 @@
 ### MFASTR: An R package to make automatic shear wave splitting measurements
 
-This package is based on the MFAST (Multiple Filter Automatic Splitting Technique) codes. It executes the same fortran executables as the original codes but within an R framework.
+This package is based on the MFAST (Multiple Filter Automatic Splitting Technique) codes. It executes the same fortran executables as the original codes but within an R framework. As of version 1.4 MFASTR defaults to using zerophase filters and not downsampling waveforms. 
 
 The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are the the property of the authors therein. If you are not familiar with the original codes then review them and their documentation.  
 
