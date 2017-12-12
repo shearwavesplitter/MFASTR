@@ -2,7 +2,7 @@
 #' @description Create an all6 plot for a specific event
 #' @param path Path to folder containing raw events and output folder
 #' @param filter Which filter to plot (e.g. 1 for fb1)
-#' @param zerophase Where the filters applied zero phase?
+#' @param zerophase Were the filters applied zero phase?
 #' @param E Vector signal of the east component
 #' @param N Vector signal of the north component
 #' @param Z Vector signal of the vertical component

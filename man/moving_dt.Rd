@@ -4,7 +4,7 @@
 \alias{moving_dt}
 \title{Delay time moving average}
 \usage{
-moving_dt(summfile, windowlength, windowspeed)
+moving_dt(summfile, windowlength, windowspeed, norm = FALSE)
 }
 \arguments{
 \item{summfile}{A dataframe containing a summary file (i.e. from readmfast)}
@@ -12,6 +12,8 @@ moving_dt(summfile, windowlength, windowspeed)
 \item{windowlength}{Size of the averaging window (in days)}
 
 \item{windowspeed}{Speed of advancing window (days per sample)}
+
+\item{norm}{Normalise by straight line path distance?}
 }
 \value{
 A dataframe containing the end days of each window along with its mean, standard deviation (of the mean), median, upper and lower 95% confidence intervals of the median, and the number of samples

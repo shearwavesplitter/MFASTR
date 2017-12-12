@@ -12,7 +12,7 @@ all6_station(path, filter = c(1, 2, 3), zerophase = TRUE, E = ".e",
 
 \item{filter}{Which filter to plot (e.g. c(1,2,3) for fb1, fb2 & fb3)}
 
-\item{zerophase}{Where the filters applied zero phase?}
+\item{zerophase}{Were the filters applied zero phase?}
 
 \item{E}{Vector signal of the east component}
 

@@ -12,7 +12,7 @@ all6plot(path, cuspid, filter = 1, zerophase = TRUE, E = ".e", N = ".n",
 
 \item{filter}{Which filter to plot (e.g. 1 for fb1)}
 
-\item{zerophase}{Where the filters applied zero phase?}
+\item{zerophase}{Were the filters applied zero phase?}
 
 \item{E}{Vector signal of the east component}
 

@@ -3,11 +3,17 @@
 #' @param summfile A dataframe containing a summary file (i.e. from readmfast)
 #' @param windowlength Size of the averaging window (in days)
 #' @param windowspeed Speed of advancing window (days per sample)
+#' @param norm Normalise by straight line path distance?
 #' @return A dataframe containing the end days of each window along with its mean, standard deviation (of the mean), median, upper and lower 95% confidence intervals of the median, and the number of samples
 #' @export
-moving_dt <- function(summfile,windowlength,windowspeed){
+moving_dt <- function(summfile,windowlength,windowspeed,norm=FALSE){
 
-
+	if(norm){
+		depths <- summfile$depthkm
+		dists <- summfile$distevstat
+		hypodist <- sqrt(depths^2+dists^2)
+		summfile$tlag <- summfile$tlag/hypodist
+	}
 	yr <- summfile$year-min(summfile$year)
 	day <- summfile$doy_det+yr*365
 
