@@ -32,7 +32,7 @@ devtools::install_github("shearwavesplitter/MFASTR")
 ```
 #### Example
 
-To run measurements on events in a target directory. The P-wave pick must be in the 'a' header on the Z component and the S-wave pick must be on the E component (and defaults to 't0'). Suffixes are automatically detected but must the final letter of the filenames.
+To run measurements on events in a target directory. The P-wave pick must be in the 'a' header on the Z component and the S-wave pick must be on the E component (and defaults to 't0'). Suffixes are automatically detected but must be the final letter of the filenames.
 
 
 ```r
