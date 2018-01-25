@@ -6,7 +6,7 @@
 #' @return A dataframe containing the end days of each window along with its mean, median fast polarisation, and 95% confidence intervals of the mean (from a bootstrapped mle von Mises fit)
 #' @export
 moving_phi <- function(summfile,windowlength,windowspeed){
-
+	windowlength=windowlength-1 #Actual window length appears to be windowlength+1 so fixing that here
 	yr <- summfile$year-min(summfile$year)
 	day <- summfile$doy_det+yr*365
 

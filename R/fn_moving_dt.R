@@ -7,7 +7,7 @@
 #' @return A dataframe containing the end days of each window along with its mean, standard deviation (of the mean), median, upper and lower 95% confidence intervals of the median, and the number of samples
 #' @export
 moving_dt <- function(summfile,windowlength,windowspeed,norm=FALSE){
-
+	windowlength=windowlength-1 #Actual window length appears to be windowlength+1 so fixing that here
 	if(norm){
 		depths <- summfile$depthkm
 		dists <- summfile$distevstat
