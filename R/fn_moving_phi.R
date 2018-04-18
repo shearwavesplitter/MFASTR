@@ -28,7 +28,9 @@ moving_phi <- function(summfile,windowlength,windowspeed){
 		if(length(sub$tlag) > 0){
 			m[i] <- as.numeric(deg(mean.circular(circular(rad(sub$fast)*2))/2))
 			med[i] <- as.numeric(deg(median.circular(circular(rad(sub$fast)*2))/2))
-			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)))
+            biastf <- FALSE
+            if(length(sub$fast) < 16){biastf <- TRUE}
+			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)),bias=biastf)
 			lwr[i] <- deg(as.numeric(rs$mu.ci[1]))/2
 			hir[i] <- deg(as.numeric(rs$mu.ci[2]))/2
 		}
