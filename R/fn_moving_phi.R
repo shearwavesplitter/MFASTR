@@ -34,11 +34,18 @@ moving_phi <- function(summfile,windowlength,windowspeed){
 		}
 	}
 
-	for(i in 1:length(lwr)){
-		if(!is.na(lwr[i])){if(lwr[i] > 90){lwr[i] <- lwr[i]-180}}
-		if(!is.na(lwr[i])){if(lwr[i] < -90){lwr[i] <- lwr[i]+180}}
-		if(!is.na(hir[i])){if(hir[i] > 90){hir[i] <- hir[i]-180}}
-		if(!is.na(hir[i])){if(hir[i] < -90){hir[i] <- hir[i]+180}}
+	for(i in 1:length(m)){
+		if(!is.na(m[i])){if(m[i] > 90){
+            m[i] <- m[i]-180
+            lwr[i] <- lwr[i]-180
+            hir[i] <- hir[i] -180
+        }}
+		if(!is.na(m[i])){if(m[i] < -90){
+            m[i] <- m[i]+180
+            lwr[i] <- lwr[i]+180
+            hir[i] <- hir[i]+180
+        }}
+
 	}
 
 ret <- as.data.frame(cbind(d,m,med,hir,lwr),stringsAsFactors=FALSE)

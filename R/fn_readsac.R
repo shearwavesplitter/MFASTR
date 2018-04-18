@@ -10,9 +10,9 @@
 #' @description Reads, cuts, and loads S-wave pick into the t5 header using RSEIS/JSAC.seis as a workhorse
 #' @param event Event name
 #' @param path Path to folder
-#' @param suffe Suffix of east component 
-#' @param suffn Suffix of north component 
-#' @param suffz Suffix of vertical component 
+#' @param E Suffix of east component 
+#' @param N Suffix of north component 
+#' @param Z Suffix of vertical component 
 #' @param header Name of header containing the S-wave pick
 #' @param pheader Name of header containing the P-wave pick
 #' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)

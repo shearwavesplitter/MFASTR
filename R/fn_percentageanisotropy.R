@@ -49,10 +49,16 @@ perani <- function(summ,weights=NULL){
 		SWA <- ((vf-vs)/vf)*100
 		mrav <- sum(rav*sub$weights)/sum(sub$weights)
 		mswa <- sum(SWA*sub$weights)/sum(sub$weights)
+		normw <- sub$weights/length(sub$weights)
+		sdrav <- sqrt(sum(normw*(rav-mrav)^2))
+		sdswa <- sqrt(sum(normw*(SWA-mswa)^2))
+
 res <- list()
 res$stat <- table2
 res$swa <- mswa
+res$sdswa <- sdswa
 res$k <- mrav
+res$sdk <- sdrav
 
 return(res)
 }
