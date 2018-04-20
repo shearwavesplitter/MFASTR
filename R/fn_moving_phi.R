@@ -26,15 +26,21 @@ moving_phi <- function(summfile,windowlength,windowspeed){
 		d[i] <- endday
 		sub <- subset(summfile, day >= startday & day <= endday)
 		if(length(sub$tlag) > 0){
-			m[i] <- as.numeric(deg(mean.circular(circular(rad(sub$fast)*2))/2))
-			med[i] <- as.numeric(deg(median.circular(circular(rad(sub$fast)*2))/2))
+			#m[i] <- as.numeric(deg(mean.circular(circular(rad(sub$fast)*2))))
+			med[i] <- as.numeric(deg(median.circular(circular(rad(sub$fast)*2))))
             biastf <- FALSE
             if(length(sub$fast) < 16){biastf <- TRUE}
 			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)),bias=biastf)
-			lwr[i] <- deg(as.numeric(rs$mu.ci[1]))/2
-			hir[i] <- deg(as.numeric(rs$mu.ci[2]))/2
+            m[i] <- (as.numeric(rs$mu.ci[2])-as.numeric(rs$mu.ci[1]))/2+as.numeric(rs$mu.ci[1])
+			lwr[i] <- rs$mu.ci[1]#/2
+			hir[i] <- rs$mu.ci[2]#/2
 		}
 	}
+
+
+m <- as.numeric(deg(m))/2
+lwr <- as.numeric(deg(lwr))/2
+hir <- as.numeric(deg(hir))/2
 
 	for(i in 1:length(m)){
 		if(!is.na(m[i])){if(m[i] > 90){
