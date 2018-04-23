@@ -3,15 +3,36 @@
 #' @param summfile A dataframe containing a summary file (i.e. from readmfast)
 #' @param windowlength Size of the averaging window (in days)
 #' @param windowspeed Speed of advancing window (days per sample)
+#' @param reps Number of interations for the bootstrap
 #' @return A dataframe containing the end days of each window along with its mean, median fast polarisation, and 95% confidence intervals of the mean (from a bootstrapped mle von Mises fit)
 #' @export
-moving_phi <- function(summfile,windowlength,windowspeed){
+moving_phi <- function(summfile,windowlength,windowspeed,reps=9999){
 	windowlength=windowlength-1 #Actual window length appears to be windowlength+1 so fixing that here
 	yr <- summfile$year-min(summfile$year)
 	day <- summfile$doy_det+yr*365
 
 	maxday <- max(day)
 	minday <- min(day)
+
+    corrphi <- function(actual,upper,lower,ch=2*pi){
+        act <- actual
+        difu <- upper-actual
+        difl <- actual-lower
+        it <- 0
+        while (difu < 0 | difl < 0){
+            if(difu < 0 ){actual <- actual-ch}
+            if(difl < 0){actual <- actual+ch}
+            difu <- upper-actual
+            difl <- actual-lower
+
+            it <- it+1
+            if(it >10){print("Median does not fall into interval; returning original value");return(act)}
+
+        }
+
+
+        return(actual)
+    }
 
 	wns <- floor((maxday-(minday+windowlength))/windowspeed)+1
 
@@ -27,18 +48,27 @@ moving_phi <- function(summfile,windowlength,windowspeed){
 		sub <- subset(summfile, day >= startday & day <= endday)
 		if(length(sub$tlag) > 0){
 			#m[i] <- as.numeric(deg(mean.circular(circular(rad(sub$fast)*2))))
-			med[i] <- as.numeric(deg(median.circular(circular(rad(sub$fast)*2))))
+			medreal <- as.numeric(median.circular(circular(rad(sub$fast)*2)))
             biastf <- FALSE
             if(length(sub$fast) < 16){biastf <- TRUE}
-			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)),bias=biastf)
-            m[i] <- (as.numeric(rs$mu.ci[2])-as.numeric(rs$mu.ci[1]))/2+as.numeric(rs$mu.ci[1])
-			lwr[i] <- rs$mu.ci[1]#/2
-			hir[i] <- rs$mu.ci[2]#/2
+			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)),bias=biastf,reps=reps)
+            mclose <- (as.numeric(rs$mu.ci[2])-as.numeric(rs$mu.ci[1]))/2+as.numeric(rs$mu.ci[1])
+            mreal <- as.numeric(mean.circular(circular(rad(sub$fast)*2)))
+			lwr[i] <- as.numeric(rs$mu.ci[1])#/2
+			hir[i] <- as.numeric(rs$mu.ci[2])#/2
+            m[i] <- corrphi(mreal,hir[i],lwr[i],ch=2*pi)
+            #print("####")
+            #print(hir[i])
+            #print(m[i])
+            #print(lwr[i])
+			med[i] <- corrphi(medreal,hir[i],lwr[i],ch=2*pi)
+
 		}
 	}
 
 
 m <- as.numeric(deg(m))/2
+med <- as.numeric(deg(med))/2
 lwr <- as.numeric(deg(lwr))/2
 hir <- as.numeric(deg(hir))/2
 
@@ -47,13 +77,14 @@ hir <- as.numeric(deg(hir))/2
             m[i] <- m[i]-180
             lwr[i] <- lwr[i]-180
             hir[i] <- hir[i] -180
+            med[i] <- med[i]-180
         }}
 		if(!is.na(m[i])){if(m[i] < -90){
             m[i] <- m[i]+180
             lwr[i] <- lwr[i]+180
             hir[i] <- hir[i]+180
+            med[i] <- med[i]+180
         }}
-
 	}
 
 ret <- as.data.frame(cbind(d,m,med,hir,lwr),stringsAsFactors=FALSE)
