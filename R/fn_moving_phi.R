@@ -51,6 +51,7 @@ moving_phi <- function(summfile,windowlength,windowspeed,reps=9999){
 			medreal <- as.numeric(median.circular(circular(rad(sub$fast)*2)))
             biastf <- FALSE
             if(length(sub$fast) < 16){biastf <- TRUE}
+            if(length(sub$fast) == 1){biastf <- FALSE}
 			rs <- mle.vonmises.bootstrap.ci(circular(rad(sub$fast*2)),bias=biastf,reps=reps)
             mclose <- (as.numeric(rs$mu.ci[2])-as.numeric(rs$mu.ci[1]))/2+as.numeric(rs$mu.ci[1])
             mreal <- as.numeric(mean.circular(circular(rad(sub$fast)*2)))
