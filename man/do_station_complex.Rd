@@ -9,7 +9,8 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
   snrmax = 3, t_win_snr = 3, t_err = 0.02, filtnum = 3,
   type = "normal", filter = NULL, tvelpath = NULL, tvel = ak135_alp,
   suffe = ".e", suffn = ".n", suffz = ".z", zerophase = TRUE,
-  no_threads = NULL, mc.preschedule = TRUE, downsample = FALSE)
+  no_threads = NULL, mc.preschedule = TRUE, downsample = FALSE,
+  biglong = TRUE, Iendian = 1)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -55,6 +56,10 @@ do_station_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3,
 \item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores}
 
 \item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
+
+\item{biglong}{logical, TRUE=long=8 bytes (sac files written on 64bit machine)}
+
+\item{Iendian}{Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }
 \value{
 A dataframe containing the summary file

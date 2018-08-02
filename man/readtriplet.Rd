@@ -5,7 +5,8 @@
 \title{Read a SAC format siesmogram triplet}
 \usage{
 readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
-  header = "t0", pheader = "a", downsample = FALSE)
+  header = "t0", pheader = "a", downsample = FALSE, biglong = TRUE,
+  Iendian = 1)
 }
 \arguments{
 \item{event}{Event name}
@@ -23,6 +24,10 @@ readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
 \item{pheader}{Name of header containing the P-wave pick}
 
 \item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
+
+\item{biglong}{logical, TRUE=long=8 bytes (sac files written on 64bit machine)}
+
+\item{Iendian}{Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }
 \value{
 A list containing dataframes for each of the three components with signal and header information

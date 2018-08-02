@@ -7,8 +7,10 @@
 #' @param N Vector signal of the north component
 #' @param Z Vector signal of the vertical component
 #' @param auto Select the first event if multiple are available?
+#' @param biglong logical, TRUE=long=8 bytes (original sac files written on 32bit machine)
+#' @param Iendian Endian-ness of the original data: 1,2,3: "little", "big", "swap". Default = 1 (little)
 #' @export
-all6plot <- function(path,cuspid,filter=1,zerophase=TRUE,E=".e",N=".n",Z=".z",auto=FALSE) {
+all6plot <- function(path,cuspid,filter=1,zerophase=TRUE,E=".e",N=".n",Z=".z",auto=FALSE,biglong=TRUE,Iendian=1) {
 setwd(path)
 		if (dir.exists("all6plots")){}else{dir.create("all6plots")}
 	namelist <- list.files("output",glob2rx(pattern=paste0(cuspid,"*.fb",filter,E,"$")))
@@ -30,7 +32,7 @@ setwd(path)
 	
 	name <- paste0("output/",namelist3[wh2])
 	log <- capture.output({
-  		trip <- readtriplet(cuspid)
+  		trip <- readtriplet(cuspid,biglong=biglong,Iendian=Iendian)
 	})
 
 	print(paste0("Plotting all6 for event ",namelist3[wh2]))
