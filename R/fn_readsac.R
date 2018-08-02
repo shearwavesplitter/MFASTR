@@ -31,9 +31,10 @@
 readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a",downsample=FALSE,biglong=TRUE,Iendian=1){
 	setwd(path)
 	print(paste0("Reading event ",event))
-	Esac <- JSAC.seis(paste0(event,E,BIGLONG=biglong,Iendian=Iendian))[[1]]
-	Nsac <- JSAC.seis(paste0(event,N,BIGLONG=biglong,Iendian=Iendian))[[1]]
-	Zsac <- JSAC.seis(paste0(event,Z,BIGLONG=biglong,Iendian=Iendian))[[1]]
+    if(!biglong){warning("BIGLONG CAN ONLY BE TRUE due to RSEIS bugs")}
+	Esac <- JSAC.seis(paste0(event,E),Iendian=Iendian)[[1]]
+	Nsac <- JSAC.seis(paste0(event,N),Iendian=Iendian)[[1]]
+	Zsac <- JSAC.seis(paste0(event,Z),Iendian=Iendian)[[1]]
 	trip <- list(Esac,Nsac,Zsac)
 	for (i in 1:3){
 	trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters
