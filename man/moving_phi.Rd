@@ -4,7 +4,7 @@
 \alias{moving_phi}
 \title{Fast polarisation moving average}
 \usage{
-moving_phi(summfile, windowlength, windowspeed)
+moving_phi(summfile, windowlength, windowspeed, reps = 9999)
 }
 \arguments{
 \item{summfile}{A dataframe containing a summary file (i.e. from readmfast)}
@@ -12,6 +12,8 @@ moving_phi(summfile, windowlength, windowspeed)
 \item{windowlength}{Size of the averaging window (in days)}
 
 \item{windowspeed}{Speed of advancing window (days per sample)}
+
+\item{reps}{Number of interations for the bootstrap}
 }
 \value{
 A dataframe containing the end days of each window along with its mean, median fast polarisation, and 95% confidence intervals of the mean (from a bootstrapped mle von Mises fit)

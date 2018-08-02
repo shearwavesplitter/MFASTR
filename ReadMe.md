@@ -2,9 +2,25 @@
 
 This package is based on the MFAST (Multiple Filter Automatic Splitting Technique) codes. It executes the same fortran executables as the original codes but within an R framework. As of version 1.4 MFASTR defaults to using zerophase filters and not downsampling waveforms. 
 
-The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are the the property of the authors therein. If you are not familiar with the original codes then review them and their documentation.  
+The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are the the property of the authors therein. If you are not familiar with the original codes then review them and their documentation. 
 
 The aims of this package are to: increase computation speed (with parallel computing), remove dependance on external programs, have a simple installation, and provide flexibility for advanced users. 
+
+#### R Version and dependency issues
+
+In theory MFASTR is very easy to install, however:
+
+RSEIS has since updated to require R version 3.5.1 (and thus also MFASTR) . If you do not wish to upgrade to the newest R version it is possible to download and older [RSEIS3.7-4 from this link](https://cran.r-project.org/src/contrib/Archive/RSEIS). And then (after navigating to the correct folder) using the command:
+```r
+install.packages(c("RPMG","Rwave"))
+install.packages("RSEIS_3.7-4.tar.gz",repos= NULL,type="source")
+```
+If you cannot install the devtools package you can download the package directly from this github page, and zip it as a .tar.gz file
+```r
+install.packages(c("signal","RSEIS","circular","TauP.R"))
+install.packages("MFASTR-master.tar.gz",repos= NULL,type="source")
+```
+
 
 #### Installation
 
@@ -19,6 +35,7 @@ And finally install MFASTR
 ```r
 devtools::install_github("shearwavesplitter/MFASTR")
 ```
+
 
 To source the MFASTR functions (you must do this everytime you begin a new session)
 ```r

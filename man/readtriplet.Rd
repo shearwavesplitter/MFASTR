@@ -12,17 +12,17 @@ readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
 
 \item{path}{Path to folder}
 
+\item{E}{Suffix of east component}
+
+\item{N}{Suffix of north component}
+
+\item{Z}{Suffix of vertical component}
+
 \item{header}{Name of header containing the S-wave pick}
 
 \item{pheader}{Name of header containing the P-wave pick}
 
 \item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
-
-\item{suffe}{Suffix of east component}
-
-\item{suffn}{Suffix of north component}
-
-\item{suffz}{Suffix of vertical component}
 }
 \value{
 A list containing dataframes for each of the three components with signal and header information

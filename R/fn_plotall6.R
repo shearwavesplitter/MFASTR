@@ -6,16 +6,14 @@
 #' @param E Vector signal of the east component
 #' @param N Vector signal of the north component
 #' @param Z Vector signal of the vertical component
-#' @param display Display plots within R?
 #' @param auto Select the first event if multiple are available?
 #' @export
 all6plot <- function(path,cuspid,filter=1,zerophase=TRUE,E=".e",N=".n",Z=".z",auto=FALSE) {
 setwd(path)
 		if (dir.exists("all6plots")){}else{dir.create("all6plots")}
-	namelist <- list.files("output",pattern=paste0("fb",filter,E,"$"))
-	namelist2 <- gsub("\\..*","",namelist)
+	namelist <- list.files("output",glob2rx(pattern=paste0(cuspid,"*.fb",filter,E,"$")))
 	namelist3 <- gsub(paste0("\\",E,"$"),"",namelist)
-	wh <- which(namelist2 == cuspid)
+	wh <- 1
 	wh2 <- wh
 	if(length(wh) > 1){
 		if(auto){wh2 <- wh[1];warning("Events are repeated with different filter parameters")}else{
@@ -38,7 +36,7 @@ setwd(path)
 	print(paste0("Plotting all6 for event ",namelist3[wh2]))
 	### Determine low and high filters
 		suff <- gsub(paste0("\\.fb",filter,E,"$"),"",namelist[wh2])
-		pref <- sub(".+?\\.","",suff)
+		pref <- sub(paste0(cuspid,"."),"",suff)
 		split <- strsplit(pref,"-")
 		low <- split[[1]][1]
 		high <- split[[1]][2]
@@ -141,7 +139,7 @@ setwd(path)
      		 outer = TRUE, line = 3)
 
 		pl <- 7
-		my.plots[[pl]] <- recordPlot()
+		#my.plots[[pl]] <- recordPlot()
 
 #Plot top right
 	src <- read.table(paste0(name,".src")) #parallel corrected

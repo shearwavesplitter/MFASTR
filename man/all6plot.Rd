@@ -21,8 +21,6 @@ all6plot(path, cuspid, filter = 1, zerophase = TRUE, E = ".e", N = ".n",
 \item{Z}{Vector signal of the vertical component}
 
 \item{auto}{Select the first event if multiple are available?}
-
-\item{display}{Display plots within R?}
 }
 \description{
 Create an all6 plot for a specific event
