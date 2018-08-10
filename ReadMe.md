@@ -63,9 +63,9 @@ do_station_simple(path,no_threads=1) #Run in verbose mode with on thread on one 
 ```
 
 
-To run on the MFAST sample data first create an empty directory
+To run on the MFAST sample data first create an empty directory.
 For comparison, the summary files for the sample data from the original MFAST can be found stored under the varibles lhor2 (for the normal sample) and BLO (for the verylocal sample).
-NOTE: If you want identical results to MFAST then you must set downsample=TRUE and zerophase=FALSE. The results will not match exactly for verylocal version due to [a bug being fixed in MFASTR.](https://github.com/shearwavesplitter/issues/2)
+NOTE: If you want identical results to MFAST then you must set downsample=TRUE and zerophase=FALSE. The results will not match exactly for verylocal version due to [a bug being fixed in MFASTR.](https://github.com/shearwavesplitter/MFASTR/issues/2)
 
 ```r
 library(MFASTR)
@@ -74,7 +74,7 @@ write_sample(path)
 do_station_simple(path)
 ```
 
-Or, for the very local sample data (this will not match the original MFAST sample results due to a bug in MFAST v2.2 -- see closed issues)
+Or, for the very local sample data
 
 ```r
 library(MFASTR)
