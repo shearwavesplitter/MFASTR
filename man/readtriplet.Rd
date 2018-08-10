@@ -5,7 +5,7 @@
 \title{Read a SAC format siesmogram triplet}
 \usage{
 readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
-  header = "t0", pheader = "a", downsample = FALSE, biglong = TRUE,
+  header = "t0", pheader = "a", downsample = FALSE, biglong = FALSE,
   Iendian = 1)
 }
 \arguments{
@@ -25,7 +25,7 @@ readtriplet(event, path = ".", E = ".e", N = ".n", Z = ".z",
 
 \item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
 
-\item{biglong}{logical, TRUE=long=8 bytes (sac files written on 64bit machine)}
+\item{biglong}{logical, TRUE=long=8 bytes}
 
 \item{Iendian}{Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }

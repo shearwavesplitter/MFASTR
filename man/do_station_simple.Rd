@@ -7,7 +7,7 @@
 do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
   tvelpath = NULL, tvel = ak135_alp, zerophase = TRUE,
   no_threads = NULL, mc.preschedule = TRUE, downsample = FALSE,
-  biglong = TRUE, Iendian = 1)
+  biglong = FALSE, Iendian = 1)
 }
 \arguments{
 \item{path}{Path to folder}
@@ -26,7 +26,7 @@ do_station_simple(path, sheader = "t0", type = "normal", filtnum = 3,
 
 \item{downsample}{Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)}
 
-\item{biglong}{logical, TRUE=long=8 bytes (sac files written on 32bit machine)}
+\item{biglong}{logical, TRUE=long=8 bytes}
 
 \item{Iendian}{Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }

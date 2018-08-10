@@ -6,20 +6,6 @@ The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are 
 
 The aims of this package are to: increase computation speed (with parallel computing), remove dependance on external programs, have a simple installation, and provide flexibility for advanced users. 
 
-#### R Version and dependency issues
-
-In theory MFASTR is very easy to install, however:
-
-RSEIS has since updated to require R version 3.5.1 (and thus also MFASTR) . If you do not wish to upgrade to the newest R version it is possible to download and older [RSEIS3.7-4 from this link](https://cran.r-project.org/src/contrib/Archive/RSEIS). And then (after navigating to the correct folder) using the command:
-```r
-install.packages(c("RPMG","Rwave"))
-install.packages("RSEIS_3.7-4.tar.gz",repos= NULL,type="source")
-```
-If you cannot install the devtools package you can download the package directly from this github page, and zip it as a .tar.gz file
-```r
-install.packages(c("signal","RSEIS","circular","TauP.R"))
-install.packages("MFASTR-master.tar.gz",repos= NULL,type="source")
-```
 
 
 #### Installation
@@ -46,7 +32,17 @@ To update MFASTR
 
 ```r
 devtools::install_github("shearwavesplitter/MFASTR")
+
 ```
+
+##### devtools won't install?
+If you cannot install the devtools package you can download MFASTR directly from this github page, and zip it as a .tar.gz file
+```r
+install.packages(c("signal","circular","TauP.R"))
+install.packages("MFASTR-master.tar.gz",repos= NULL,type="source")
+```
+
+
 #### Example
 
 To run measurements on events in a target directory. The P-wave pick must be in the 'a' header on the Z component and the S-wave pick must be on the E component (and defaults to 't0'). Suffixes are automatically detected but must be the final letter of the filenames.
@@ -67,7 +63,7 @@ do_station_simple(path,no_threads=1) #Run in verbose mode with on thread on one 
 ```
 
 
-To run on the MFAST sample data first create an empty directory
+To run on the MFAST sample data first create an empty directory (if you want idenitical results to MFAST then you must set downsample=TRUE and zerophase=FALSE)
 
 ```r
 library(MFASTR)

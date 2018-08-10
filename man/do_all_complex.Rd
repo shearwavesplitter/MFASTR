@@ -9,7 +9,7 @@ do_all_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3, fdmax = 8,
   t_win_snr = 3, t_err = 0.02, filtnum = 3, type = "normal",
   filter = NULL, tvelpath = NULL, tvel = ak135_alp, suffe = ".e",
   suffn = ".n", suffz = ".z", zerophase = TRUE, no_threads = NULL,
-  biglong = TRUE, Iendian = 1)
+  biglong = FALSE, Iendian = 1)
 }
 \arguments{
 \item{path}{Path to folder containing folders with events}
@@ -54,7 +54,7 @@ do_all_complex(path, sheader = "t0", nwbeg = 5, fdmin = 0.3, fdmax = 8,
 
 \item{no_threads}{Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores}
 
-\item{biglong}{logical, TRUE=long=8 bytes (sac files written on 32bit machine)}
+\item{biglong}{logical, TRUE=long=8 bytes}
 
 \item{Iendian}{Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }

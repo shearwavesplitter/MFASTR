@@ -16,10 +16,9 @@
 #' @param header Name of header containing the S-wave pick
 #' @param pheader Name of header containing the P-wave pick
 #' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)
-#' @param biglong logical, TRUE=long=8 bytes (sac files written on 64bit machine)
+#' @param biglong logical, TRUE=long=8 bytes
 #' @param Iendian Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)
 #' @return A list containing dataframes for each of the three components with signal and header information
-#' @importFrom signal decimate
 #' @export
 #' @details The S-wave pick must be stored on at least the east component and the P-wave pick (if present) must be stored on the vertical component
 #' @examples
@@ -28,13 +27,12 @@
 #' write_sample(pathto)
 #' event <- "2002.054.09.47.lhor2"
 #' triplet <- readtriplet(event,path=pathto)
-readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a",downsample=FALSE,biglong=TRUE,Iendian=1){
+readtriplet <- function(event,path=".",E=".e",N=".n",Z=".z",header="t0",pheader="a",downsample=FALSE,biglong=FALSE,Iendian=1){
 	setwd(path)
 	print(paste0("Reading event ",event))
-    if(!biglong){warning("BIGLONG CAN ONLY BE TRUE due to RSEIS bugs")}
-	Esac <- JSAC.seis(paste0(event,E),Iendian=Iendian)[[1]]
-	Nsac <- JSAC.seis(paste0(event,N),Iendian=Iendian)[[1]]
-	Zsac <- JSAC.seis(paste0(event,Z),Iendian=Iendian)[[1]]
+	Esac <- JSAC.seis(paste0(event,E),Iendian=Iendian,BIGLONG=biglong)[[1]]
+	Nsac <- JSAC.seis(paste0(event,N),Iendian=Iendian,BIGLONG=biglong)[[1]]
+	Zsac <- JSAC.seis(paste0(event,Z),Iendian=Iendian,BIGLONG=biglong)[[1]]
 	trip <- list(Esac,Nsac,Zsac)
 	for (i in 1:3){
 	trip[[i]]$HEAD$values <- as.character(trip[[i]]$HEAD$values) ###Convert factors to characters

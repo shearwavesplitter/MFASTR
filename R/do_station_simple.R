@@ -9,7 +9,7 @@
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
 #' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to the number of cores
 #' @param downsample Downsample if sampling rate is less than 0.01s (Defaults to FALSE, originally used to decrease computational loads)
-#' @param biglong logical, TRUE=long=8 bytes (sac files written on 32bit machine)
+#' @param biglong logical, TRUE=long=8 bytes
 #' @param Iendian Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing the summary file
@@ -22,7 +22,7 @@
 #' # Run on measurements the verylocal sample data where the S-pick is stored in the t5 header
 #' write_sample("~/mfast/sample_data/raw_data",type="verylocal")
 #' do_station_simple(path="~/mfast/sample_data/raw_data",type="verylocal",sheader="t5")
-do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE,biglong=TRUE,Iendian=1) {
+do_station_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL,mc.preschedule=TRUE,downsample=FALSE,biglong=FALSE,Iendian=1) {
 	setwd(path)
 	if(file.exists("output")){print("WARNING: This folder already contains an output folder and will be over written")}
 ### Determine suffixes

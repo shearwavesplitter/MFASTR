@@ -8,7 +8,7 @@
 #' @param tvelpath Path to a .tvel file containing the velocity model (overrides tvel)
 #' @param tvel A tvel file read with readtvel (ak135_alp and ak135_taupo are already loaded)	
 #' @param no_threads Number of threads to run measurements on. Set to 1 for verbose mode. Defaults to automatic selection
-#' @param biglong logical, TRUE=long=8 bytes (sac files written on 32bit machine)
+#' @param biglong logical, TRUE=long=8 bytes
 #' @param Iendian Endian-ness of the data: 1,2,3: "little", "big", "swap". Default = 1 (little)
 #' @details Component suffixes are determined automatically
 #' @return A dataframe containing a summary of all the stations
@@ -20,7 +20,7 @@
 #' write_sample("~/mfast/sample_data/raw_data3")
 #' do_all_simple(path="~/mfast/sample_data")
 
-do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL,biglong=TRUE,Iendian=1) {
+do_all_simple <- function(path,sheader="t0",type="normal",filtnum=3,tvelpath=NULL,tvel=ak135_alp,zerophase=TRUE,no_threads=NULL,biglong=FALSE,Iendian=1) {
 	ls <- list.dirs(path,recursive=FALSE)
 
 	del <- list.files(path,recursive=TRUE,pattern="*.summ$$")

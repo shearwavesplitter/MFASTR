@@ -5,7 +5,7 @@
 \title{Create all6 plot}
 \usage{
 all6plot(path, cuspid, filter = 1, zerophase = TRUE, E = ".e", N = ".n",
-  Z = ".z", auto = FALSE, biglong = TRUE, Iendian = 1)
+  Z = ".z", auto = FALSE, biglong = FALSE, Iendian = 1)
 }
 \arguments{
 \item{path}{Path to folder containing raw events and output folder}
@@ -22,7 +22,7 @@ all6plot(path, cuspid, filter = 1, zerophase = TRUE, E = ".e", N = ".n",
 
 \item{auto}{Select the first event if multiple are available?}
 
-\item{biglong}{logical, TRUE=long=8 bytes (original sac files written on 32bit machine)}
+\item{biglong}{logical, TRUE=long=8 bytes}
 
 \item{Iendian}{Endian-ness of the original data: 1,2,3: "little", "big", "swap". Default = 1 (little)}
 }
