@@ -6,8 +6,8 @@
 \usage{
 plotrose(path, summ, name = "rose.eps", bins = 16, kd = FALSE, sym = 16,
   prop = 1.3, bincol = "darkgrey", antibincol = "lightgrey",
-  cols = "blue", antipodal = "lightblue", axes = TRUE, arrow = TRUE,
-  arwcol = "red", arwlty = 1, arwlwd = 2)
+  cols = "blue", antipodal = "lightblue", axes = TRUE, arrow = "mean",
+  arwcol = "red", arwlty = 1, arwlwd = 2, arwscale = NA)
 }
 \arguments{
 \item{path}{Path to folder to save plots}
@@ -18,7 +18,7 @@ plotrose(path, summ, name = "rose.eps", bins = 16, kd = FALSE, sym = 16,
 
 \item{kd}{Kernal density?}
 
-\item{sym}{Symbol for outer points}
+\item{sym}{Symbol for outer points (select a blank symbol for no outer points)}
 
 \item{prop}{Scale length of rose diagram bins}
 
@@ -30,7 +30,7 @@ plotrose(path, summ, name = "rose.eps", bins = 16, kd = FALSE, sym = 16,
 
 \item{axes}{Plot axes?}
 
-\item{arrow}{Mean arrow? (Scaled by mean resultant length)}
+\item{arrow}{Options; "mean", "median", "mean&median", or anything else for no arrow}
 
 \item{arwcol}{Arrow colour}
 
@@ -39,6 +39,10 @@ plotrose(path, summ, name = "rose.eps", bins = 16, kd = FALSE, sym = 16,
 \item{arwlwd}{Arrow line thickness (lwd)}
 
 \item{bincol}{Colour of antipodal bins}
+
+\item{arwlwd}{Arrow line thickness (lwd)}
+
+\item{arwlwd}{Arrow length scale (0-1). Defaults to mean resultant length}
 }
 \description{
 Plots a rose diagram of data from a .summ file

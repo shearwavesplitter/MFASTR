@@ -122,3 +122,12 @@ return(ret)
 #points(M$day,M$lower95mean,col="blue")
 #points(M$day,M$upper95mean,col="red")
 
+#plot(M$day,M$mean,type="l")
+#h=10
+#a=cos(rad(M$mean))*h
+#o=sin(rad(M$mean))*h
+#x0=M$day-o
+#y0=M$mean-a
+#x1=M$day+o
+#y1=M$mean+a
+#arrows(x0,y0,x1,y1,length=0.1,col="blue")

@@ -4,19 +4,21 @@
 #' @param name Name of plot
 #' @param bins Number of bins
 #' @param kd Kernal density?
-#' @param sym Symbol for outer points
+#' @param sym Symbol for outer points (select a blank symbol for no outer points)
 #' @param prop Scale length of rose diagram bins
 #' @param bincol Colour of bins
 #' @param bincol Colour of antipodal bins
 #' @param cols Colour of points
 #' @param antipodal Colour of antipodal points
 #' @param axes Plot axes?
-#' @param arrow Mean arrow? (Scaled by mean resultant length)
+#' @param arrow Options; "mean", "median", "mean&median", or anything else for no arrow
 #' @param arwcol Arrow colour
 #' @param arwlty Arrow line type (lty)
 #' @param arwlwd Arrow line thickness (lwd)
+#' @param arwlwd Arrow line thickness (lwd)
+#' @param arwlwd Arrow length scale (0-1). Defaults to mean resultant length
 #' @export
-plotrose <- function(path,summ,name="rose.eps",bins=16,kd=FALSE,sym=16,prop=1.3,bincol="darkgrey",antibincol="lightgrey",cols="blue",antipodal="lightblue",axes=TRUE,arrow=TRUE,arwcol="red",arwlty=1,arwlwd=2){
+plotrose <- function(path,summ,name="rose.eps",bins=16,kd=FALSE,sym=16,prop=1.3,bincol="darkgrey",antibincol="lightgrey",cols="blue",antipodal="lightblue",axes=TRUE,arrow="mean",arwcol="red",arwlty=1,arwlwd=2,arwscale=NA){
 	req <- require(circular)
 	if(req){}else{print("plot.rose requires the 'circular' package to be installed");return()}
 	
@@ -75,15 +77,17 @@ plotrose <- function(path,summ,name="rose.eps",bins=16,kd=FALSE,sym=16,prop=1.3,
 			lines(density.circular(smapp,bw=10),lwd=2,lty=3)
 		}
 
+        if (is.na(arwscale)){arwscale=R}
+
 		#Plotmean
-		if (arrow == TRUE){
-			arrows.circular(tm,col=arwcol,shrink=R,lwd=arwlwd,lty=arwlty)
-			arrows.circular(tm+pi,col=arwcol,shrink=R,lwd=arwlwd,lty=arwlty)
+		if (grepl("mean",arrow,ignore.case=T)){
+			arrows.circular(tm,col=arwcol,shrink=arwscale,lwd=arwlwd,lty=arwlty)
+			arrows.circular(tm+pi,col=arwcol,shrink=arwscale,lwd=arwlwd,lty=arwlty)
 		}
-		#if (medarrow == TRUE){
-	#		arrows.circular(tmed,col="darkgreen",lwd=2,shrink=R) #median arrows
-	#		arrows.circular(tmed+pi,col="darkgreen",lwd=2,shrink=R) 
-	#	}
+		if (grepl("median",arrow,ignore.case=T)){
+			arrows.circular(tmed,col=arwcol,shrink=arwscale,lwd=arwlwd,lty=arwlty) #median arrows
+			arrows.circular(tmed+pi,col=arwcol,shrink=arwscale,lwd=arwlwd,lty=arwlty) 
+		}
 	dev.off()
 
 }
