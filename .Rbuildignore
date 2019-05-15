@@ -1,4 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^ReadMe\.md$
-^manual\.pdf$
+^MFASTR\.pdf$
+^data_csv

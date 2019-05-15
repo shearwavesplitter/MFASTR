@@ -6,6 +6,9 @@ The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are 
 
 The aims of this package are to: increase computation speed (with parallel computing), remove dependance on external programs, have a simple installation, and provide flexibility for advanced users. 
 
+#### data_csv
+
+Contains .csv files of the shear wave splitting and travel time data for the Rotokawa and Ngatamariki geothermal fields (2012-2015). .csv tables from the correspodning paper *(Anisotropy as an Indicator for Reservoir Changes: Example from the Rotokawa and Ngatamariki Geothermal Fields, New Zealand)* can also be found here. 
 
 
 #### Installation
