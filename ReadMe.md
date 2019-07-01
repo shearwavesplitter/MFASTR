@@ -8,7 +8,7 @@ The aims of this package are to: increase computation speed (with parallel compu
 
 #### data_csv
 
-Contains .csv files of the shear wave splitting and travel time data for the Rotokawa and Ngatamariki geothermal fields (2012-2015). .csv tables from the correspodning paper *(Anisotropy as an Indicator for Reservoir Changes: Example from the Rotokawa and Ngatamariki Geothermal Fields, New Zealand)* can also be found here. 
+Contains .csv files of the shear wave splitting and travel time data for the Rotokawa and Ngatamariki geothermal fields (2012-2015). .csv tables from the corresponding paper *(Anisotropy as an Indicator for Reservoir Changes: Example from the Rotokawa and Ngatamariki Geothermal Fields, New Zealand)* can also be found here. 
 
 
 #### Installation
