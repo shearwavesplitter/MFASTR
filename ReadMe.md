@@ -6,6 +6,23 @@ The original codes can be found [here](http://mfast-package.geo.vuw.ac.nz/) are 
 
 The aims of this package are to: increase computation speed (with parallel computing), remove dependance on external programs, have a simple installation, and provide flexibility for advanced users. 
 
+#### Reference
+
+Mroczek, S., Savage, M. K., Hopp, C., & Sewell, S. M. (2020). Anisotropy as an indicator for reservoir changes: example from the Rotokawa and Ngatamariki geothermal fields, New Zealand. Geophysical Journal International, 220(1), 1-17.
+
+```bibtex
+@article{mroczek2020anisotropy,
+  title={Anisotropy as an indicator for reservoir changes: example from the Rotokawa and Ngatamariki geothermal fields, New Zealand},
+  author={Mroczek, Stefan and Savage, Martha K and Hopp, Chet and Sewell, Steven M},
+  journal={Geophysical Journal International},
+  volume={220},
+  number={1},
+  pages={1--17},
+  year={2020},
+  publisher={Oxford University Press}
+}
+```
+
 #### data_csv
 
 Contains .csv files of the shear wave splitting and travel time data for the Rotokawa and Ngatamariki geothermal fields (2012-2015). .csv tables from the corresponding paper *(Anisotropy as an Indicator for Reservoir Changes: Example from the Rotokawa and Ngatamariki Geothermal Fields, New Zealand)* can also be found here. 
